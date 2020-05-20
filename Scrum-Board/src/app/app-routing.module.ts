@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SignUpComponent } from './components/authentication/sign-up/sign-up.component';
 import { SignInComponent } from './components/authentication/sign-in/sign-in.component';
+import { VerifyEmailComponent } from './components/authentication/verify-email/verify-email.component';
 
 
 const routes: Routes = [
@@ -10,6 +11,7 @@ const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'verify-email', component: VerifyEmailComponent },
 ];
 
 @NgModule({

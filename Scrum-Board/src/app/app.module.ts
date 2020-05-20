@@ -10,6 +10,8 @@ import { SignInComponent } from './components/authentication/sign-in/sign-in.com
 import { SignUpComponent } from './components/authentication/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './components/authentication/forgot-password/forgot-password.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { VerifyEmailComponent } from './components/authentication/verify-email/verify-email.component';
+import { AuthenticationService } from './services/authentication.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     SignInComponent,
     SignUpComponent,
     ForgotPasswordComponent,
-    DashboardComponent
+    DashboardComponent,
+    VerifyEmailComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -25,7 +28,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
