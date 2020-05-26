@@ -12,6 +12,9 @@ import { ForgotPasswordComponent } from './components/authentication/forgot-pass
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { VerifyEmailComponent } from './components/authentication/verify-email/verify-email.component';
 import { AuthenticationService } from './services/authentication.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 
 @NgModule({
   declarations: [
@@ -26,7 +29,8 @@ import { AuthenticationService } from './services/authentication.service';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [AuthenticationService],
   bootstrap: [AppComponent]

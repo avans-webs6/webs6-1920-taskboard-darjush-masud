@@ -10,11 +10,23 @@ import { Router } from "@angular/router";
   providedIn: 'root'
 })
 export class AuthenticationService {
-
+  userData: any; 
   constructor(private _fireStore: AngularFirestore,
     private _auth: AngularFireAuth,
     private _router: Router,
-    private _ngZone: NgZone) { }
+    private _ngZone: NgZone) { 
+
+      this._auth.authState.subscribe(user => {
+        if (user) {
+          this.userData = user;
+          localStorage.setItem('user', JSON.stringify(this.userData));
+          JSON.parse(localStorage.getItem('user'));
+        } else {
+          localStorage.setItem('user', null);
+          JSON.parse(localStorage.getItem('user'));
+        }
+      })
+    }
 
 
 
@@ -46,14 +58,15 @@ export class AuthenticationService {
   }
 
   SetUserData(user) {
-    const userRef: AngularFirestoreDocument<any> = this._fireStore.doc(`users/${user.id}`);
+    const userRef: AngularFirestoreDocument<any> = this._fireStore.doc(`users/${user.uid}`);
     const userData: User = {
-      id: user.id,
-      name: user.name,
+      id: user.uid,
+      name: user.displayName,
       email: user.email,
       emailVerified: user.emailVerified
     }
-    return userRef.set(userData, {
+    console.log(userData);
+    return userRef.set(Object.assign({}, userData), {
       merge: true
     })
   }
@@ -68,10 +81,11 @@ export class AuthenticationService {
       .then((result) => {
         this._ngZone.run(() => {
           this._router.navigate(['dashboard']);
-        })
+        });
+        console.log(result);
         this.SetUserData(result.user);
       }).catch((error) => {
-        alert(error)
+        console.log(error)
       })
   }
 
@@ -81,6 +95,7 @@ export class AuthenticationService {
       .then((result) => {
         this.SendVerificationMail();
         this.SetUserData(result.user);
+        console.log(email,password);
       }).catch((error) => {
         alert(error.message)
       })
