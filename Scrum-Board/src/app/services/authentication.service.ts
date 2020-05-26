@@ -93,9 +93,10 @@ export class AuthenticationService {
   SignUp(email, password) {
     return this._auth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        this.SendVerificationMail();
+        this._ngZone.run(() => {
+          this._router.navigate(['dashboard']);
+        });
         this.SetUserData(result.user);
-        console.log(email,password);
       }).catch((error) => {
         alert(error.message)
       })
