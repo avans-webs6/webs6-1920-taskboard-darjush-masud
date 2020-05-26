@@ -28,20 +28,6 @@ export class AuthenticationService {
       })
     }
 
-
-
-
-
-  // Send email verfificaiton when new user sign up
-  async SendVerificationMail() {
-    return (await this._auth.currentUser).sendEmailVerification()
-      .then(() => {
-        this._router.navigate(['verify-email']);
-      })
-  }
-
-
-
   // Reset Forgot password
   ForgotPassword(passwordResetEmail) {
     return this._auth.sendPasswordResetEmail(passwordResetEmail)
