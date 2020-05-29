@@ -29,6 +29,7 @@
                 Remember me
               </label>
             </div>
+            <a routerLink="/forgot">Forgot password</a>
             <div class="field">
               <button class="button is-success" (click)="authService.SignIn(userName.value, userPassword.value)">
                 Login
@@ -41,7 +42,6 @@
                 <div>
                   <a class="button is-info" routerLink="/sign-up"> Sign Up</a>
                 </div>
-                <a routerLink="/forgot">Forgot password</a>
               </div>
             </div>
           </div>
