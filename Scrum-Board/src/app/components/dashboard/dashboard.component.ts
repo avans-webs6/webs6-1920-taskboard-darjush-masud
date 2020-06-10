@@ -10,11 +10,21 @@ import { User } from 'src/app/models/user';
 })
 export class DashboardComponent implements OnInit {
 
-  public userName:String;
-  public user;
-  private service;
+  public activeProjects= [];
+  public inActiveProjects= [];
+
   constructor(public authService: AuthenticationService) { 
-    this.service = this.authService;
+    let projectOne = {name: "project 1", description: "First project", members: 7};
+    let projectTwo = {name: "project 2", description: "Second project", members: 8};
+
+    this.activeProjects.push(projectOne);
+    this.activeProjects.push(projectTwo);
+
+    let projectOneDone = {name: "project 13", description: "Finished project", members: 9};
+    let projectTwoDone = {name: "project 23", description: "Finished project", members: 10};
+
+    this.inActiveProjects.push(projectOneDone);
+    this.inActiveProjects.push(projectTwoDone);
   }
  
 
@@ -23,11 +33,7 @@ export class DashboardComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
  
-    console.log('sdfsdf')
-    this.user = await this.service.userData;
-    let email = this.user.email;
-    let name = email.split("@");
-    this.userName = name[0];
+  
   
     
 

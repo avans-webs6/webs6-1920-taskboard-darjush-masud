@@ -24,8 +24,8 @@
           </div>
           <!-- Show user data when logged in -->
           <div class="row" *ngIf="authService.userData as user">
-  
-            <h1>Hello: <strong>{{(user.displayName) ? user.displayName : userName}}</strong></h1>
+
+            <h1>Hello: <strong>{{(user.displayName) ? user.displayName : user.email.split("@")[0]}}</strong></h1>
             <p>Email: <strong>{{user.email}}</strong></p>
           </div>
           <p class="menu-label">
@@ -41,68 +41,60 @@
       <div class="column is-9">
         <div class="content is-medium">
           <h3 class="title is-3">Active Projects</h3>
-          <div class="card mb-10">
-            <header class="card-header">
-              <p class="card-header-title">
-                First Project
-              </p>
-              <a href="#" class="card-header-icon" aria-label="more options">
-                <span class="icon">
-                  <i class="fas fa-angle-down" aria-hidden="true"></i>
-                </span>
-              </a>
-            </header>
-            <div class="card-content">
-              <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-                <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-                <br>
-                <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-              </div>
-            </div>
-            <footer class="card-footer">
-              <a href="#" class="button is-info card-footer-item">Edit</a>
-              <a href="#" class="button is-warning card-footer-item">Archive</a>
-            </footer>
-          </div>
-          <div class="card">
-            <header class="card-header">
-              <p class="card-header-title">
-                Second project
-              </p>
-              <a href="#" class="card-header-icon" aria-label="more options">
-                <span class="icon">
-                  <i class="fas fa-angle-down" aria-hidden="true"></i>
-                </span>
-              </a>
-            </header>
-            <div class="card-content">
-              <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-                <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-                <br>
-                <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-              </div>
-            </div>
-            <footer class="card-footer">
-              <a href="#" class="button is-info card-footer-item">Edit</a>
-              <a href="#" class="button is-warning card-footer-item">Archive</a>
-            </footer>
-          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Members</th>
+                <th></th>
+                <th></th>
+                <th colspan="2" class="is-centered">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let activeProject of activeProjects">
+                <td>{{activeProject.name}}</td>
+                <td>{{activeProject.members}}</td>
+                <td></td>
+                <td></td>
+                <td>
+                  <div class="buttons has-addons">
+                    <a href="#" class="button is-success card-footer-item">View</a>
+                    <a href="#" class="button is-info card-footer-item">Edit</a>
+                    <a href="#" class="button is-warning card-footer-item">Archive</a>
+                  </div>
+            </td>
+              </tr>
+            </tbody>
+          </table>
          
           <h3 class="title is-3">Archived Projects</h3>
-          <div class="box">
-            <h4 id="lorem" class="title is-4">More to come...</h4>
-            <article class="message is-primary">
-              <span class="icon has-text-primary">
-                <i class="fas fa-info-circle"></i>
-              </span>
-              <div class="message-body">
-                Lorem ipsum dolor sit amet, mea ne viderer veritus menandri, id scaevola gloriatur instructior sit.
-              </div>
-            </article>
-            <pre><code class="language-javascript">let i = 0;</code></pre>
-          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Members</th>
+                <th></th>
+                <th></th>
+                <th colspan="2" class="is-centered">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let inActiveProject of inActiveProjects">
+                <td>{{inActiveProject.name}}</td>
+                <td>{{inActiveProject.members}}</td>
+                <td></td>
+                <td></td>
+                <td>
+                  <div class="buttons has-addons">
+                    <a href="#" class="button is-success card-footer-item">View</a>
+                    <a href="#" class="button is-info card-footer-item">Edit</a>
+                    <a href="#" class="button is-warning card-footer-item">Archive</a>
+                  </div>
+            </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

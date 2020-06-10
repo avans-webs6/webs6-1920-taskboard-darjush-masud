@@ -11,6 +11,7 @@ import { Router } from "@angular/router";
 })
 export class AuthenticationService {
   userData: any; 
+  userName: any;
   constructor(private _fireStore: AngularFirestore,
     private _auth: AngularFireAuth,
     private _router: Router,
@@ -25,7 +26,9 @@ export class AuthenticationService {
           localStorage.setItem('user', null);
           JSON.parse(localStorage.getItem('user'));
         }
-      })
+      });
+
+  
     }
 
   // Reset Forgot password
