@@ -4,6 +4,7 @@ import { User } from 'src/app/models/user';
 import { Observable } from 'rxjs';
 import { Project } from 'src/app/models/project';
 import { ProjectService } from 'src/app/services/project.service';
+import { auth } from 'firebase';
 
 
 @Component({
@@ -45,10 +46,20 @@ export class DashboardComponent implements OnInit {
 
   openModal() {
     this.showModal = true;
+    let myArray = []
+    let projects = []
+    this.projectService.getProjects().subscribe(resp => {
+      myArray = resp;
+      for (let i of myArray)
+        i && projects.push(i); // copy each non-empty value to the 'temp' array
+      myArray = projects;
+      console.log(myArray);
+    });
   }
 
   createProject($event) {
-    console.log($event);
+    this.projectService.createProject($event.name, $event.description);
+    this.closeModal();
   }
 
 }

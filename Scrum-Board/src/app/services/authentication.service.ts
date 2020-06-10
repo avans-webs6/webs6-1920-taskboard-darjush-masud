@@ -60,6 +60,10 @@ export class AuthenticationService {
     })
   }
 
+  getUserID(){
+    return this.userData.uid;
+  }
+
   //Sign in with Google
   GoogleAuth() {
     return this.AuthLogin(new auth.GoogleAuthProvider());
