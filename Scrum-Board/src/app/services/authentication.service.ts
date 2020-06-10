@@ -10,11 +10,11 @@ import { Router } from "@angular/router";
   providedIn: 'root'
 })
 export class AuthenticationService {
-  userData: any; 
+  userData: any;
   constructor(private _fireStore: AngularFirestore,
     private _auth: AngularFireAuth,
     private _router: Router,
-    private _ngZone: NgZone) { 
+    private _ngZone: NgZone) {
 
       this._auth.authState.subscribe(user => {
         if (user) {
@@ -57,7 +57,7 @@ export class AuthenticationService {
     })
   }
 
-  //Sign in with Google 
+  //Sign in with Google
   GoogleAuth() {
     return this.AuthLogin(new auth.GoogleAuthProvider());
   }
@@ -68,7 +68,6 @@ export class AuthenticationService {
         this._ngZone.run(() => {
           this._router.navigate(['dashboard']);
         });
-        console.log(result);
         this.SetUserData(result.user);
       }).catch((error) => {
         console.log(error)

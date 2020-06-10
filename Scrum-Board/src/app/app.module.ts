@@ -13,6 +13,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { VerifyEmailComponent } from './components/authentication/verify-email/verify-email.component';
 import { AuthenticationService } from './services/authentication.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ActiveProjectComponent } from './components/projects/active-project/active-project.component';
 
 
 
@@ -23,7 +24,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SignUpComponent,
     ForgotPasswordComponent,
     DashboardComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    ActiveProjectComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
