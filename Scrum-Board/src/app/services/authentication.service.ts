@@ -55,7 +55,6 @@ export class AuthenticationService {
       email: user.email,
       emailVerified: user.emailVerified
     }
-    console.log(userData);
     return userRef.set(Object.assign({}, userData), {
       merge: true
     })

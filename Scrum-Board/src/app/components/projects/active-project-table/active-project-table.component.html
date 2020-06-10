@@ -1,0 +1,26 @@
+<table class="table bg-indianred">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Members</th>
+      <th></th>
+      <th></th>
+      <th colspan="2" class="is-centered">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let activeProject of activeProjects">
+      <td>{{activeProject.name}}</td>
+      <td>{{activeProject.members}}</td>
+      <td></td>
+      <td></td>
+      <td>
+        <div class="buttons has-addons">
+          <a href="#" class="button is-success card-footer-item">View</a>
+          <a href="#" class="button is-info card-footer-item">Edit</a>
+          <a href="#" class="button is-warning card-footer-item">Archive</a>
+        </div>
+  </td>
+    </tr>
+  </tbody>
+</table>

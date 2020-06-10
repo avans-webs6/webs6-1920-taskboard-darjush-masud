@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ActiveProjectComponent } from './active-project.component';
+import { ActiveProjectTableComponent } from './active-project-table.component';
 
-describe('ActiveProjectComponent', () => {
-  let component: ActiveProjectComponent;
-  let fixture: ComponentFixture<ActiveProjectComponent>;
+describe('ActiveProjectTableComponent', () => {
+  let component: ActiveProjectTableComponent;
+  let fixture: ComponentFixture<ActiveProjectTableComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ActiveProjectComponent ]
+      declarations: [ ActiveProjectTableComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ActiveProjectComponent);
+    fixture = TestBed.createComponent(ActiveProjectTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

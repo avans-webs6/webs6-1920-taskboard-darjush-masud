@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AngularFireModule } from '@angular/fire';
@@ -13,10 +14,12 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { VerifyEmailComponent } from './components/authentication/verify-email/verify-email.component';
 import { AuthenticationService } from './services/authentication.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ActiveProjectComponent } from './components/projects/active-project/active-project.component';
+import { ModalComponent } from './components/modal/modal.component';
+import { ActiveProjectTableComponent } from './components/projects/active-project-table/active-project-table.component';
+import { ArchivedProjectTableComponent } from './components/projects/archived-project-table/archived-project-table.component';
 
 
-
+ 
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,12 +28,15 @@ import { ActiveProjectComponent } from './components/projects/active-project/act
     ForgotPasswordComponent,
     DashboardComponent,
     VerifyEmailComponent,
-    ActiveProjectComponent
+    ModalComponent,
+    ActiveProjectTableComponent,
+    ArchivedProjectTableComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule
   ],

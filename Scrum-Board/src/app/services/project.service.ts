@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore/public_api';
+import { AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
 import { Project } from '../models/project';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -32,6 +32,7 @@ export class ProjectService {
     const projectData: Project = {
       id: project.id,
       name: project.name,
+      description: project.description,
       userstories: project.userstories,
       owner: project.owner,
       members: project.members,

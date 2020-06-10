@@ -1,0 +1,27 @@
+<div class="modal is-active">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Add Project</p>
+      <button class="delete" aria-label="close" (click)="cancel()"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="field">
+        <label class="label">Enter your project name</label>
+        <div class="control">
+          <input class="input" [(ngModel)]="projectName" type="text" placeholder="Project name">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Enter your project description</label>
+        <div class="control">
+          <input class="input" [(ngModel)]="projectDescription" type="text" placeholder="Project description">
+        </div>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-primary" (click)="createProject()">Create</button>
+      <button class="button" (click)="cancel()">Cancel</button>
+    </footer>
+  </div>
+</div>
