@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { User } from 'src/app/models/user';
 
 
 @Component({
@@ -9,9 +10,28 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(public authService: AuthenticationService) { }
+  public userName:String;
+  public user;
+  private service;
+  constructor(public authService: AuthenticationService) { 
+    this.service = this.authService;
+  }
+ 
 
-  ngOnInit(): void {
+
+
+
+  async ngOnInit(): Promise<void> {
+ 
+    console.log('sdfsdf')
+    this.user = await this.service.userData;
+    let email = this.user.email;
+    let name = email.split("@");
+    this.userName = name[0];
+  
+    
+
+
   }
 
 }

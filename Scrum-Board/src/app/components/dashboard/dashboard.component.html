@@ -1,88 +1,110 @@
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" href="https://bulma.io">
-      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
-    </a>
-
-    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-
-  <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-start">
-      <a class="navbar-item">
-        Home
-      </a>
-
-      <a class="navbar-item">
-        Documentation
-      </a>
-
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          More
-        </a>
-
-        <div class="navbar-dropdown">
-          <a class="navbar-item">
-            About
-          </a>
-          <a class="navbar-item">
-            Jobs
-          </a>
-          <a class="navbar-item">
-            Contact
-          </a>
-          <hr class="navbar-divider">
-          <a class="navbar-item">
-            Report an issue
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="buttons">
-          <a class="button is-warning" (click)="authService.SignOut()">
-            Logout
-          </a>
+<section class="hero is-primary">
+  <div class="hero-body">
+    <div class="columns">
+      <div class="column is-12">
+        <div class="container content">
+          <i class="is-large fab fa-discord"></i>
+          <i class="is-large fas fa-code"></i>
+          <h1 class="title">Scrum Board</h1>
+          <h3 class="subtitle">
+            Made By Darjush Kolahi & Masud Rasa
+          </h3>
         </div>
       </div>
     </div>
   </div>
-</nav>
-
-<!-- Sidebar navigation -->
-<div class="container-fluid">
-  <div class="row">
-
-
-
-    <!-- Main content -->
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-      <div class="inner-adjust">
-
-        <div class="pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">User Profile</h1>
-        </div>
-        <!-- Show user data when logged in -->
-        <div class="row" *ngIf="authService.userData as user">
-
-          <h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h1>
-          <p>Email: <strong>{{user.email}}</strong></p>
-        </div>
-
+</section>
+<section class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-3">
+        <aside class="is-medium menu">
+          <div class="pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">User Profile</h1>
+          </div>
+          <!-- Show user data when logged in -->
+          <div class="row" *ngIf="authService.userData as user">
+  
+            <h1>Hello: <strong>{{(user.displayName) ? user.displayName : userName}}</strong></h1>
+            <p>Email: <strong>{{user.email}}</strong></p>
+          </div>
+          <p class="menu-label">
+            Menu
+          </p>
+          <ul class="menu-list">
+            <li class="is-right"> <a class="button is-warning" (click)="authService.SignOut()">
+                Logout
+              </a></li>
+          </ul>
+        </aside>
       </div>
-      <div class="buttons">
-        <button class="button is-info">Info</button>
-        <button class="button is-success">Success</button>
-        <button class="button is-warning">Warning</button>
-        <button class="button is-danger">Danger</button>
+      <div class="column is-9">
+        <div class="content is-medium">
+          <h3 class="title is-3">Active Projects</h3>
+          <div class="card mb-10">
+            <header class="card-header">
+              <p class="card-header-title">
+                First Project
+              </p>
+              <a href="#" class="card-header-icon" aria-label="more options">
+                <span class="icon">
+                  <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+              </a>
+            </header>
+            <div class="card-content">
+              <div class="content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+                <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+                <br>
+                <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+              </div>
+            </div>
+            <footer class="card-footer">
+              <a href="#" class="button is-info card-footer-item">Edit</a>
+              <a href="#" class="button is-warning card-footer-item">Archive</a>
+            </footer>
+          </div>
+          <div class="card">
+            <header class="card-header">
+              <p class="card-header-title">
+                Second project
+              </p>
+              <a href="#" class="card-header-icon" aria-label="more options">
+                <span class="icon">
+                  <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+              </a>
+            </header>
+            <div class="card-content">
+              <div class="content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+                <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+                <br>
+                <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+              </div>
+            </div>
+            <footer class="card-footer">
+              <a href="#" class="button is-info card-footer-item">Edit</a>
+              <a href="#" class="button is-warning card-footer-item">Archive</a>
+            </footer>
+          </div>
+         
+          <h3 class="title is-3">Archived Projects</h3>
+          <div class="box">
+            <h4 id="lorem" class="title is-4">More to come...</h4>
+            <article class="message is-primary">
+              <span class="icon has-text-primary">
+                <i class="fas fa-info-circle"></i>
+              </span>
+              <div class="message-body">
+                Lorem ipsum dolor sit amet, mea ne viderer veritus menandri, id scaevola gloriatur instructior sit.
+              </div>
+            </article>
+            <pre><code class="language-javascript">let i = 0;</code></pre>
+          </div>
+        </div>
       </div>
-    </main>
+    </div>
   </div>
-</div>
+</section>
