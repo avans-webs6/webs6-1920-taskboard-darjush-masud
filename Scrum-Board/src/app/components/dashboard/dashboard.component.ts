@@ -15,25 +15,25 @@ export class DashboardComponent implements OnInit {
 
   public userName:String;
   public projects$: Observable<Project[]>;
+  public activeProjects= [];
+  public inActiveProjects= [];
 
   constructor(public authService: AuthenticationService, private projectService: ProjectService) {
     this.projects$ = this.projectService.getProjects();
+    let projectOne = {name: "project 1", description: "First project", members: 7};
+    let projectTwo = {name: "project 2", description: "Second project", members: 8};
+
+    this.activeProjects.push(projectOne);
+    this.activeProjects.push(projectTwo);
+
+    let projectOneDone = {name: "project 13", description: "Finished project", members: 9};
+    let projectTwoDone = {name: "project 23", description: "Finished project", members: 10};
+
+    this.inActiveProjects.push(projectOneDone);
+    this.inActiveProjects.push(projectTwoDone);
   }
 
-
-
-
-
-  ngOnInit() {
-
-    console.log(this.authService)
-
-    // let email = this.user.email;
-    // let name = email.split("@");
-    // this.userName = name[0];
-
-
-
+  async ngOnInit(): Promise<void> {
 
   }
 
