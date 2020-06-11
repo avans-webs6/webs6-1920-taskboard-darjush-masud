@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Project } from 'src/app/models/project';
 
 @Component({
   selector: 'app-archived-project-table',
@@ -6,17 +7,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./archived-project-table.component.sass']
 })
 export class ArchivedProjectTableComponent implements OnInit {
-  public inActiveProjects= [];
+  @Input()
+  public archivedProjects: [Project];
+  
+
+  @Output()
+  onActivate = new EventEmitter();
 
   constructor() { 
-    let projectOneDone = {name: "project 13", description: "Finished project", members: 9};
-    let projectTwoDone = {name: "project 23", description: "Finished project", members: 10};
-
-    this.inActiveProjects.push(projectOneDone);
-    this.inActiveProjects.push(projectTwoDone);
+ 
   }
 
   ngOnInit(): void {
+  }
+
+  activateProject(id:string){
+    this.onActivate.emit(id);
   }
 
 }

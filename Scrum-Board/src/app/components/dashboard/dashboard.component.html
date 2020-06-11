@@ -46,11 +46,11 @@
       <div class="column is-9">
         <div class="content is-medium">
           <h3 class="title is-3 text-white">Active Projects</h3>
-          <button class="button is-primary is-pulled-right" (click)="openModal()">Add Project</button>
-         <app-active-project-table></app-active-project-table>
+          <button class="button is-link is-pulled-right" (click)="openModal()">Add Project</button>
+         <app-active-project-table [activeProjects]="activeProjects" (onArchive)="archiveProject($event)"></app-active-project-table>
          
           <h3 class="title is-3 text-white">Archived Projects</h3>
-          <app-archived-project-table></app-archived-project-table>
+          <app-archived-project-table [archivedProjects]="inActiveProjects" (onActivate)="activateProject($event)"></app-archived-project-table>
         </div>
       </div>
     </div>

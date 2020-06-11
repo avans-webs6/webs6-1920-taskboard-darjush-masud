@@ -11,14 +11,14 @@
   <tbody>
     <tr *ngFor="let activeProject of activeProjects">
       <td>{{activeProject.name}}</td>
-      <td>{{activeProject.members}}</td>
+      <td>{{activeProject.members.length}}</td>
       <td></td>
       <td></td>
       <td>
         <div class="buttons has-addons">
-          <a href="#" class="button is-success card-footer-item">View</a>
-          <a href="#" class="button is-info card-footer-item">Edit</a>
-          <a href="#" class="button is-warning card-footer-item">Archive</a>
+          <button class="button is-primary card-footer-item">View</button>
+          <button class="button is-info card-footer-item">Edit</button>
+          <button class="button is-warning card-footer-item" (click)="archiveProject(activeProject.id)">Archive</button>
         </div>
   </td>
     </tr>

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ProjectService } from 'src/app/services/project.service';
+import { Project } from 'src/app/models/project';
 
 @Component({
   selector: 'app-active-project-table',
@@ -6,17 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./active-project-table.component.sass']
 })
 export class ActiveProjectTableComponent implements OnInit {
-  public activeProjects= [];
+  @Input()
+  public activeProjects: [Project];
+
+  @Output()
+  onArchive = new EventEmitter();
 
   constructor() {
-    let projectOne = {name: "project 1", description: "First project", members: 7};
-    let projectTwo = {name: "project 2", description: "Second project", members: 8};
-
-    this.activeProjects.push(projectOne);
-    this.activeProjects.push(projectTwo);
    }
 
   ngOnInit(): void {
+  }
+
+  archiveProject(id:string){
+    this.onArchive.emit(id);
   }
 
 }
