@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ProjectService } from 'src/app/services/project.service';
 import { Project } from 'src/app/models/project';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-active-project-table',
@@ -14,7 +15,7 @@ export class ActiveProjectTableComponent implements OnInit {
   @Output()
   onArchive = new EventEmitter();
 
-  constructor() {
+  constructor(private router: Router) {
    }
 
   ngOnInit(): void {
@@ -22,6 +23,14 @@ export class ActiveProjectTableComponent implements OnInit {
 
   archiveProject(id:string){
     this.onArchive.emit(id);
+  }
+
+  navigateToProject(id){
+   
+    this.router.navigate([`project/${id}`]);
+
+    
+
   }
 
 }

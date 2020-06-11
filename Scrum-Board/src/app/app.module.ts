@@ -17,6 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalComponent } from './components/modal/modal.component';
 import { ActiveProjectTableComponent } from './components/projects/active-project-table/active-project-table.component';
 import { ArchivedProjectTableComponent } from './components/projects/archived-project-table/archived-project-table.component';
+import { ProjectComponent } from './components/projects/project/project.component';
 
 
  
@@ -30,7 +31,8 @@ import { ArchivedProjectTableComponent } from './components/projects/archived-pr
     VerifyEmailComponent,
     ModalComponent,
     ActiveProjectTableComponent,
-    ArchivedProjectTableComponent
+    ArchivedProjectTableComponent,
+    ProjectComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

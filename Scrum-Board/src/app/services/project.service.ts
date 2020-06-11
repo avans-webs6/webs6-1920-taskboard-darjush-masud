@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { AuthenticationService } from './authentication.service';
+import { strict } from 'assert';
 
 @Injectable({
   providedIn: 'root'
@@ -30,32 +31,38 @@ export class ProjectService {
 
   }
 
-  getActiveProjects(){
+  getActiveProjects() {
     return this._fireStore.collection<Project>('projects')
-    .snapshotChanges()
-    .pipe(map((projects: any[]) => {
-      return projects.map(retrievedProject => {
-        if (!retrievedProject.payload.doc.data().archived)
-        return {
-          id: retrievedProject.payload.doc.id,
-          ...retrievedProject.payload.doc.data() as Project
-        }
-      });
-    }));
+      .snapshotChanges()
+      .pipe(map((projects: any[]) => {
+        return projects.map(retrievedProject => {
+          if (!retrievedProject.payload.doc.data().archived)
+            return {
+              id: retrievedProject.payload.doc.id,
+              ...retrievedProject.payload.doc.data() as Project
+            }
+        });
+      }));
   }
 
-  getArchivedProjects(){
+  async getProjectByID(id: string): Promise<Project> {
+    let project = await this._fireStore.collection('projects').doc(id).get().toPromise();
+    return project.data() as Project;
+  }
+
+
+  getArchivedProjects() {
     return this._fireStore.collection<Project>('projects')
-    .snapshotChanges()
-    .pipe(map((projects: any[]) => {
-      return projects.map(retrievedProject => {
-        if (retrievedProject.payload.doc.data().archived)
-        return {
-          id: retrievedProject.payload.doc.id,
-          ...retrievedProject.payload.doc.data() as Project
-        }
-      });
-    }));
+      .snapshotChanges()
+      .pipe(map((projects: any[]) => {
+        return projects.map(retrievedProject => {
+          if (retrievedProject.payload.doc.data().archived)
+            return {
+              id: retrievedProject.payload.doc.id,
+              ...retrievedProject.payload.doc.data() as Project
+            }
+        });
+      }));
   }
 
   updateProject(project: Project) {

@@ -5,6 +5,7 @@ import { SignUpComponent } from './components/authentication/sign-up/sign-up.com
 import { SignInComponent } from './components/authentication/sign-in/sign-in.component';
 import { VerifyEmailComponent } from './components/authentication/verify-email/verify-email.component';
 import { ForgotPasswordComponent } from './components/authentication/forgot-password/forgot-password.component';
+import { ProjectComponent } from './components/projects/project/project.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'forgot', component: ForgotPasswordComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'verify-email', component: VerifyEmailComponent },
+  { path: 'project/:id', component: ProjectComponent },
 ];
 
 @NgModule({
