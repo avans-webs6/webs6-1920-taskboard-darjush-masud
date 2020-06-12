@@ -13,12 +13,8 @@ export class UserService {
 
 
 
-  async getUserByID(id:string): Promise<string>{
-    let userName = "";
+  async getUserByID(id:string): Promise<User> {
     let user = await this._fireStore.collection('users').doc(id).get().toPromise();
-    let output = user.data() as User
-    userName = output.name
-
-    return userName;
+    return user.data() as User
   }
 }

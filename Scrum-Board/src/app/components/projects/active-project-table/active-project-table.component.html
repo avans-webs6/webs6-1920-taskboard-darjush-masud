@@ -14,7 +14,7 @@
     <tr *ngFor="let activeProject of activeProjects">
       <td>{{activeProject.name}}</td>
       <td>{{activeProject.description}}</td>
-      <td>{{getOwnerByID(activeProject.owner)}}</td>
+      <td>{{activeProject.owner}}</td>
       <td>{{activeProject.members.length}}</td>
       <td></td>
       <td></td>

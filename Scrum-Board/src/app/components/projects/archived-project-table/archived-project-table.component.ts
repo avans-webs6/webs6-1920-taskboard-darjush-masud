@@ -9,19 +9,19 @@ import { Project } from 'src/app/models/project';
 export class ArchivedProjectTableComponent implements OnInit {
   @Input()
   public archivedProjects: [Project];
-  
+
 
   @Output()
   onActivate = new EventEmitter();
 
-  constructor() { 
- 
+  constructor() {
+
   }
 
   ngOnInit(): void {
   }
 
-  activateProject(id:string){
+  activateProject(id:string) {
     this.onActivate.emit(id);
   }
 

@@ -10,9 +10,9 @@ import { Router } from "@angular/router";
   providedIn: 'root'
 })
 export class AuthenticationService {
-  userData: any; 
+  userData: any;
   userName: any;
-  
+
   constructor(private _fireStore: AngularFirestore,
     private _auth: AngularFireAuth,
     private _router: Router,
@@ -29,7 +29,7 @@ export class AuthenticationService {
         }
       });
 
-  
+
     }
 
   // Reset Forgot password
@@ -51,7 +51,7 @@ export class AuthenticationService {
     const userRef: AngularFirestoreDocument<any> = this._fireStore.doc(`users/${user.uid}`);
     const userData: User = {
       id: user.uid,
-      name: user.displayName,
+      name: user.email.split("@")[0],
       email: user.email,
       emailVerified: user.emailVerified
     }
@@ -60,10 +60,10 @@ export class AuthenticationService {
     })
   }
 
-  getUserID(){
+  getUserID() {
     return this.userData.uid;
   }
-  
+
 
   //Sign in with Google
   GoogleAuth() {

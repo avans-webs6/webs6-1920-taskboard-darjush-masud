@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
 
 
-  constructor(public authService: AuthenticationService, private projectService: ProjectService) {
+  constructor(public authService: AuthenticationService, private projectService: ProjectService, private userService: UserService) {
 
 
 
@@ -50,11 +50,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   }
 
- 
+
 
   async setActiveProjects() {
-
-    let thisClass = this;
     this.allActiveProjects = await this.projectService.getActiveProjects().pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
       let outputProjects = []
       let projects = []
@@ -62,6 +60,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
       for (let i of outputProjects)
         i && projects.push(i); // copy each non-empty value to the 'temp' array
       outputProjects = projects;
+      outputProjects.forEach(project => {
+        this.userService.getUserByID(project.owner).then(user => {
+          project.owner = user.name
+        })
+      })
       this.activeProjects = outputProjects;
     });
 
@@ -69,7 +72,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   async setArchivedProjects() {
 
-    let thisClass = this;
     this.allActiveProjects = await this.projectService.getArchivedProjects().pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
       let outputProjects = []
       let projects = []
@@ -82,28 +84,28 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   }
 
-  archiveProject($event){
+  archiveProject($event) {
     let updatedProject: Project;
      this.activeProjects.forEach(project => {
-       if (project.id == $event){
+       if (project.id == $event) {
          updatedProject = project
          updatedProject.archived = true;
          this.projectService.updateProject(updatedProject)
        }
      })
-    
+
   }
 
-  activateProject($event){
+  activateProject($event) {
     let updatedProject: Project;
      this.inActiveProjects.forEach(project => {
-       if (project.id == $event){
+       if (project.id == $event) {
          updatedProject = project
          updatedProject.archived = false;
          this.projectService.updateProject(updatedProject)
        }
      })
-    
+
   }
 
 

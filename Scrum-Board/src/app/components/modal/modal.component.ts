@@ -21,7 +21,7 @@ export class ModalComponent implements OnInit {
 
   cancel() { this.onClose.emit(null); }
 
-  createProject(){
+  createProject() {
     let newProject = {
       name: this.projectName,
       description: this.projectDescription

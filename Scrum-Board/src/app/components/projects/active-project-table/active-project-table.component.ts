@@ -17,28 +17,19 @@ export class ActiveProjectTableComponent implements OnInit {
   onArchive = new EventEmitter();
 
   constructor(private router: Router, public userService: UserService) {
-   }
 
-  ngOnInit(): void {
   }
 
-  archiveProject(id:string){
+  ngOnInit(): void {
+
+  }
+
+  archiveProject(id: string){
     this.onArchive.emit(id);
   }
 
   navigateToProject(id){
     this.router.navigate([`project/${id}`]);
-  }
-
-  getOwnerByID(id:string): string{
-    let owner = ""
-    this.userService.getUserByID(id).then(resp => {
-      owner = resp;
-      console.log(owner);
-      return owner;
-    });
-
-    return "";
   }
 
 }
