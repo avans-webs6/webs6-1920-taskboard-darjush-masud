@@ -43,7 +43,8 @@
 
       <div class="column is-9">
         <div class="content is-medium">
-          <h3 class="title is-3 text-white">Project: {{project.name}} </h3>
+          <h3 class="title is-3 text-white">Project: {{project?.name}} </h3>
+          <app-members [members]="projectMembers"></app-members>
           </div>
       </div>
     </div>
