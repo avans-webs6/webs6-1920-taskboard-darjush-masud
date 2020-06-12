@@ -1,1 +1,51 @@
-<p>project works!</p>
+<section class="hero is-primary">
+  <div class="hero-body">
+    <div class="columns">
+      <div class="column is-12">
+        <div class="container content">
+          <i class="is-large fab fa-discord"></i>
+          <i class="is-large fas fa-code"></i>
+          <h1 class="title">Scrum Board</h1>
+          <h3 class="subtitle">
+            Made By Darjush Kolahi & Masud Rasa
+          </h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section bg-indianred">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-3">
+        <aside class="is-medium menu">
+          <div class="pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">User Profile</h1>
+          </div>
+          <!-- Show user data when logged in -->
+          <div class="row" *ngIf="authService.userData as user">
+
+            <h1>Username: <strong>{{(user.displayName) ? user.displayName : user.email.split("@")[0]}}</strong></h1>
+            <p>Email: <strong>{{user.email}}</strong></p>
+          </div>
+          <p class="menu-label text-white">
+            Menu
+          </p>
+          <ul class="menu-list">
+            <li class="is-right"> <a class="button is-warning" (click)="authService.SignOut()">
+                Logout
+              </a></li>
+          </ul>
+        </aside>
+      </div>
+
+     
+
+      <div class="column is-9">
+        <div class="content is-medium">
+          <h3 class="title is-3 text-white">Project: {{project.name}} </h3>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>

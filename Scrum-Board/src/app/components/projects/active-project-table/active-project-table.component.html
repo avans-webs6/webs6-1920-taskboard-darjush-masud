@@ -2,6 +2,8 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Description</th>
+      <th>Owner</th>
       <th>Members</th>
       <th></th>
       <th></th>
@@ -11,6 +13,8 @@
   <tbody>
     <tr *ngFor="let activeProject of activeProjects">
       <td>{{activeProject.name}}</td>
+      <td>{{activeProject.description}}</td>
+      <td>{{getOwnerByID(activeProject.owner)}}</td>
       <td>{{activeProject.members.length}}</td>
       <td></td>
       <td></td>

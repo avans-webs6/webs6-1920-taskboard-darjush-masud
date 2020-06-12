@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ProjectService } from 'src/app/services/project.service';
 import { Project } from 'src/app/models/project';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-active-project-table',
@@ -15,7 +16,7 @@ export class ActiveProjectTableComponent implements OnInit {
   @Output()
   onArchive = new EventEmitter();
 
-  constructor(private router: Router) {
+  constructor(private router: Router, public userService: UserService) {
    }
 
   ngOnInit(): void {
@@ -26,11 +27,18 @@ export class ActiveProjectTableComponent implements OnInit {
   }
 
   navigateToProject(id){
-   
     this.router.navigate([`project/${id}`]);
+  }
 
-    
+  getOwnerByID(id:string): string{
+    let owner = ""
+    this.userService.getUserByID(id).then(resp => {
+      owner = resp;
+      console.log(owner);
+      return owner;
+    });
 
+    return "";
   }
 
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectService } from 'src/app/services/project.service';
 import { Project } from 'src/app/models/project';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-project',
@@ -10,7 +11,7 @@ import { Project } from 'src/app/models/project';
 })
 export class ProjectComponent implements OnInit {
   public project:Project;
-  constructor(private router: ActivatedRoute, private projectService: ProjectService) { }
+  constructor(private router: ActivatedRoute, private projectService: ProjectService,public authService: AuthenticationService) { }
  
   ngOnInit(): void {
     let projectID = this.router.snapshot.paramMap.get('id');

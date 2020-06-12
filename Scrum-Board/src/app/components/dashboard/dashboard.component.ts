@@ -6,6 +6,7 @@ import { Project } from 'src/app/models/project';
 import { ProjectService } from 'src/app/services/project.service';
 import { auth } from 'firebase';
 import { takeUntil } from 'rxjs/operators';
+import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
@@ -48,6 +49,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.showModal = true;
 
   }
+
+ 
 
   async setActiveProjects() {
 

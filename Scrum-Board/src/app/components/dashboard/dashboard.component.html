@@ -15,9 +15,9 @@
   </div>
 </section>
 <section class="section bg-indianred">
-  <div class="container">
+  <div class="container is-fluid">
     <div class="columns">
-      <div class="column is-3">
+      <div class="column is-2">
         <aside class="is-medium menu">
           <div class="pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">User Profile</h1>
@@ -43,7 +43,7 @@
       <app-modal *ngIf="showModal" (onClose)="closeModal()" (onCreate)="createProject($event)"></app-modal>
 
 
-      <div class="column is-9">
+      <div class="column is-10">
         <div class="content is-medium">
           <h3 class="title is-3 text-white">Active Projects</h3>
           <button class="button is-link is-pulled-right" (click)="openModal()">Add Project</button>

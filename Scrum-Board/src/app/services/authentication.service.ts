@@ -63,6 +63,7 @@ export class AuthenticationService {
   getUserID(){
     return this.userData.uid;
   }
+  
 
   //Sign in with Google
   GoogleAuth() {
