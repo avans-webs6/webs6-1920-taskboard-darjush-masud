@@ -14,22 +14,32 @@ export class UserService {
 
 
 
-  async getUserByID(id:string): Promise<User> {
-    let user = await this._fireStore.collection('users').doc(id).get().toPromise();
-    return user.data() as User
+  getUserByID(id: string) {
+    return this._fireStore.collection<User>('users')
+      .snapshotChanges()
+      .pipe(map((users: any[]) => {
+        return users.map(retrievedUser => {
+          if (retrievedUser.payload.doc.id == id)
+            return {
+              id: retrievedUser.payload.doc.id,
+              ...retrievedUser.payload.doc.data() as User
+            }
+        });
+      }));
   }
 
 
-   getNotYetJoinedMembers(toBeExcludedMembers: any[]) {
+   getNotYetJoinedMembers(toBeExcludedMembers: [string?]) {
     return this._fireStore.collection<User>('users')
     .snapshotChanges()
     .pipe(map((members: any[]) => {
       return members.map(retrievedMember => {
-       if (toBeExcludedMembers != null && !toBeExcludedMembers.includes(retrievedMember.id))
+       if (toBeExcludedMembers != null && !toBeExcludedMembers.includes(retrievedMember.payload.doc.id)) {
           return {
             id: retrievedMember.payload.doc.id,
             ...retrievedMember.payload.doc.data() as User
           }
+        }
       });
     }));
   }

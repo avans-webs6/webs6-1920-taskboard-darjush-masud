@@ -52,29 +52,29 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
 
 
-  async setActiveProjects() {
-    this.allActiveProjects = await this.projectService.getActiveProjects().pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
+  setActiveProjects() {
+    this.allActiveProjects = this.projectService.getActiveProjects().pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
       let outputProjects = []
       let projects = []
       outputProjects = resp;
       for (let i of outputProjects)
-        i && projects.push(i); // copy each non-empty value to the 'temp' array
+        i && projects.push(i);
       outputProjects = projects;
-      this.activeProjects = outputProjects;
+      this.activeProjects = projects;
     });
 
   }
 
-  async setArchivedProjects() {
+  setArchivedProjects() {
 
-    this.allActiveProjects = await this.projectService.getArchivedProjects().pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
+    this.allActiveProjects = this.projectService.getArchivedProjects().pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
       let outputProjects = []
       let projects = []
       outputProjects = resp;
       for (let i of outputProjects)
-        i && projects.push(i); // copy each non-empty value to the 'temp' array
+        i && projects.push(i);
       outputProjects = projects;
-      this.inActiveProjects = outputProjects;
+      this.inActiveProjects = projects;
     });
 
   }

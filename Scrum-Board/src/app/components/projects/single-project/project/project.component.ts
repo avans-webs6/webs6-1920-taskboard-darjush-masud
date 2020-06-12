@@ -4,9 +4,8 @@ import { ProjectService } from 'src/app/services/project.service';
 import { Project } from 'src/app/models/project';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/app/models/user';
 import { takeUntil } from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-project',
@@ -15,43 +14,59 @@ import { Observable, Subject } from 'rxjs';
 })
 export class ProjectComponent implements OnInit {
   public project: Project;
-  public projectMembers = []
+  public projectMemberIds: [string?] = []
+  public projectMembers: [string?] = []
   public canBeAddedMembers: any[]
   public showModal: boolean = false;
   private unsubscribe$ = new Subject<void>();
-  private projectID:string;
+  private projectID: string;
 
 
   constructor(private router: ActivatedRoute, private projectService: ProjectService,
     public authService: AuthenticationService, private userService: UserService) { }
 
 
-  ngOnDestroy(): void {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
-  }
-
   ngOnInit(): void {
     this.projectID = this.router.snapshot.paramMap.get('id');
     let thisClass = this;
-    this.projectService.getProjectByID(this.projectID).then(resp => {
-      thisClass.project = resp;
-      resp.members.forEach(member => {
-        thisClass.userService.getUserByID(member).then(resp => {
-          thisClass.projectMembers.push(resp.name);
+    this.projectService.getProjectByID(this.projectID).pipe(takeUntil(this.unsubscribe$)).subscribe(project => {
+      // used for clearing undefineds
+      let outputMembers = []
+      let members = []
+      outputMembers = project;
+      for (let i of outputMembers)
+        i && members.push(i);
+
+      thisClass.project = members[0];
+      thisClass.projectMembers = [];
+
+      members[0].members.forEach(member => {
+        thisClass.userService.getUserByID(member).pipe(takeUntil(this.unsubscribe$)).subscribe(user => {
+          // used for clearing undefineds
+          let outputMembers = []
+          let members = []
+          outputMembers = user;
+          for (let i of outputMembers)
+            i && members.push(i);
+
+          thisClass.projectMemberIds.push(members[0].id);
+          thisClass.projectMembers.push(members[0].name);
+
+          this.userService.getNotYetJoinedMembers(this.projectMemberIds).pipe(takeUntil(this.unsubscribe$)).subscribe(memberArray => {
+            // used for clearing undefineds
+            let outputMembers = []
+            let members = []
+            outputMembers = memberArray;
+            for (let i of outputMembers)
+              i && members.push(i);
+
+            this.canBeAddedMembers = members;
+          });
         });
       });
     });
 
-    this.userService.getNotYetJoinedMembers(this.projectMembers).pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
-      let outputMembers = []
-      let members = []
-      outputMembers = resp;
-      for (let i of outputMembers)
-        i && members.push(i); // copy each non-empty value to the 'temp' array
-      outputMembers = members;
-      this.canBeAddedMembers = outputMembers;
-    });
+
   }
 
 
@@ -63,7 +78,6 @@ export class ProjectComponent implements OnInit {
 
   openModal() {
     this.showModal = true;
-
   }
 
   addMember($event) {
@@ -73,5 +87,9 @@ export class ProjectComponent implements OnInit {
     this.closeModal();
   }
 
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 
 }

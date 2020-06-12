@@ -12,11 +12,8 @@ import { strict } from 'assert';
 })
 export class ProjectService {
 
-  private projects: Project[];
-  private projects$: Observable<any[]>;
 
   constructor(private _fireStore: AngularFirestore, private authService: AuthenticationService) { }
-
 
 
   createProject(name, description) {
@@ -32,13 +29,14 @@ export class ProjectService {
 
   }
 
+
   getActiveProjects() {
     return this._fireStore.collection<Project>('projects')
       .snapshotChanges()
       .pipe(map((projects: any[]) => {
         return projects.map(retrievedProject => {
-          if (!retrievedProject.payload.doc.data().archived && 
-          (retrievedProject.payload.doc.data().owner == this.authService.getUserID() || 
+          if (!retrievedProject.payload.doc.data().archived &&
+          (retrievedProject.payload.doc.data().owner == this.authService.getUserID() ||
           retrievedProject.payload.doc.data().members.includes(this.authService.getUserID())))
             return {
               id: retrievedProject.payload.doc.id,
@@ -48,9 +46,19 @@ export class ProjectService {
       }));
   }
 
-  async getProjectByID(id: string): Promise<Project> {
-    let project = await this._fireStore.collection('projects').doc(id).get().toPromise();
-    return project.data() as Project;
+
+  getProjectByID(id: string) {
+    return this._fireStore.collection<Project>('projects')
+      .snapshotChanges()
+      .pipe(map((projects: any[]) => {
+        return projects.map(retrievedProject => {
+          if (retrievedProject.payload.doc.id == id)
+            return {
+              id: retrievedProject.payload.doc.id,
+              ...retrievedProject.payload.doc.data() as Project
+            }
+        });
+      }));
   }
 
 
@@ -59,8 +67,8 @@ export class ProjectService {
       .snapshotChanges()
       .pipe(map((projects: any[]) => {
         return projects.map(retrievedProject => {
-          if (retrievedProject.payload.doc.data().archived && 
-          (retrievedProject.payload.doc.data().owner == this.authService.getUserID() || 
+          if (retrievedProject.payload.doc.data().archived &&
+          (retrievedProject.payload.doc.data().owner == this.authService.getUserID() ||
           retrievedProject.payload.doc.data().members.includes(this.authService.getUserID())))
             return {
               id: retrievedProject.payload.doc.id,
@@ -69,6 +77,7 @@ export class ProjectService {
         });
       }));
   }
+
 
   updateProject(project: Project) {
     this._fireStore.collection<Project>('projects').doc(project.id).update(project);
