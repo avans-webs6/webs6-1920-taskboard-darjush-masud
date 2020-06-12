@@ -26,7 +26,7 @@ export class ProjectService {
       userstories: [],
       owner: this.authService.getUserID(),
       ownerName:this.authService.getUserName(),
-      members: [],
+      members: [this.authService.getUserID()],
       archived: false
     })
 
