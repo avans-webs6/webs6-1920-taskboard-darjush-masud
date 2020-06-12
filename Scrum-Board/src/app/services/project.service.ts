@@ -25,6 +25,7 @@ export class ProjectService {
       description: description,
       userstories: [],
       owner: this.authService.getUserID(),
+      ownerName:this.authService.getUserName(),
       members: [],
       archived: false
     })
@@ -36,7 +37,9 @@ export class ProjectService {
       .snapshotChanges()
       .pipe(map((projects: any[]) => {
         return projects.map(retrievedProject => {
-          if (!retrievedProject.payload.doc.data().archived)
+          if (!retrievedProject.payload.doc.data().archived && 
+          (retrievedProject.payload.doc.data().owner == this.authService.getUserID() || 
+          retrievedProject.payload.doc.data().members.includes(this.authService.getUserID())))
             return {
               id: retrievedProject.payload.doc.id,
               ...retrievedProject.payload.doc.data() as Project
@@ -56,7 +59,9 @@ export class ProjectService {
       .snapshotChanges()
       .pipe(map((projects: any[]) => {
         return projects.map(retrievedProject => {
-          if (retrievedProject.payload.doc.data().archived)
+          if (retrievedProject.payload.doc.data().archived && 
+          (retrievedProject.payload.doc.data().owner == this.authService.getUserID() || 
+          retrievedProject.payload.doc.data().members.includes(this.authService.getUserID())))
             return {
               id: retrievedProject.payload.doc.id,
               ...retrievedProject.payload.doc.data() as Project

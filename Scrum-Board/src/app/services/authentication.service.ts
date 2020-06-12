@@ -64,6 +64,10 @@ export class AuthenticationService {
     return this.userData.uid;
   }
 
+  getUserName(){
+    return this.userData.email.split("@")[0];
+  }
+
 
   //Sign in with Google
   GoogleAuth() {

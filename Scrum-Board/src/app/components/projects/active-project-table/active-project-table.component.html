@@ -5,8 +5,6 @@
       <th>Description</th>
       <th>Owner</th>
       <th>Members</th>
-      <th></th>
-      <th></th>
       <th colspan="2" class="is-centered">Actions</th>
     </tr>
   </thead>
@@ -14,10 +12,8 @@
     <tr *ngFor="let activeProject of activeProjects">
       <td>{{activeProject.name}}</td>
       <td>{{activeProject.description}}</td>
-      <td>{{activeProject.owner}}</td>
+      <td>{{activeProject.ownerName}}</td>
       <td>{{activeProject.members.length}}</td>
-      <td></td>
-      <td></td>
       <td>
         <div class="buttons has-addons">
           <button class="button is-primary card-footer-item" (click)="navigateToProject(activeProject.id)">View</button>

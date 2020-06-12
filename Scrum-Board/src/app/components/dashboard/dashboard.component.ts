@@ -60,11 +60,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       for (let i of outputProjects)
         i && projects.push(i); // copy each non-empty value to the 'temp' array
       outputProjects = projects;
-      outputProjects.forEach(project => {
-        this.userService.getUserByID(project.owner).then(user => {
-          project.owner = user.name
-        })
-      })
       this.activeProjects = outputProjects;
     });
 
