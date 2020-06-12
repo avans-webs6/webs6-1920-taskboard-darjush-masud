@@ -39,11 +39,16 @@
         </aside>
       </div>
 
+       <!-- Modal -->
+       <app-add-member-modal *ngIf="showModal" [canBeAddedMembers]="canBeAddedMembers" (onClose)="closeModal()" (onCreate)="addMember($event)"></app-add-member-modal>
+
+
      
 
       <div class="column is-9">
         <div class="content is-medium">
           <h3 class="title is-3 text-white">Project: {{project?.name}} </h3>
+          <button class="button is-link is-pulled-right" (click)="openModal()">Add Project</button>
           <app-members [members]="projectMembers"></app-members>
           </div>
       </div>

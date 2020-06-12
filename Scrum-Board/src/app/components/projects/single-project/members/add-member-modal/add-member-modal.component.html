@@ -1,0 +1,21 @@
+<div class="modal is-active">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Add Member</p>
+            <button class="delete" aria-label="close" (click)="cancel()"></button>
+        </header>
+        <section class="modal-card-body">
+
+            <div class="select">
+                <select [(ngModel)]="selectedMember">
+            <option *ngFor="let member of canBeAddedMembers" [ngValue]="member.id">{{member.name}}</option>
+        </select>
+            </div>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-primary" (click)="addMember()">Create</button>
+            <button class="button" (click)="cancel()">Cancel</button>
+        </footer>
+    </div>
+</div>

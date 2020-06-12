@@ -19,6 +19,7 @@ import { ActiveProjectTableComponent } from './components/projects/active-projec
 import { ArchivedProjectTableComponent } from './components/projects/archived-project-table/archived-project-table.component';
 import { ProjectComponent } from './components/projects/single-project/project/project.component';
 import { MembersComponent } from './components/projects/single-project/members/members.component';
+import { AddMemberModalComponent } from './components/projects/single-project/members/add-member-modal/add-member-modal.component';
 
 
  
@@ -34,7 +35,8 @@ import { MembersComponent } from './components/projects/single-project/members/m
     ActiveProjectTableComponent,
     ArchivedProjectTableComponent,
     ProjectComponent,
-    MembersComponent
+    MembersComponent,
+    AddMemberModalComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
