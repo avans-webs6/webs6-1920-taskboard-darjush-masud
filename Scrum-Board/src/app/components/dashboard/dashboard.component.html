@@ -40,13 +40,13 @@
       </div>
 
       <!-- Modal -->
-      <app-modal *ngIf="showModal" (onClose)="closeModal()" (onCreate)="createProject($event)"></app-modal>
+      <app-createprojectmodal *ngIf="showModal" (onClose)="closeCreateModal()" (onCreate)="createProject($event)"></app-createprojectmodal>
 
 
       <div class="column is-10">
         <div class="content is-medium">
           <h3 class="title is-3 text-white">Active Projects</h3>
-          <button class="button is-link is-pulled-right" (click)="openModal()">Add Project</button>
+          <button class="button is-link is-pulled-right" (click)="openCreateModal()">Add Project</button>
          <app-active-project-table [activeProjects]="activeProjects" (onArchive)="archiveProject($event)"></app-active-project-table>
          
           <h3 class="title is-3 text-white">Archived Projects</h3>

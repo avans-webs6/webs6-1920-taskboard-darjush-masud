@@ -16,6 +16,8 @@ export class ActiveProjectTableComponent implements OnInit {
   @Output()
   onArchive = new EventEmitter();
 
+  public showModal: boolean = false;
+
   constructor(private router: Router, public userService: UserService) {
 
   }
@@ -23,6 +25,21 @@ export class ActiveProjectTableComponent implements OnInit {
   ngOnInit(): void {
 
   }
+
+  openEditModal(id) {
+    this.showModal = true; 
+
+  }
+
+  closeEditModal() {
+    this.showModal = false;
+  }
+
+  editProject($event){
+    
+
+  }
+
 
   archiveProject(id: string){
     this.onArchive.emit(id);

@@ -2,11 +2,11 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
-  selector: 'app-modal',
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.sass']
+  selector: 'app-createprojectmodal',
+  templateUrl: './createprojectmodal.component.html',
+  styleUrls: ['./createprojectmodal.component.sass']
 })
-export class ModalComponent implements OnInit {
+export class CreateProjectModalComponent implements OnInit {
 
   @Output()
   onClose = new EventEmitter();

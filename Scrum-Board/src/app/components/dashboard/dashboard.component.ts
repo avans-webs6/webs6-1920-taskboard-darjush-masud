@@ -41,11 +41,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     await this.setArchivedProjects();
   }
 
-  closeModal() {
+  closeCreateModal() {
     this.showModal = false;
   }
 
-  openModal() {
+  openCreateModal() {
     this.showModal = true;
 
   }
@@ -106,7 +106,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   createProject($event) {
     this.projectService.createProject($event.name, $event.description);
-    this.closeModal();
+    this.closeCreateModal();
   }
 
 }

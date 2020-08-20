@@ -14,12 +14,13 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { VerifyEmailComponent } from './components/authentication/verify-email/verify-email.component';
 import { AuthenticationService } from './services/authentication.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ModalComponent } from './components/modal/modal.component';
 import { ActiveProjectTableComponent } from './components/projects/active-project-table/active-project-table.component';
 import { ArchivedProjectTableComponent } from './components/projects/archived-project-table/archived-project-table.component';
 import { ProjectComponent } from './components/projects/single-project/project/project.component';
 import { MembersComponent } from './components/projects/single-project/members/members.component';
 import { AddMemberModalComponent } from './components/projects/single-project/members/add-member-modal/add-member-modal.component';
+import { EditprojectmodalComponent } from './components/modals/editprojectmodal/editprojectmodal.component';
+import { CreateProjectModalComponent } from './components/modals/createprojectmodal/createprojectmodal.component';
 
 
  
@@ -31,12 +32,13 @@ import { AddMemberModalComponent } from './components/projects/single-project/me
     ForgotPasswordComponent,
     DashboardComponent,
     VerifyEmailComponent,
-    ModalComponent,
     ActiveProjectTableComponent,
     ArchivedProjectTableComponent,
     ProjectComponent,
     MembersComponent,
-    AddMemberModalComponent
+    AddMemberModalComponent,
+    EditprojectmodalComponent,
+    CreateProjectModalComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

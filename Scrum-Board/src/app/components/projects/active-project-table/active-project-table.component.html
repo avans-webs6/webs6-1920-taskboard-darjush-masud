@@ -1,3 +1,5 @@
+<app-editprojectmodal *ngIf="showModal" (onClose)="closeEditModal()" (onCreate)="editProject($event)"></app-editprojectmodal>
+
 <table class="table bg-indianred">
   <thead>
     <tr>
@@ -17,7 +19,7 @@
       <td>
         <div class="buttons has-addons">
           <button class="button is-primary card-footer-item" (click)="navigateToProject(activeProject.id)">View</button>
-          <button class="button is-info card-footer-item">Edit</button>
+          <button class="button is-info card-footer-item"(click)="openEditModal()">Edit</button>
           <button class="button is-warning card-footer-item" (click)="archiveProject(activeProject.id)">Archive</button>
         </div>
   </td>
