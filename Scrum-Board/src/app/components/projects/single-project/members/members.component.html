@@ -2,14 +2,22 @@
   <thead>
     <tr>
       <th>Name</th>
-
+      <th></th>
+      <th></th>
       <th colspan="2" class="is-centered">Actions</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let member of members">
       <td>{{member}}</td>
- 
+      <td></td>
+      <td></td>
+      <td>
+        <div class="buttons has-addons">
+          <button class="button is-info card-footer-item"(click)="openEditModal(member)">Edit</button>
+          <button class="button is-warning card-footer-item" (click)="removeMember(member.id)">Remove</button>
+        </div>
+      </td>
     </tr>
   </tbody>
 </table>

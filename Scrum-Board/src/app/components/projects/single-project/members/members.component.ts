@@ -15,4 +15,14 @@ export class MembersComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  openEditModal(member) {
+
+  }
+
+  removeMember(id) {
+    if (id) {
+
+    }
+  }
+
 }
