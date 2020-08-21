@@ -6,6 +6,8 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { UserService } from 'src/app/services/user.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { AddmembermodalComponent } from 'src/app/components/modals/addmembermodal/addmembermodal.component';
 
 @Component({
   selector: 'app-project',
@@ -23,7 +25,7 @@ export class ProjectComponent implements OnInit {
 
 
   constructor(private router: ActivatedRoute, private projectService: ProjectService,
-    public authService: AuthenticationService, private userService: UserService) { }
+    public authService: AuthenticationService, private userService: UserService,public dialog: MatDialog) { }
 
 
   ngOnInit(): void {
@@ -76,8 +78,21 @@ export class ProjectComponent implements OnInit {
     this.showModal = false;
   }
 
-  openModal() {
-    this.showModal = true;
+  openAddModal() {
+    const adddialog = this.dialog.open(AddmembermodalComponent, {
+      data: this.canBeAddedMembers
+    });
+
+    adddialog.afterClosed().subscribe(
+      result => {
+        if (result.event == 'create')
+        {
+          this.project.members.push(result.data.name);
+          this.project.id = this.projectID;
+          this.projectService.updateProject(this.project);
+        }
+      }
+     )
   }
 
   addMember($event) {
