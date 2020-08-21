@@ -1,5 +1,6 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Inject } from '@angular/core';
 import { Project } from 'src/app/models/project';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-editprojectmodal',
@@ -14,18 +15,17 @@ export class EditprojectmodalComponent implements OnInit {
   onCreate = new EventEmitter();
 
   public project: Project;
-  constructor() { 
-    this.project = new Project();
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Project, public dialogRef: MatDialogRef<EditprojectmodalComponent>) { 
+    this.project =  data;
   }
 
   ngOnInit(): void {
   }
 
-  cancel() { this.onClose.emit(null); }
 
   editProject(){
-
-    this.onCreate.emit(this.project);
+    this.dialogRef.close({event: 'edit', data: this.project});
+    
   }
 
 }

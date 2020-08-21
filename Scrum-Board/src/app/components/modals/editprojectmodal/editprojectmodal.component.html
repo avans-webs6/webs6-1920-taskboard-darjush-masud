@@ -1,27 +1,21 @@
-<div class="modal is-active">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-      <header class="modal-card-head">
-        <p class="modal-card-title">Edit Project</p>
-        <button class="delete" aria-label="close" (click)="cancel()"></button>
-      </header>
-      <section class="modal-card-body">
+<h2 mat-dialog-title>Edit Project</h2>
+<mat-dialog-content class="mat-typography">
+    <section class="modal-card-body">
         <div class="field">
-          <label class="label">Enter your project name</label>
-          <div class="control">
-            <input class="input" [(ngModel)]="project.name" type="text" placeholder="Project name">
-          </div>
+            <label class="label">Project name</label>
+            <div class="control">
+                <input class="input" [(ngModel)]="project.name" type="text" placeholder="Project name">
+            </div>
         </div>
         <div class="field">
-          <label class="label">Enter your project description</label>
-          <div class="control">
-            <input class="input" [(ngModel)]="project.description" type="text" placeholder="Project description">
-          </div>
+            <label class="label">Project description</label>
+            <div class="control">
+                <input class="input" [(ngModel)]="project.description" type="text" placeholder="Project description">
+            </div>
         </div>
-      </section>
-      <footer class="modal-card-foot">
-        <button class="button is-primary" (click)="editProject()">Edit</button>
-        <button class="button" (click)="cancel()">Cancel</button>
-      </footer>
-    </div>
-  </div>
+    </section>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Close</button>
+    <button mat-flat-button color="primary" (click)="editProject()">Save</button>
+</mat-dialog-actions>

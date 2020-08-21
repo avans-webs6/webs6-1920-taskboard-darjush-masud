@@ -3,6 +3,8 @@ import { ProjectService } from 'src/app/services/project.service';
 import { Project } from 'src/app/models/project';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { EditprojectmodalComponent } from '../../modals/editprojectmodal/editprojectmodal.component';
 
 @Component({
   selector: 'app-active-project-table',
@@ -18,7 +20,7 @@ export class ActiveProjectTableComponent implements OnInit {
 
   public showModal: boolean = false;
 
-  constructor(private router: Router, public userService: UserService) {
+  constructor(private router: Router,private projectService: ProjectService, public userService: UserService,public dialog: MatDialog) {
 
   }
 
@@ -26,9 +28,16 @@ export class ActiveProjectTableComponent implements OnInit {
 
   }
 
-  openEditModal(id) {
-    this.showModal = true; 
+  openEditModal(activeProject) {
+   const editdialog =  this.dialog.open(EditprojectmodalComponent, {
+      data: activeProject
+    });
 
+    editdialog.afterClosed().subscribe(result => {
+      if(result.event == 'edit'){
+        this.projectService.updateProject(result.data);
+      }
+    });
   }
 
   closeEditModal() {

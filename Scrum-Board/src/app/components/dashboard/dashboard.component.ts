@@ -7,6 +7,8 @@ import { ProjectService } from 'src/app/services/project.service';
 import { auth } from 'firebase';
 import { takeUntil } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateProjectModalComponent } from '../modals/createprojectmodal/createprojectmodal.component';
 
 
 @Component({
@@ -25,7 +27,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
 
 
-  constructor(public authService: AuthenticationService, private projectService: ProjectService, private userService: UserService) {
+  constructor(public authService: AuthenticationService, private projectService: ProjectService, private userService: UserService,public dialog: MatDialog) {
 
 
 
@@ -46,8 +48,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   openCreateModal() {
-    this.showModal = true;
+    const createdialog = this.dialog.open(CreateProjectModalComponent, {
+      
+    });
 
+    createdialog.afterClosed().subscribe(
+      result => {
+        if (result.event == 'create')
+        {
+        this.projectService.createProject(result.data.name, result.data.description);
+        }
+      }
+     )
   }
 
 

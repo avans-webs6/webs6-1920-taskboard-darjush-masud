@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ProjectService } from 'src/app/services/project.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-createprojectmodal',
@@ -14,7 +15,7 @@ export class CreateProjectModalComponent implements OnInit {
   onCreate = new EventEmitter();
   public projectName:any;
   public projectDescription:any;
-  constructor(private projectService: ProjectService) { }
+  constructor(private projectService: ProjectService, public dialogRef: MatDialogRef<CreateProjectModalComponent>) { }
 
   ngOnInit(): void {
   }
@@ -26,7 +27,8 @@ export class CreateProjectModalComponent implements OnInit {
       name: this.projectName,
       description: this.projectDescription
     };
-    this.onCreate.emit(newProject);
+    this.dialogRef.close({event: 'create', data: newProject});
+
   }
 
 }

@@ -21,6 +21,8 @@ import { MembersComponent } from './components/projects/single-project/members/m
 import { AddMemberModalComponent } from './components/projects/single-project/members/add-member-modal/add-member-modal.component';
 import { EditprojectmodalComponent } from './components/modals/editprojectmodal/editprojectmodal.component';
 import { CreateProjectModalComponent } from './components/modals/createprojectmodal/createprojectmodal.component';
+import { MatButtonModule } from '@angular/material/button';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
  
@@ -46,7 +48,9 @@ import { CreateProjectModalComponent } from './components/modals/createprojectmo
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatDialogModule
   ],
   providers: [AuthenticationService],
   bootstrap: [AppComponent]
