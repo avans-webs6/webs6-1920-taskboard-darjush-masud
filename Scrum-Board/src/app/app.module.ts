@@ -23,9 +23,13 @@ import { CreateProjectModalComponent } from './components/modals/createprojectmo
 import { MatButtonModule } from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import { AddmembermodalComponent } from './components/modals/addmembermodal/addmembermodal.component';
+import { ActiveUserStoriesTableComponent } from './components/projects/single-project/active-user-stories-table/active-user-stories-table.component';
+import { ArchivedUserStoriesTableComponent } from './components/projects/single-project/archived-user-stories-table/archived-user-stories-table.component';
+import { CreateuserstorymodalComponent } from './components/modals/createuserstorymodal/createuserstorymodal.component';
+import { EdituserstorymodalComponent } from './components/modals/edituserstorymodal/edituserstorymodal.component';
 
 
- 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +44,11 @@ import { AddmembermodalComponent } from './components/modals/addmembermodal/addm
     MembersComponent,
     EditprojectmodalComponent,
     CreateProjectModalComponent,
-    AddmembermodalComponent
+    AddmembermodalComponent,
+    ActiveUserStoriesTableComponent,
+    ArchivedUserStoriesTableComponent,
+    CreateuserstorymodalComponent,
+    EdituserstorymodalComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

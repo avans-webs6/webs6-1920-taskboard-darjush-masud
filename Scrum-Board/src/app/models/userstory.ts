@@ -1,10 +1,10 @@
-export class Project {
+export class UserStory {
   public id?: string;
   public name: string;
   public description: string;
-  public userstories: [string];
+  public status: string;
+  public storypoints: number;
   public owner: string;
   public ownerName: string;
-  public members: [string];
   public archived: boolean;
 }

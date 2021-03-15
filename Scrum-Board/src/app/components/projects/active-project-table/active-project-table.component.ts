@@ -45,7 +45,7 @@ export class ActiveProjectTableComponent implements OnInit {
   }
 
   editProject($event){
-    
+
 
   }
 

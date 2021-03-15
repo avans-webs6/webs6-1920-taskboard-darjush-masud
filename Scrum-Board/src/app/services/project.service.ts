@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Project } from '../models/project';
 import { map } from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { AuthenticationService } from './authentication.service';
-import { strict } from 'assert';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +23,6 @@ export class ProjectService {
       members: [this.authService.getUserID()],
       archived: false
     })
-
   }
 
 
