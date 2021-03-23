@@ -49,7 +49,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   openCreateModal() {
     const createdialog = this.dialog.open(CreateProjectModalComponent, {
-      
+
     });
 
     createdialog.afterClosed().subscribe(

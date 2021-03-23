@@ -18,17 +18,20 @@ export class CreateProjectModalComponent implements OnInit {
   constructor(private projectService: ProjectService, public dialogRef: MatDialogRef<CreateProjectModalComponent>) { }
 
   ngOnInit(): void {
+    this.projectName = "";
+    this.projectDescription = "";
   }
 
   cancel() { this.onClose.emit(null); }
 
   createProject() {
-    let newProject = {
-      name: this.projectName,
-      description: this.projectDescription
-    };
-    this.dialogRef.close({event: 'create', data: newProject});
-
+    if (this.projectName.length >= 3 && this.projectDescription.length >= 3) {
+      let newProject = {
+        name: this.projectName,
+        description: this.projectDescription
+      };
+      this.dialogRef.close({event: 'create', data: newProject});
+    }
   }
 
 }
