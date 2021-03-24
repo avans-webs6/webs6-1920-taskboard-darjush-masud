@@ -16,6 +16,6 @@
   </section>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Close</button>
-    <button mat-flat-button color="primary" (click)="createProject()" [disabled]="!(projectName.length >= 3 && projectDescription.length >= 3)">Save</button>
+    <button mat-button [mat-dialog-close]="true"  cdkFocusInitial>Close</button>
+    <button mat-flat-button color="primary" (click)="createProject()">Save</button>
 </mat-dialog-actions>
