@@ -4,21 +4,19 @@
       <th>Name</th>
       <th>Description</th>
       <th>Owner</th>
-      <th>Members</th>
       <th></th>
       <th colspan="2" class="is-centered">Actions</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let inActiveProject of archivedProjects">
-      <td>{{inActiveProject.name}}</td>
-      <td>{{inActiveProject.description}}</td>
-      <td>{{inActiveProject.ownerName}}</td>
-      <td>{{inActiveProject.members.length}}</td>
+    <tr *ngFor="let inactiveProject of archivedProjects">
+      <td>{{inactiveProject.name}}</td>
+      <td>{{inactiveProject.description}}</td>
+      <td>{{inactiveProject.ownerName}}</td>
       <td></td>
       <td>
         <div class="buttons has-addons">
-          <button class="button is-success card-footer-item" (click)="activateProject(inActiveProject.id)">Activate</button>
+          <button class="button is-success card-footer-item" (click)="activateProject(inactiveProject.id)">Activate</button>
         </div>
   </td>
     </tr>

@@ -14,7 +14,7 @@ export class ProjectService {
 
 
   createProject(name, description) {
-    this._fireStore.collection("projects").add({
+    return this._fireStore.collection("projects").add({
       name: name,
       description: description,
       userstories: [],
@@ -23,6 +23,9 @@ export class ProjectService {
       members: [this.authService.getUserID()],
       archived: false
     })
+    .then(docRef => {
+      return docRef.id;
+    });
   }
 
 

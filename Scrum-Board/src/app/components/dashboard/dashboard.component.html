@@ -48,7 +48,7 @@
          <app-active-project-table [activeProjects]="activeProjects" (onArchive)="archiveProject($event)"></app-active-project-table>
 
           <h3 class="title is-3 text-white">Archived Projects</h3>
-          <app-archived-project-table [archivedProjects]="inActiveProjects" (onActivate)="activateProject($event)"></app-archived-project-table>
+          <app-archived-project-table [archivedProjects]="inactiveProjects" (onActivate)="activateProject($event)"></app-archived-project-table>
         </div>
       </div>
     </div>
