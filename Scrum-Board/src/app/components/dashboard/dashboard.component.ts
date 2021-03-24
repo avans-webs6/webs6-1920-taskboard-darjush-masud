@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       result => {
         if (result.event == 'create')
         {
-        this.projectService.createProject(result.data.name, result.data.description);
+          this.createProject(result.data.name, result.data.description);
         }
       }
      )
@@ -66,59 +66,58 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
 
   setActiveProjects() {
-    this.allActiveProjects = this.projectService.getActiveProjects().pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
+    this.allActiveProjects = this.projectService.getActiveProjects().pipe(takeUntil(this.unsubscribe$)).subscribe(activeProjects => {
+      console.log(activeProjects);
       let outputProjects = []
       let projects = []
-      outputProjects = resp;
+      outputProjects = activeProjects;
       for (let i of outputProjects)
         i && projects.push(i);
       outputProjects = projects;
+      console.log(outputProjects);
+      console.log(projects);
+      console.log(activeProjects);
       this.activeProjects = projects;
     });
-
   }
 
   setArchivedProjects() {
-
-    this.allActiveProjects = this.projectService.getArchivedProjects().pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
+    this.allActiveProjects = this.projectService.getArchivedProjects().pipe(takeUntil(this.unsubscribe$)).subscribe(archivedProjects => {
       let outputProjects = []
       let projects = []
-      outputProjects = resp;
+      outputProjects = archivedProjects;
       for (let i of outputProjects)
         i && projects.push(i);
       outputProjects = projects;
       this.inactiveProjects = projects;
     });
-
   }
 
   archiveProject($event) {
     let updatedProject: Project;
-     this.activeProjects.forEach(project => {
-       if (project.id == $event) {
-         updatedProject = project
-         updatedProject.archived = true;
-         this.projectService.updateProject(updatedProject)
-       }
-     })
-
+    this.activeProjects.forEach(project => {
+      if (project.id == $event) {
+        updatedProject = project
+        updatedProject.archived = true;
+        this.projectService.updateProject(updatedProject)
+      }
+    });
   }
 
   activateProject($event) {
     let updatedProject: Project;
-     this.inactiveProjects.forEach(project => {
-       if (project.id == $event) {
-         updatedProject = project
-         updatedProject.archived = false;
-         this.projectService.updateProject(updatedProject)
-       }
-     })
-
+    this.inactiveProjects.forEach(project => {
+      if (project.id == $event) {
+        updatedProject = project
+        updatedProject.archived = false;
+        this.projectService.updateProject(updatedProject)
+      }
+    });
   }
 
 
-  createProject($event) {
-    this.projectService.createProject($event.name, $event.description).then(id => {
+  createProject(name, description) {
+    this.projectService.createProject(name, description).then(id => {
       this.projectService.getProjectByID(id).pipe(takeUntil(this.unsubscribe$)).subscribe(project => {
         // used for clearing undefineds
         let outputMembers = []
@@ -127,7 +126,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         for (let i of outputMembers)
           i && members.push(i);
         let retrievedProject = members[0] as Project;
-        console.log(retrievedProject);
 
         this.userService.getUserByID(this.authService.getUserID()).pipe(takeUntil(this.unsubscribe$)).subscribe(user => {
           // used for clearing undefineds
@@ -137,13 +135,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
           for (let i of outputMembers)
             i && members.push(i);
           let retrievedUser = members[0] as User;
-          console.log(retrievedUser);
 
-          this.projectUserService.createProjectUser(retrievedProject, retrievedUser, "owner");
+          this.projectUserService.createProjectUser(retrievedProject.id, retrievedUser.id, "owner");
         });
       });
     });
-    this.closeCreateModal();
   }
 
 }

@@ -47,7 +47,7 @@
         <div class="content is-medium">
           <h3 class="title is-3 text-white">{{project?.name}} </h3>
           <button class="button is-link is-pulled-right" (click)="openAddModal()">Add Member to Project</button>
-          <app-members [members]="projectMembers"></app-members>
+          <app-members [members]="projectMembers" [roles]="projectMemberRoles"></app-members>
           </div>
       </div>
     </div>

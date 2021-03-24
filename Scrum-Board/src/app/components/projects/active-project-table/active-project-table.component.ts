@@ -26,7 +26,6 @@ export class ActiveProjectTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
   }
 
   openEditModal(activeProject) {
