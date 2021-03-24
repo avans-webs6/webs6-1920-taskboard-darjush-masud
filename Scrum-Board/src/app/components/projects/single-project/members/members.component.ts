@@ -10,9 +10,13 @@ export class MembersComponent implements OnInit {
 
   @Input()
   public members: [User];
+  @Input()
+  public roles: [string?];
+
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
   openEditModal(member) {

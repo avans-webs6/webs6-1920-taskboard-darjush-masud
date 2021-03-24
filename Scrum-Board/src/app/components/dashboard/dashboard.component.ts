@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public userName: String;
   public projects$: Observable<Project[]>;
   public activeProjects = [];
-  public inActiveProjects = [];
+  public inactiveProjects = [];
   public showModal: boolean = false;
   public allActiveProjects: Subscription;
   private unsubscribe$ = new Subject<void>();
@@ -49,7 +49,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   openCreateModal() {
     const createdialog = this.dialog.open(CreateProjectModalComponent, {
-      
+
     });
 
     createdialog.afterClosed().subscribe(
@@ -86,7 +86,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       for (let i of outputProjects)
         i && projects.push(i);
       outputProjects = projects;
-      this.inActiveProjects = projects;
+      this.inactiveProjects = projects;
     });
 
   }
@@ -105,7 +105,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   activateProject($event) {
     let updatedProject: Project;
-     this.inActiveProjects.forEach(project => {
+     this.inactiveProjects.forEach(project => {
        if (project.id == $event) {
          updatedProject = project
          updatedProject.archived = false;

@@ -2,14 +2,16 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Role</th>
       <th></th>
       <th></th>
       <th colspan="2" class="is-centered">Actions</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let member of members">
+    <tr *ngFor="let member of members; index as i">
       <td>{{member}}</td>
+      <td>{{roles[i]}}</td>
       <td></td>
       <td></td>
       <td>

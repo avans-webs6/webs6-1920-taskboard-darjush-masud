@@ -19,13 +19,14 @@ export class ProjectComponent implements OnInit {
   public projectMemberIds: [string?] = []
   public projectMembers: [string?] = []
   public canBeAddedMembers: any[]
+  public memberRoles: [string?] = []
   public showModal: boolean = false;
   private unsubscribe$ = new Subject<void>();
   private projectID: string;
 
 
   constructor(private router: ActivatedRoute, private projectService: ProjectService,
-    public authService: AuthenticationService, private userService: UserService,public dialog: MatDialog) { }
+    public authService: AuthenticationService, private userService: UserService, public dialog: MatDialog) { }
 
 
   ngOnInit(): void {
@@ -53,6 +54,13 @@ export class ProjectComponent implements OnInit {
 
           thisClass.projectMemberIds.push(members[0].id);
           thisClass.projectMembers.push(members[0].name);
+
+          // CHANGE AT A LATER DATE! WORKS, BUT NOT AMAZINGLY!
+          if (thisClass.project.owner == members[0].id) {
+            thisClass.memberRoles.push("Owner");
+          } else {
+            thisClass.memberRoles.push("Developer");
+          }
 
           this.userService.getNotYetJoinedMembers(this.projectMemberIds).pipe(takeUntil(this.unsubscribe$)).subscribe(memberArray => {
             // used for clearing undefineds
