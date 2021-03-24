@@ -11,6 +11,9 @@ export class UserService {
   constructor(private _fireStore: AngularFirestore) { }
 
 
+
+
+
   getUserByID(id: string) {
     return this._fireStore.collection<User>('users')
       .snapshotChanges()
@@ -26,7 +29,7 @@ export class UserService {
   }
 
 
-  getNotYetJoinedMembers(toBeExcludedMembers: [string?]) {
+   getNotYetJoinedMembers(toBeExcludedMembers: [string?]) {
     return this._fireStore.collection<User>('users')
     .snapshotChanges()
     .pipe(map((members: any[]) => {

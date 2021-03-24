@@ -3,7 +3,6 @@ import { ProjectService } from 'src/app/services/project.service';
 import { Project } from 'src/app/models/project';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
-import { ProjectUserService } from "src/app/services/projectuser.service";
 import { MatDialog } from '@angular/material/dialog';
 import { EditprojectmodalComponent } from '../../modals/editprojectmodal/editprojectmodal.component';
 
@@ -21,7 +20,7 @@ export class ActiveProjectTableComponent implements OnInit {
 
   public showModal: boolean = false;
 
-  constructor(private router: Router,private projectService: ProjectService, public userService: UserService, private projectUserService: ProjectUserService, public dialog: MatDialog) {
+  constructor(private router: Router,private projectService: ProjectService, public userService: UserService,public dialog: MatDialog) {
 
   }
 
@@ -47,7 +46,9 @@ export class ActiveProjectTableComponent implements OnInit {
 
   editProject($event){
 
+
   }
+
 
   archiveProject(id: string){
     this.onArchive.emit(id);

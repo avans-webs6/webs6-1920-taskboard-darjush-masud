@@ -6,6 +6,7 @@
       <th>Name</th>
       <th>Description</th>
       <th>Owner</th>
+      <th>Members</th>
       <th colspan="2" class="is-centered">Actions</th>
     </tr>
   </thead>
@@ -14,6 +15,7 @@
       <td>{{activeProject.name}}</td>
       <td>{{activeProject.description}}</td>
       <td>{{activeProject.ownerName}}</td>
+      <td>{{activeProject.members.length}}</td>
       <td>
         <div class="buttons has-addons">
           <button class="button is-primary card-footer-item" (click)="navigateToProject(activeProject.id)">View</button>
