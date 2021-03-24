@@ -46,10 +46,15 @@
       <div class="column is-9">
         <div class="content is-medium">
           <h3 class="title is-3 text-white">Project: {{project?.name}} </h3>
-          <button class="button is-link is-pulled-right" (click)="openAddModal()">Add Member to Project</button>
+          <button class="button is-link is-pulled-right" (click)="openAddMemberModal()">Add Member to Project</button>
           <app-members [members]="projectMembers" [roles]="memberRoles"></app-members>
-          </div>
+          <button class="button is-link is-pulled-right" (click)="openAddUserStoryModal()">Add User Story</button>
+          <app-active-user-stories-table [activeUserStories]="activeUserStories" (onArchive)="archiveUserStory($event)"></app-active-user-stories-table>
+          <app-archived-user-stories-table [archivedUserStories]="archivedUserStories" (onActivate)="activateUserStory($event)"></app-archived-user-stories-table>
+        </div>
       </div>
+
+      
     </div>
   </div>
 </section>

@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { UserStoryService } from 'src/app/services/userstory.service';
 import { UserService } from 'src/app/services/user.service';
 import { EdituserstorymodalComponent } from 'src/app/components/modals/edituserstorymodal/edituserstorymodal.component';
+import { Subject, Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-active-user-stories-table',
@@ -12,14 +14,17 @@ import { EdituserstorymodalComponent } from 'src/app/components/modals/editusers
   styleUrls: ['./active-user-stories-table.component.sass']
 })
 export class ActiveUserStoriesTableComponent implements OnInit {
-  @Input()
-  public activeUserStories: [UserStory];
+
 
   @Output()
   onArchive = new EventEmitter();
 
   public showModal: boolean = false;
+ 
+  private unsubscribe$ = new Subject<void>();
 
+  @Input()
+  public activeUserStories: [];
   constructor(private router: Router, private userStoryService: UserStoryService, public userService: UserService, public dialog: MatDialog) {
 
   }
@@ -29,12 +34,12 @@ export class ActiveUserStoriesTableComponent implements OnInit {
   }
 
   openEditModal(activeUserStory) {
-   const editdialog =  this.dialog.open(EdituserstorymodalComponent, {
+    const editdialog = this.dialog.open(EdituserstorymodalComponent, {
       data: activeUserStory
     });
 
     editdialog.afterClosed().subscribe(result => {
-      if(result.event == 'edit'){
+      if (result.event == 'edit') {
         this.userStoryService.updateUserStory(result.data);
       }
     });
@@ -52,8 +57,14 @@ export class ActiveUserStoriesTableComponent implements OnInit {
     this.onArchive.emit(id);
   }
 
-  navigateToUserStory(id){
+  navigateToUserStory(id) {
     this.router.navigate([`userstory/${id}`]);
   }
+
+ 
+
+
+
+
 
 }

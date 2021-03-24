@@ -5,9 +5,12 @@ import { Project } from 'src/app/models/project';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { UserService } from 'src/app/services/user.service';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { AddmembermodalComponent } from 'src/app/components/modals/addmembermodal/addmembermodal.component';
+import { AdduserstorymodalComponent } from 'src/app/components/modals/adduserstorymodal/adduserstorymodal.component';
+import { UserStoryService } from 'src/app/services/userstory.service';
+import { UserStory } from 'src/app/models/userstory';
 
 @Component({
   selector: 'app-project',
@@ -23,10 +26,13 @@ export class ProjectComponent implements OnInit {
   public showModal: boolean = false;
   private unsubscribe$ = new Subject<void>();
   private projectID: string;
+  public activeUserStories = [];
+  public archivedUserStories = [];
+  public allActiveUserStories: Subscription;
 
 
   constructor(private router: ActivatedRoute, private projectService: ProjectService,
-    public authService: AuthenticationService, private userService: UserService, public dialog: MatDialog) { }
+    public authService: AuthenticationService, private userStoryService: UserStoryService, private userService: UserService, public dialog: MatDialog, private userstoryService: UserStoryService) { }
 
 
   ngOnInit(): void {
@@ -76,7 +82,8 @@ export class ProjectComponent implements OnInit {
       });
     });
 
-
+    this.setActiveUserStories();
+    this.setArchivedUserStories();
   }
 
 
@@ -86,7 +93,7 @@ export class ProjectComponent implements OnInit {
     this.showModal = false;
   }
 
-  openAddModal() {
+  openAddMemberModal() {
     const adddialog = this.dialog.open(AddmembermodalComponent, {
       data: this.canBeAddedMembers
     });
@@ -103,6 +110,48 @@ export class ProjectComponent implements OnInit {
      )
   }
 
+  openAddUserStoryModal() {
+    const adddialog = this.dialog.open(AdduserstorymodalComponent, {
+      data: null
+    });
+
+    adddialog.afterClosed().subscribe(
+      result => {
+        if (result.event == 'create')
+        {
+        this.userstoryService.createUserStory(result.data.name, result.data.description,result.data.status,result.data.storypoints);
+        }
+      }
+     )
+  }
+
+  archiveUserStory($event) {
+    let updatedUserStory: UserStory;
+    this.activeUserStories.forEach(userStory => {
+      if (userStory.id == $event) {
+        updatedUserStory = userStory
+        updatedUserStory.archived = true;
+        this.userStoryService.updateUserStory(updatedUserStory)
+      }
+    })
+
+  }
+
+  activateUserStory($event) {
+   
+    let updatedUserStory: UserStory;
+     this.archivedUserStories.forEach(userStory => {
+       if (userStory.id == $event) {
+        updatedUserStory = userStory
+        updatedUserStory.archived = false;
+         this.userStoryService.updateUserStory(updatedUserStory)
+       }
+     })
+
+  }
+  
+
+
   addMember($event) {
     this.project.members.push($event);
     this.project.id = this.projectID;
@@ -113,6 +162,31 @@ export class ProjectComponent implements OnInit {
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+
+  setActiveUserStories() {
+    this.allActiveUserStories = this.userStoryService.getActiveUserStory().pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
+      let outputUserStories = []
+      let userStories = []
+      outputUserStories = resp;
+      for (let i of outputUserStories)
+        i && userStories.push(i);
+      outputUserStories = userStories;
+      this.activeUserStories = userStories;
+    });
+  }
+
+
+  setArchivedUserStories() {
+    this.allActiveUserStories = this.userStoryService.getArchivedUserStories().pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
+      let outputUserStories = []
+      let userStories = []
+      outputUserStories = resp;
+      for (let i of outputUserStories)
+        i && userStories.push(i);
+      outputUserStories = userStories;
+      this.archivedUserStories = userStories;
+    });
   }
 
 }

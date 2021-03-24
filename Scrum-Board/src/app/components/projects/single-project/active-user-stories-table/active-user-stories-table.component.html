@@ -1,30 +1,38 @@
-<app-editprojectmodal *ngIf="showModal" (onClose)="closeEditModal()" (onCreate)="editUserStory($event)"></app-editprojectmodal>
+<div class="mt-10"> 
+  <h3 class="title is-3 text-white">Active User Stories</h3>
 
-<table class="table bg-indianred">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Status</th>
-      <th>Story-Points</th>
-      <th>Owner</th>
-      <th colspan="2" class="is-centered">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let activeUserStory of activeUserStories">
-      <td>{{activeUserStory.name}}</td>
-      <td>{{activeUserStory.description}}</td>
-      <td>{{activeUserStory.status}}</td>
-      <td>{{activeUserStory.storypoints}}</td>
-      <td>{{activeUserStory.ownerName}}</td>
-      <td>
-        <div class="buttons has-addons">
-          <button class="button is-primary card-footer-item" (click)="navigateToUserStory(activeUserStory.id)">View</button>
-          <button class="button is-info card-footer-item"(click)="openEditModal(activeUserStory)">Edit</button>
-          <button class="button is-warning card-footer-item" (click)="archiveUserStory(activeUserStory.id)">Archive</button>
-        </div>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <app-editprojectmodal *ngIf="showModal" (onClose)="closeEditModal()" (onCreate)="editUserStory($event)">
+  </app-editprojectmodal>
+
+  <table class="table bg-indianred">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Story-Points</th>
+        <th>Owner</th>
+        <th colspan="2" class="is-centered">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let activeUserStory of activeUserStories">
+        <td>{{activeUserStory.name}}</td>
+        <td>{{activeUserStory.description}}</td>
+        <td>{{activeUserStory.status}}</td>
+        <td>{{activeUserStory.storypoints}}</td>
+        <td>{{activeUserStory.ownerName}}</td>
+        <td>
+          <div class="buttons has-addons">
+            <button class="button is-primary card-footer-item"
+              (click)="navigateToUserStory(activeUserStory.id)">View</button>
+            <button class="button is-info card-footer-item" (click)="openEditModal(activeUserStory)">Edit</button>
+            <button class="button is-warning card-footer-item"
+              (click)="archiveUserStory(activeUserStory.id)">Archive</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

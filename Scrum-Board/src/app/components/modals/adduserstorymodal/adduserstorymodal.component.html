@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>Create Project</h2>
+<mat-dialog-content class="mat-typography">
+  <section class="modal-card-body">
+    <div class="field">
+      <label class="label">Enter your user story name</label>
+      <div class="control">
+        <input class="input" [(ngModel)]="name" type="text" placeholder="User story name">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Enter your user story description</label>
+      <div class="control">
+        <input class="input" [(ngModel)]="description" type="text" placeholder="User story description">
+      </div>
+    </div>
+    <div class="field">
+        <label class="label">Enter your user story status</label>
+        <div class="control">
+          <input class="input" [(ngModel)]="status" type="text" placeholder="User story status">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Enter your user story storypoints</label>
+        <div class="control">
+          <input class="input" [(ngModel)]="storypoints" type="text" placeholder="User story storypoints">
+        </div>
+      </div>
+  </section>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="true"  cdkFocusInitial>Close</button>
+    <button mat-flat-button color="primary" (click)="createUserStory()">Save</button>
+</mat-dialog-actions>

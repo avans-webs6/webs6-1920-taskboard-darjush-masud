@@ -27,6 +27,7 @@ import { ActiveUserStoriesTableComponent } from './components/projects/single-pr
 import { ArchivedUserStoriesTableComponent } from './components/projects/single-project/archived-user-stories-table/archived-user-stories-table.component';
 import { CreateuserstorymodalComponent } from './components/modals/createuserstorymodal/createuserstorymodal.component';
 import { EdituserstorymodalComponent } from './components/modals/edituserstorymodal/edituserstorymodal.component';
+import { AdduserstorymodalComponent } from './components/modals/adduserstorymodal/adduserstorymodal.component';
 
 
 
@@ -49,6 +50,7 @@ import { EdituserstorymodalComponent } from './components/modals/edituserstorymo
     ArchivedUserStoriesTableComponent,
     CreateuserstorymodalComponent,
     EdituserstorymodalComponent,
+    AdduserstorymodalComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
