@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ProjectService } from 'src/app/services/project.service';
 import { Project } from 'src/app/models/project';
-import { User } from "src/app/models/user";
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { UserService } from 'src/app/services/user.service';
-import { ProjectService } from 'src/app/services/project.service';
-import { ProjectUserService } from "src/app/services/projectuser.service";
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -20,7 +18,6 @@ export class ProjectComponent implements OnInit {
   public project: Project;
   public projectMemberIds: [string?] = []
   public projectMembers: [string?] = []
-  public projectMemberRoles: [string?] = []
   public canBeAddedMembers: any[]
   public showModal: boolean = false;
   private unsubscribe$ = new Subject<void>();
@@ -28,13 +25,54 @@ export class ProjectComponent implements OnInit {
 
 
   constructor(private router: ActivatedRoute, private projectService: ProjectService,
-    public authService: AuthenticationService, private userService: UserService, private projectUserService: ProjectUserService, public dialog: MatDialog) { }
+    public authService: AuthenticationService, private userService: UserService,public dialog: MatDialog) { }
 
 
   ngOnInit(): void {
     this.projectID = this.router.snapshot.paramMap.get('id');
-    this.retrieveMembers(this.projectID);
+    let thisClass = this;
+    this.projectService.getProjectByID(this.projectID).pipe(takeUntil(this.unsubscribe$)).subscribe(project => {
+      // used for clearing undefineds
+      let outputMembers = []
+      let members = []
+      outputMembers = project;
+      for (let i of outputMembers)
+        i && members.push(i);
+
+      thisClass.project = members[0];
+      thisClass.projectMembers = [];
+
+      members[0].members.forEach(member => {
+        thisClass.userService.getUserByID(member).pipe(takeUntil(this.unsubscribe$)).subscribe(user => {
+          // used for clearing undefineds
+          let outputMembers = []
+          let members = []
+          outputMembers = user;
+          for (let i of outputMembers)
+            i && members.push(i);
+
+          thisClass.projectMemberIds.push(members[0].id);
+          thisClass.projectMembers.push(members[0].name);
+
+          this.userService.getNotYetJoinedMembers(this.projectMemberIds).pipe(takeUntil(this.unsubscribe$)).subscribe(memberArray => {
+            // used for clearing undefineds
+            let outputMembers = []
+            let members = []
+            outputMembers = memberArray;
+            for (let i of outputMembers)
+              i && members.push(i);
+
+            this.canBeAddedMembers = members;
+          });
+        });
+      });
+    });
+
+
   }
+
+
+
 
   closeModal() {
     this.showModal = false;
@@ -49,87 +87,19 @@ export class ProjectComponent implements OnInit {
       result => {
         if (result.event == 'create')
         {
-          let newUserId = result.data.name;
-          if (newUserId != "")
-            this.addMember(newUserId);
+          this.project.members.push(result.data.name);
+          this.project.id = this.projectID;
+          this.projectService.updateProject(this.project);
         }
       }
      )
   }
 
   addMember($event) {
-    this.projectService.getProjectByID(this.projectID).pipe(takeUntil(this.unsubscribe$)).subscribe(project => {
-      // used for clearing undefineds
-      let retrieved = []
-      let final = []
-      retrieved = project;
-      for (let i of retrieved)
-        i && final.push(i);
-      let retrievedProject = final[0] as Project;
-
-      this.userService.getUserByID($event).pipe(takeUntil(this.unsubscribe$)).subscribe(user => {
-        // used for clearing undefineds
-        let retrieved = []
-        let final = []
-        retrieved = user;
-        for (let i of retrieved)
-          i && final.push(i);
-        let retrievedUser = final[0] as User;
-
-        this.projectUserService.createProjectUser(retrievedProject.id, retrievedUser.id, "developer");
-      });
-    });
+    this.project.members.push($event);
+    this.project.id = this.projectID;
+    this.projectService.updateProject(this.project);
     this.closeModal();
-  }
-
-  retrieveMembers(projectId: string) {
-    let thisClass = this;
-    this.projectService.getProjectByID(projectId).pipe(takeUntil(this.unsubscribe$)).subscribe(project => {
-      // used for clearing undefineds
-      let retrieved = []
-      let final = []
-      retrieved = project;
-      for (let i of retrieved)
-        i && final.push(i);
-
-      thisClass.project = final[0];
-      thisClass.projectMembers = [];
-
-      this.projectUserService.getProjectUsersByProjectId(projectId).pipe(takeUntil(this.unsubscribe$)).subscribe(projectUsers => {
-        // used for clearing undefineds
-        let retrieved = []
-        let final = []
-        retrieved = projectUsers;
-        for (let i of retrieved)
-          i && final.push(i);
-
-        final.forEach(projectUser => {
-          thisClass.userService.getUserByID(projectUser.userId).pipe(takeUntil(this.unsubscribe$)).subscribe(user => {
-            // used for clearing undefineds
-            let retrieved = []
-            let final = []
-            retrieved = user;
-            for (let i of retrieved)
-              i && final.push(i);
-
-            thisClass.projectMemberIds.push(final[0].id);
-            thisClass.projectMembers.push(final[0].name);
-            thisClass.projectMemberRoles.push(projectUser.role);
-
-            this.userService.getNotYetJoinedMembers(this.projectMemberIds).pipe(takeUntil(this.unsubscribe$)).subscribe(memberArray => {
-              // used for clearing undefineds
-              let retrieved = []
-              let final = []
-              retrieved = memberArray;
-              for (let i of retrieved)
-                i && final.push(i);
-
-              this.canBeAddedMembers = final;
-            });
-          });
-        });
-      });
-    });
   }
 
   ngOnDestroy(): void {
