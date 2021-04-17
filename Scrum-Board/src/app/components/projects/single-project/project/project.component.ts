@@ -65,6 +65,7 @@ export class ProjectComponent implements OnInit {
           thisClass.fullMembers.push(members[0]);
 
           // CHANGE AT A LATER DATE! WORKS, BUT NOT AMAZINGLY!
+          console.log('this issssss', members[0].id);
           if (thisClass.project.owner == members[0].id) {
             thisClass.memberRoles.push("Owner");
           } else {
@@ -153,12 +154,7 @@ export class ProjectComponent implements OnInit {
 
   }
 
-  addMember($event) {
-    this.project.members.push($event);
-    this.project.id = this.projectID;
-    this.projectService.updateProject(this.project);
-    this.closeModal();
-  }
+ 
 
   editUserStory($event){
     console.log('finito');
@@ -183,7 +179,7 @@ export class ProjectComponent implements OnInit {
 
 
   setArchivedUserStories() {
-    this.allActiveUserStories = this.userStoryService.getArchivedUserStories().pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
+    this.allActiveUserStories = this.userStoryService.getArchivedUserStories(this.projectID).pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
       let outputUserStories = []
       let userStories = []
       outputUserStories = resp;

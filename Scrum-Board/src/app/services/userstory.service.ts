@@ -27,6 +27,23 @@ export class UserStoryService {
   }
 
 
+  
+
+
+  getUserStoryByID(id: string) {
+    return this._fireStore.collection<UserStory>('userstories')
+      .snapshotChanges()
+      .pipe(map((userstories: any[]) => {
+        return userstories.map(retrievedUserStory => {
+          if (retrievedUserStory.payload.doc.id == id)
+            return {
+              id: retrievedUserStory.payload.doc.id,
+              ...retrievedUserStory.payload.doc.data() as UserStory
+            }
+        });
+      }));
+  }
+
   getActiveUserStory(projectId) {
     return this._fireStore.collection<UserStory>('userstories')
       .snapshotChanges()
@@ -44,29 +61,13 @@ export class UserStoryService {
   }
 
 
-  getUserStoryByID(id: string) {
-    return this._fireStore.collection<UserStory>('userstories')
-      .snapshotChanges()
-      .pipe(map((userstories: any[]) => {
-        return userstories.map(retrievedUserStory => {
-          if (retrievedUserStory.payload.doc.id == id)
-            return {
-              id: retrievedUserStory.payload.doc.id,
-              ...retrievedUserStory.payload.doc.data() as UserStory
-            }
-        });
-      }));
-  }
-
-
-  getArchivedUserStories() {
+  getArchivedUserStories(projectId) {
     return this._fireStore.collection<UserStory>('userstories')
       .snapshotChanges()
       .pipe(map((userstories: any[]) => {
         return userstories.map(retrievedUserStory => {
           if (retrievedUserStory.payload.doc.data().archived &&
-          (retrievedUserStory.payload.doc.data().owner == this.authService.getUserID() ||
-          retrievedUserStory.payload.doc.data().members.includes(this.authService.getUserID())))
+          retrievedUserStory.payload.doc.data().projectId == projectId)
             return {
               id: retrievedUserStory.payload.doc.id,
               ...retrievedUserStory.payload.doc.data() as UserStory
