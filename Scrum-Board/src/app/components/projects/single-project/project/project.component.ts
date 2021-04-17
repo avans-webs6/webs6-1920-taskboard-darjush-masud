@@ -41,6 +41,7 @@ export class ProjectComponent implements OnInit {
     let thisClass = this;
     this.projectService.getProjectByID(this.projectID).pipe(takeUntil(this.unsubscribe$)).subscribe(project => {
       // used for clearing undefineds
+      this.memberRoles = []
       let outputMembers = []
       let members = []
       outputMembers = project;
@@ -59,13 +60,14 @@ export class ProjectComponent implements OnInit {
           outputMembers = user;
           for (let i of outputMembers)
             i && members.push(i);
+          
+          let currentMember = members[0]
 
           thisClass.projectMemberIds.push(members[0].id);
           thisClass.projectMembers.push(members[0].name);
           thisClass.fullMembers.push(members[0]);
 
           // CHANGE AT A LATER DATE! WORKS, BUT NOT AMAZINGLY!
-          console.log('this issssss', members[0].id);
           if (thisClass.project.owner == members[0].id) {
             thisClass.memberRoles.push("Owner");
           } else {
@@ -88,6 +90,7 @@ export class ProjectComponent implements OnInit {
 
     this.setActiveUserStories();
     this.setArchivedUserStories();
+    
   }
 
 
@@ -156,9 +159,6 @@ export class ProjectComponent implements OnInit {
 
  
 
-  editUserStory($event){
-    console.log('finito');
-  }
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
