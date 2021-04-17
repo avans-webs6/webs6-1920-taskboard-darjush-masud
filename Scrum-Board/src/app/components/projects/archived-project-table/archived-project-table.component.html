@@ -18,7 +18,7 @@
       <td></td>
       <td>
         <div class="buttons has-addons">
-          <button class="button is-success card-footer-item" (click)="activateProject(inActiveProject.id)">Activate</button>
+          <button *ngIf="inActiveProject.isOwner" class="button is-success card-footer-item" (click)="activateProject(inActiveProject.id)">Activate</button>
         </div>
   </td>
     </tr>

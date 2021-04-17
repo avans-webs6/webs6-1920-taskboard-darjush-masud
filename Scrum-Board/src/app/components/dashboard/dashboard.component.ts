@@ -25,11 +25,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   public showModal: boolean = false;
   public allActiveProjects: Subscription;
   private unsubscribe$ = new Subject<void>();
+  private userID: String;
 
 
   constructor(public authService: AuthenticationService, private projectService: ProjectService, private userService: UserService,public dialog: MatDialog) {
-
-
 
   }
 
@@ -41,6 +40,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   async ngOnInit(): Promise<void> {
     await this.setActiveProjects();
     await this.setArchivedProjects();
+    this.userID = this.authService.getUserID();
+   
+    
   }
 
   closeCreateModal() {
@@ -72,6 +74,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
       for (let i of outputProjects)
         i && projects.push(i);
       outputProjects = projects;
+      projects.forEach(project =>{
+        project.isOwner = this.authService.checkUserIdEquality(project.owner);
+    
+      });
       this.activeProjects = projects;
     });
 
@@ -86,6 +92,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
       for (let i of outputProjects)
         i && projects.push(i);
       outputProjects = projects;
+      projects.forEach(project =>{
+        project.isOwner = this.authService.checkUserIdEquality(project.owner);
+      });
       this.inactiveProjects = projects;
     });
 

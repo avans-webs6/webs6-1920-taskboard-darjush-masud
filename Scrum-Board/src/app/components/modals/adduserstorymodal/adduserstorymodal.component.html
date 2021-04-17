@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Create Project</h2>
+<h2 mat-dialog-title>Create User Story</h2>
 <mat-dialog-content class="mat-typography">
   <section class="modal-card-body">
     <div class="field">
@@ -14,20 +14,30 @@
       </div>
     </div>
     <div class="field">
-        <label class="label">Enter your user story status</label>
-        <div class="control">
-          <input class="input" [(ngModel)]="status" type="text" placeholder="User story status">
-        </div>
+      <label class="label">Enter your user story status</label>
+      <div class="control">
+        <input class="input" [(ngModel)]="status" type="text" placeholder="User story status">
       </div>
-      <div class="field">
-        <label class="label">Enter your user story storypoints</label>
-        <div class="control">
-          <input class="input" [(ngModel)]="storypoints" type="text" placeholder="User story storypoints">
-        </div>
+    </div>
+    <div class="field">
+      <label class="label">Enter your user story storypoints</label>
+      <div class="control">
+        <input class="input" [(ngModel)]="storypoints" type="text" placeholder="User story storypoints">
       </div>
+    </div>
+    <div class="field">
+      <label class="label">Assign member</label>
+      <div class="control">
+        <div class="select">
+          <select [(ngModel)]="selectedMember">
+              <option *ngFor="let member of canBeAddedMembers" [ngValue]="member">{{member.name}}</option>
+          </select>
+      </div>
+      </div>
+    </div>
   </section>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button [mat-dialog-close]="true"  cdkFocusInitial>Close</button>
-    <button mat-flat-button color="primary" (click)="createUserStory()">Save</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Close</button>
+  <button mat-flat-button color="primary" (click)="createUserStory()">Save</button>
 </mat-dialog-actions>

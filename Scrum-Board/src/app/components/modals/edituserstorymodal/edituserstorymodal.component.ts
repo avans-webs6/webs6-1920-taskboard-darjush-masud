@@ -14,6 +14,10 @@ export class EdituserstorymodalComponent implements OnInit {
   @Output()
   onCreate = new EventEmitter();
 
+
+  canBeAddedMembers: any;
+  public selectedMember;
+
   public userstory: UserStory;
   constructor(@Inject(MAT_DIALOG_DATA) public data: UserStory, public dialogRef: MatDialogRef<EdituserstorymodalComponent>) {
     this.userstory = data;
@@ -23,7 +27,7 @@ export class EdituserstorymodalComponent implements OnInit {
   }
 
 
-  editProject(){
+  editUserStory(){
     this.dialogRef.close({event: 'edit', data: this.userstory});
   }
 

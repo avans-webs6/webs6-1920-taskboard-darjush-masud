@@ -13,27 +13,27 @@ export class UserStoryService {
   constructor(private _fireStore: AngularFirestore, private authService: AuthenticationService) { }
 
 
-  createUserStory(name, description, status, storypoints) {
+  createUserStory(name, description, status, storypoints,projectID,owner,ownerName) {
     this._fireStore.collection("userstories").add({
       name: name,
       description: description,
       status: status,
       storypoints: storypoints,
-      owner: this.authService.getUserID(),
-      ownerName:this.authService.getUserName(),
+      projectId: projectID, 
+      owner: owner,
+      ownerName:ownerName,
       archived: false
     })
   }
 
 
-  getActiveUserStory() {
+  getActiveUserStory(members) {
     return this._fireStore.collection<UserStory>('userstories')
       .snapshotChanges()
       .pipe(map((userstories: any[]) => {
         return userstories.map(retrievedUserStory => {
-          if (!retrievedUserStory.payload.doc.data().archived &&
-          (retrievedUserStory.payload.doc.data().owner == this.authService.getUserID() ||
-          retrievedUserStory.payload.doc.data().members.includes(this.authService.getUserID())))
+          if (!retrievedUserStory.payload.doc.data().archived)
+      
             return {
               id: retrievedUserStory.payload.doc.id,
               ...retrievedUserStory.payload.doc.data() as UserStory

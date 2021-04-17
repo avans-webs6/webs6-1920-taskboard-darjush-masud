@@ -9,14 +9,15 @@ import { ProjectComponent } from '../../projects/single-project/project/project.
 })
 export class AddmembermodalComponent implements OnInit {
   canBeAddedMembers: any;
-
+  public selectedMember;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,public dialogRef: MatDialogRef<ProjectComponent>) { 
     this.canBeAddedMembers = data;
   }
-  public selectedMember;
+
 
   ngOnInit(): void {
+
   }
 
 

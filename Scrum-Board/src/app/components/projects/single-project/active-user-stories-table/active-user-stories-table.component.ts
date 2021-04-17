@@ -50,7 +50,7 @@ export class ActiveUserStoriesTableComponent implements OnInit {
   }
 
   editUserStory($event) {
-
+    console.log('done');
   }
 
   archiveUserStory(id: string) {

@@ -9,10 +9,12 @@ import { ProjectComponent } from '../../projects/single-project/project/project.
 })
 export class AdduserstorymodalComponent implements OnInit {
 
-
+  canBeAddedMembers: any;
+  public selectedMember;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,public dialogRef: MatDialogRef<ProjectComponent>) { 
-   
+    this.canBeAddedMembers = data;
+
   }
   public name;
   public description;
@@ -28,7 +30,9 @@ export class AdduserstorymodalComponent implements OnInit {
       name: this.name,
       description: this.description,
       status: this.status,
-      storypoints: this.storypoints
+      storypoints: this.storypoints,
+      owner: this.selectedMember.id,
+      ownerName: this.selectedMember.name
 
     };
     this.dialogRef.close({event: 'create', data: userStory});

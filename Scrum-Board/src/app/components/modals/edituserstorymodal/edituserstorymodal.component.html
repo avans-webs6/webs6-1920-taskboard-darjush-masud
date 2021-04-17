@@ -1,1 +1,28 @@
-<p>edituserstorymodal works!</p>
+<h2 mat-dialog-title>Edit User Story</h2>
+<mat-dialog-content class="mat-typography">
+    <section class="modal-card-body">
+        <div class="field">
+            <label class="label">Enter your user story name</label>
+            <div class="control">
+                <input class="input" [(ngModel)]="userstory.name" type="text" placeholder="User story name">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Enter your user story description</label>
+            <div class="control">
+                <input class="input" [(ngModel)]="userstory.description" type="text"
+                    placeholder="User story description">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Enter your user story storypoints</label>
+            <div class="control">
+                <input class="input" [(ngModel)]="userstory.storypoints" type="text"
+                    placeholder="User story storypoints">
+            </div>
+        </div>
+    </section>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-flat-button color="primary" (click)="editUserStory()">Save</button>
+</mat-dialog-actions>

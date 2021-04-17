@@ -64,6 +64,11 @@ export class AuthenticationService {
     return this.userData.uid;
   }
 
+ checkUserIdEquality(id:String){
+   return this.userData.uid == id;
+ }
+
+
   getUserName(){
     return this.userData.email.split("@")[0];
   }

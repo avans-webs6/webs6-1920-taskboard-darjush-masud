@@ -21,6 +21,7 @@ export class ProjectComponent implements OnInit {
   public project: Project;
   public projectMemberIds: [string?] = []
   public projectMembers: [string?] = []
+  public fullMembers:any[];
   public canBeAddedMembers: any[]
   public memberRoles: [string?] = []
   public showModal: boolean = false;
@@ -48,6 +49,7 @@ export class ProjectComponent implements OnInit {
 
       thisClass.project = members[0];
       thisClass.projectMembers = [];
+      thisClass.fullMembers = [];
 
       members[0].members.forEach(member => {
         thisClass.userService.getUserByID(member).pipe(takeUntil(this.unsubscribe$)).subscribe(user => {
@@ -60,6 +62,7 @@ export class ProjectComponent implements OnInit {
 
           thisClass.projectMemberIds.push(members[0].id);
           thisClass.projectMembers.push(members[0].name);
+          thisClass.fullMembers.push(members[0]);
 
           // CHANGE AT A LATER DATE! WORKS, BUT NOT AMAZINGLY!
           if (thisClass.project.owner == members[0].id) {
@@ -112,14 +115,14 @@ export class ProjectComponent implements OnInit {
 
   openAddUserStoryModal() {
     const adddialog = this.dialog.open(AdduserstorymodalComponent, {
-      data: null
+      data: this.fullMembers
     });
 
     adddialog.afterClosed().subscribe(
       result => {
         if (result.event == 'create')
         {
-        this.userstoryService.createUserStory(result.data.name, result.data.description,result.data.status,result.data.storypoints);
+        this.userstoryService.createUserStory(result.data.name, result.data.description,result.data.status,result.data.storypoints,this.projectID,result.data.owner,result.data.ownerName);
         }
       }
      )
@@ -150,7 +153,7 @@ export class ProjectComponent implements OnInit {
 
   }
   
-
+ editUser
 
   addMember($event) {
     this.project.members.push($event);
@@ -159,13 +162,17 @@ export class ProjectComponent implements OnInit {
     this.closeModal();
   }
 
+  editUserStory($event){
+    console.log('finito');
+  }
+
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
 
   setActiveUserStories() {
-    this.allActiveUserStories = this.userStoryService.getActiveUserStory().pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
+    this.allActiveUserStories = this.userStoryService.getActiveUserStory(this.projectMembers).pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
       let outputUserStories = []
       let userStories = []
       outputUserStories = resp;
