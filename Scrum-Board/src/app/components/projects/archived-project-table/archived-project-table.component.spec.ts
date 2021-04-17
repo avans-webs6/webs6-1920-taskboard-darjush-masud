@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ArchivedProjectTableComponent } from './archived-project-table.component';
 
@@ -6,7 +6,7 @@ describe('ArchivedProjectTableComponent', () => {
   let component: ArchivedProjectTableComponent;
   let fixture: ComponentFixture<ArchivedProjectTableComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ArchivedProjectTableComponent ]
     })
