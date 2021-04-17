@@ -19,7 +19,7 @@ export class UserStoryService {
       description: description,
       status: status,
       storypoints: storypoints,
-      projectId: projectID, 
+      projectId: projectID,
       owner: owner,
       ownerName:ownerName,
       archived: false
@@ -27,13 +27,14 @@ export class UserStoryService {
   }
 
 
-  getActiveUserStory(members) {
+  getActiveUserStory(projectId) {
     return this._fireStore.collection<UserStory>('userstories')
       .snapshotChanges()
       .pipe(map((userstories: any[]) => {
         return userstories.map(retrievedUserStory => {
-          if (!retrievedUserStory.payload.doc.data().archived)
-      
+          if (!retrievedUserStory.payload.doc.data().archived &&
+              retrievedUserStory.payload.doc.data().projectId == projectId)
+
             return {
               id: retrievedUserStory.payload.doc.id,
               ...retrievedUserStory.payload.doc.data() as UserStory

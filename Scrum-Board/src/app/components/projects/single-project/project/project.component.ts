@@ -141,7 +141,7 @@ export class ProjectComponent implements OnInit {
   }
 
   activateUserStory($event) {
-   
+
     let updatedUserStory: UserStory;
      this.archivedUserStories.forEach(userStory => {
        if (userStory.id == $event) {
@@ -152,8 +152,6 @@ export class ProjectComponent implements OnInit {
      })
 
   }
-  
- editUser
 
   addMember($event) {
     this.project.members.push($event);
@@ -172,7 +170,7 @@ export class ProjectComponent implements OnInit {
   }
 
   setActiveUserStories() {
-    this.allActiveUserStories = this.userStoryService.getActiveUserStory(this.projectMembers).pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
+    this.allActiveUserStories = this.userStoryService.getActiveUserStory(this.projectID).pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
       let outputUserStories = []
       let userStories = []
       outputUserStories = resp;
