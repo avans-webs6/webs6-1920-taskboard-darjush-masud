@@ -4,4 +4,5 @@ export class Sprint{
     public description: string;
     public startdate: string;
     public enddate: string;
+    public archived: boolean;
 }

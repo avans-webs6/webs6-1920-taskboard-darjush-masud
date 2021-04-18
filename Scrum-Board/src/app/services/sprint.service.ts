@@ -13,12 +13,13 @@ export class SprintService {
   constructor(private _fireStore: AngularFirestore, private authService: AuthenticationService) { }
 
 
-  createSprint(name, description, startdate,enddate) {
+  createSprint(name, description, startdate,enddate,projectID) {
     this._fireStore.collection("sprints").add({
       name: name,
       description: description,
       startdate: startdate,
       enddate: enddate,
+      projectId: projectID,
       archived: false
     })
   }

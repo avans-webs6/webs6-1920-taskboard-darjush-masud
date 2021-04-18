@@ -4,30 +4,30 @@
     <div class="field">
       <label class="label">Enter your sprint name</label>
       <div class="control">
-        <input class="input" [(ngModel)]="sprint.name" type="text" placeholder="User sprint name">
+        <input class="input" [(ngModel)]="name" type="text" placeholder="User sprint name">
       </div>
     </div>
     <div class="field">
       <label class="label">Enter your sprint description</label>
       <div class="control">
-        <input class="input" [(ngModel)]="sprint.description" type="text" placeholder="User sprint description">
+        <input class="input" [(ngModel)]="description" type="text" placeholder="User sprint description">
       </div>
     </div>
     <div class="field">
       <label class="label">Enter your startdate</label>
       <div class="control">
-        <input class="input" [(ngModel)]="sprint.startdate" type="text" placeholder="Start date">
+        <input class="input" [(ngModel)]="startdate" type="text" placeholder="Start date">
       </div>
     </div>
     <div class="field">
       <label class="label">Enter your enddate</label>
       <div class="control">
-        <input class="input" [(ngModel)]="sprint.enddate" type="text" placeholder="Enddate">
+        <input class="input" [(ngModel)]="enddate" type="text" placeholder="Enddate">
       </div>
     </div>
   </section>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Close</button>
-  <button mat-flat-button color="primary" (click)="editUserSprint()">Save</button>
+  <button mat-flat-button color="primary" (click)="createSprint()">Save</button>
 </mat-dialog-actions>

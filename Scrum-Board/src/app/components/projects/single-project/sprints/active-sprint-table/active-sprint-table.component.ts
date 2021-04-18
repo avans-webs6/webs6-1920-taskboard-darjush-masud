@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -21,14 +21,18 @@ export class ActiveSprintTableComponent implements OnInit {
  
   private unsubscribe$ = new Subject<void>();
 
+
   @Input()
-  public activeSprint: [];
+  public activeSprints = [];
+
+  public activeSprint: {};
+
   constructor(private router: Router, private sprintService: SprintService, public userService: UserService, public dialog: MatDialog) {
 
   }
 
   ngOnInit(): void {
-
+ 
   }
 
   openEditModal(activeSprint) {
@@ -47,8 +51,7 @@ export class ActiveSprintTableComponent implements OnInit {
     this.showModal = false;
   }
 
-  editUserStory($event) {
-  }
+ 
 
   archiveSprint(id: string) {
     this.onArchive.emit(id);
@@ -58,18 +61,5 @@ export class ActiveSprintTableComponent implements OnInit {
     this.router.navigate([`sprint/${id}`]);
   }
 
- 
-
-
-
-
-
-}
-function Input() {
-  throw new Error('Function not implemented.');
-}
-
-function EdituserstorymodalComponent(EdituserstorymodalComponent: any, arg1: { data: any; }) {
-  throw new Error('Function not implemented.');
 }
 

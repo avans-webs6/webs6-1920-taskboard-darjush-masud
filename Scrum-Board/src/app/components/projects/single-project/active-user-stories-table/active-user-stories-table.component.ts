@@ -28,7 +28,6 @@ export class ActiveUserStoriesTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
   }
 
   openEditModal(activeUserStory) {

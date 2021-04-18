@@ -14,16 +14,14 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>sds</td>
-                <td>sdsd</td>
-                <td>dsds</td>
-                <td>sdsd</td>
+            <tr *ngFor="let archivedSprint of archivedSprints">
+                <td>{{archivedSprint.name}}</td>
+                <td>{{archivedSprint.description}}</td>
+                <td>{{archivedSprint.startdate}}</td>
+                <td>{{archivedSprint.enddate}}</td>
                 <td>
                     <div class="buttons has-addons">
-                        <button class="button is-primary card-footer-item">View</button>
-                        <button class="button is-info card-footer-item">Edit</button>
-                        <button class="button is-warning card-footer-item">Archive</button>
+                        <button class="button is-success card-footer-item" (click)="activateSprint(archivedSprint.id)">Activate</button>
                     </div>
                 </td>
             </tr>

@@ -6,6 +6,7 @@ import { SignInComponent } from './components/authentication/sign-in/sign-in.com
 import { VerifyEmailComponent } from './components/authentication/verify-email/verify-email.component';
 import { ForgotPasswordComponent } from './components/authentication/forgot-password/forgot-password.component';
 import { ProjectComponent } from './components/projects/single-project/project/project.component';
+import { SingleSprintComponent } from './components/projects/single-project/sprints/single-sprint/single-sprint.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'verify-email', component: VerifyEmailComponent },
   { path: 'project/:id', component: ProjectComponent },
+  { path: 'sprint/:id', component: SingleSprintComponent },
 ];
 
 @NgModule({

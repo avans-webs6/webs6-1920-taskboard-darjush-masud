@@ -12,6 +12,8 @@ import { AdduserstorymodalComponent } from 'src/app/components/modals/addusersto
 import { UserStoryService } from 'src/app/services/userstory.service';
 import { UserStory } from 'src/app/models/userstory';
 import { SprintService } from 'src/app/services/sprint.service';
+import { CreatesprintmodalComponent } from 'src/app/components/modals/sprint/createsprintmodal/createsprintmodal.component';
+import { Sprint } from 'src/app/models/sprint';
 
 @Component({
   selector: 'app-project',
@@ -22,7 +24,8 @@ export class ProjectComponent implements OnInit {
   public project: Project;
   public projectMemberIds: [string?] = []
   public projectMembers: [string?] = []
-  public fullMembers:any[];
+  public fullMembers: any[];
+  public sprints: any[];
   public canBeAddedMembers: any[]
   public memberRoles: [string?] = []
   public showModal: boolean = false;
@@ -30,14 +33,14 @@ export class ProjectComponent implements OnInit {
   private projectID: string;
   public activeUserStories = [];
   public archivedUserStories = [];
-  public activeSprint = {};
+  public activeSprints = [];
   public archivedSprints = [];
   public allActiveUserStories: Subscription;
   public allActiveSprints: Subscription;
 
 
   constructor(private router: ActivatedRoute, private projectService: ProjectService,
-    public authService: AuthenticationService, private userStoryService: UserStoryService,private sprintService:SprintService, private userService: UserService, public dialog: MatDialog, private userstoryService: UserStoryService) { }
+    public authService: AuthenticationService, private userStoryService: UserStoryService, private sprintService: SprintService, private userService: UserService, public dialog: MatDialog, private userstoryService: UserStoryService) { }
 
 
   ngOnInit(): void {
@@ -64,7 +67,7 @@ export class ProjectComponent implements OnInit {
           outputMembers = user;
           for (let i of outputMembers)
             i && members.push(i);
-          
+
           let currentMember = members[0]
 
           thisClass.projectMemberIds.push(members[0].id);
@@ -94,7 +97,9 @@ export class ProjectComponent implements OnInit {
 
     this.setActiveUserStories();
     this.setArchivedUserStories();
-    
+    this.setActiveSprint();
+    this.setArchivedSprints();
+
   }
 
 
@@ -111,14 +116,13 @@ export class ProjectComponent implements OnInit {
 
     adddialog.afterClosed().subscribe(
       result => {
-        if (result.event == 'create')
-        {
+        if (result.event == 'create') {
           this.project.members.push(result.data.name);
           this.project.id = this.projectID;
           this.projectService.updateProject(this.project);
         }
       }
-     )
+    )
   }
 
   openAddUserStoryModal() {
@@ -128,12 +132,26 @@ export class ProjectComponent implements OnInit {
 
     adddialog.afterClosed().subscribe(
       result => {
-        if (result.event == 'create')
-        {
-        this.userstoryService.createUserStory(result.data.name, result.data.description,result.data.status,result.data.storypoints,this.projectID,result.data.owner,result.data.ownerName);
+        if (result.event == 'create') {
+          this.userstoryService.createUserStory(result.data.name, result.data.description, result.data.status, result.data.storypoints, this.projectID, result.data.owner, result.data.ownerName);
         }
       }
-     )
+    )
+  }
+
+
+  openAddSprintModal() {
+    const adddialog = this.dialog.open(CreatesprintmodalComponent, {
+      data: this.sprints
+    });
+
+    adddialog.afterClosed().subscribe(
+      result => {
+        if (result.event == 'create') {
+          this.sprintService.createSprint(result.data.name, result.data.description, result.data.startdate, result.data.enddate, this.projectID);
+        }
+      }
+    )
   }
 
   archiveUserStory($event) {
@@ -148,20 +166,48 @@ export class ProjectComponent implements OnInit {
 
   }
 
-  activateUserStory($event) {
-
-    let updatedUserStory: UserStory;
-     this.archivedUserStories.forEach(userStory => {
-       if (userStory.id == $event) {
-        updatedUserStory = userStory
-        updatedUserStory.archived = false;
-         this.userStoryService.updateUserStory(updatedUserStory)
-       }
-     })
+  archiveSprint($event) {
+    let updatedSprint: Sprint;
+    this.activeSprints.forEach(sprint => {
+      if (sprint.id == $event) {
+        updatedSprint = sprint
+        updatedSprint.archived = true;
+        this.sprintService.updateSprint(updatedSprint)
+      }
+    })
 
   }
 
- 
+  activateUserStory($event) {
+
+    let updatedUserStory: UserStory;
+    this.archivedUserStories.forEach(userStory => {
+      if (userStory.id == $event) {
+        updatedUserStory = userStory
+        updatedUserStory.archived = false;
+        this.userStoryService.updateUserStory(updatedUserStory)
+      }
+    })
+
+  }
+
+  activateSprint($event) {
+    let updatedSprint: Sprint;
+    if (this.activeSprints.length == 0) {
+      this.archivedSprints.forEach(sprint => {
+        if (sprint.id == $event) {
+          updatedSprint = sprint
+          updatedSprint.archived = false;
+          this.sprintService.updateSprint(updatedSprint)
+        }
+      })
+    } else {
+      alert('There is already an active sprint');
+    }
+
+  }
+
+
 
 
   ngOnDestroy(): void {
@@ -181,29 +227,30 @@ export class ProjectComponent implements OnInit {
     });
   }
 
-  setActiveSprint(){
+  setActiveSprint() {
     this.allActiveSprints = this.sprintService.getActiveSprint(this.projectID).pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
       let outputSprints = [];
       let sprints = []
       outputSprints = resp;
-      for ( let i of outputSprints)
+      for (let i of outputSprints)
         i && sprints.push(i);
       outputSprints = sprints;
-      this.activeSprint = sprints;
-      
+      this.activeSprints = sprints;
+
     });
+
   }
 
-  setArchivedSprints(){
+  setArchivedSprints() {
     this.allActiveSprints = this.sprintService.getArchivedSprints(this.projectID).pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
       let outputSprints = [];
       let sprints = []
       outputSprints = resp;
-      for ( let i of outputSprints)
+      for (let i of outputSprints)
         i && sprints.push(i);
       outputSprints = sprints;
       this.archivedSprints = sprints;
-      
+
     });
   }
 

@@ -51,8 +51,9 @@
           <button class="button is-link is-pulled-right pt-5" (click)="openAddUserStoryModal()">Add User Story</button>
           <app-active-user-stories-table [activeUserStories]="activeUserStories" (onArchive)="archiveUserStory($event)"></app-active-user-stories-table>
           <app-archived-user-stories-table [archivedUserStories]="archivedUserStories" (onActivate)="activateUserStory($event)"></app-archived-user-stories-table>
-          <app-active-sprint-table [activeSprint]="activeSprint"></app-active-sprint-table>
-          <app-archived-sprints-table [archivedSprints]="archivedSprints"></app-archived-sprints-table>
+          <button class="button is-link is-pulled-right pt-5" (click)="openAddSprintModal()">Add Sprint</button>
+          <app-active-sprint-table [activeSprints]="activeSprints" (onArchive)="archiveSprint($event)"></app-active-sprint-table>
+          <app-archived-sprints-table [archivedSprints]="archivedSprints" (onActivate)="activateSprint($event)"></app-archived-sprints-table>
 
         </div>
       </div>

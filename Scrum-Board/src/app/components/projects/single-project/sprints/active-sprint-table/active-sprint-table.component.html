@@ -14,16 +14,16 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <!-- <td>{{activeSprint.name}}</td>
+            <tr *ngFor="let activeSprint of activeSprints">
+                <td>{{activeSprint.name}}</td>
                 <td>{{activeSprint.description}}</td>
                 <td>{{activeSprint.startdate}}</td>
-                <td>{{activeSprint.enddate}}</td> -->
+                <td>{{activeSprint.enddate}}</td>
                 <td>
                     <div class="buttons has-addons">
                         <button class="button is-primary card-footer-item" (click)="navigateToSprint(activeSprint.id)">View</button>
                         <button class="button is-info card-footer-item" (click)="openEditModal(activeSprint)" >Edit</button>
-                        <button class="button is-warning card-footer-item" (click)="archiveUserSprint(activeSprint.id)">Archive</button>
+                        <button class="button is-warning card-footer-item" (click)="archiveSprint(activeSprint.id)">Archive</button>
                     </div>
                 </td>
             </tr>
