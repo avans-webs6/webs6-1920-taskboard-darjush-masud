@@ -48,9 +48,12 @@
           <h3 class="title is-3 text-white">Project: {{project?.name}} </h3>
           <button class="button is-link is-pulled-right" (click)="openAddMemberModal()">Add Member to Project</button>
           <app-members [members]="projectMembers" [roles]="memberRoles"></app-members>
-          <button class="button is-link is-pulled-right" (click)="openAddUserStoryModal()">Add User Story</button>
+          <button class="button is-link is-pulled-right pt-5" (click)="openAddUserStoryModal()">Add User Story</button>
           <app-active-user-stories-table [activeUserStories]="activeUserStories" (onArchive)="archiveUserStory($event)"></app-active-user-stories-table>
           <app-archived-user-stories-table [archivedUserStories]="archivedUserStories" (onActivate)="activateUserStory($event)"></app-archived-user-stories-table>
+          <app-active-sprint-table [activeSprint]="activeSprint"></app-active-sprint-table>
+          <app-archived-sprints-table [archivedSprints]="archivedSprints"></app-archived-sprints-table>
+
         </div>
       </div>
 

@@ -11,6 +11,7 @@ import { AddmembermodalComponent } from 'src/app/components/modals/addmembermoda
 import { AdduserstorymodalComponent } from 'src/app/components/modals/adduserstorymodal/adduserstorymodal.component';
 import { UserStoryService } from 'src/app/services/userstory.service';
 import { UserStory } from 'src/app/models/userstory';
+import { SprintService } from 'src/app/services/sprint.service';
 
 @Component({
   selector: 'app-project',
@@ -29,11 +30,14 @@ export class ProjectComponent implements OnInit {
   private projectID: string;
   public activeUserStories = [];
   public archivedUserStories = [];
+  public activeSprint = {};
+  public archivedSprints = [];
   public allActiveUserStories: Subscription;
+  public allActiveSprints: Subscription;
 
 
   constructor(private router: ActivatedRoute, private projectService: ProjectService,
-    public authService: AuthenticationService, private userStoryService: UserStoryService, private userService: UserService, public dialog: MatDialog, private userstoryService: UserStoryService) { }
+    public authService: AuthenticationService, private userStoryService: UserStoryService,private sprintService:SprintService, private userService: UserService, public dialog: MatDialog, private userstoryService: UserStoryService) { }
 
 
   ngOnInit(): void {
@@ -174,6 +178,32 @@ export class ProjectComponent implements OnInit {
         i && userStories.push(i);
       outputUserStories = userStories;
       this.activeUserStories = userStories;
+    });
+  }
+
+  setActiveSprint(){
+    this.allActiveSprints = this.sprintService.getActiveSprint(this.projectID).pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
+      let outputSprints = [];
+      let sprints = []
+      outputSprints = resp;
+      for ( let i of outputSprints)
+        i && sprints.push(i);
+      outputSprints = sprints;
+      this.activeSprint = sprints;
+      
+    });
+  }
+
+  setArchivedSprints(){
+    this.allActiveSprints = this.sprintService.getArchivedSprints(this.projectID).pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {
+      let outputSprints = [];
+      let sprints = []
+      outputSprints = resp;
+      for ( let i of outputSprints)
+        i && sprints.push(i);
+      outputSprints = sprints;
+      this.archivedSprints = sprints;
+      
     });
   }
 

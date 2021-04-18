@@ -28,6 +28,9 @@ import { ArchivedUserStoriesTableComponent } from './components/projects/single-
 import { CreateuserstorymodalComponent } from './components/modals/createuserstorymodal/createuserstorymodal.component';
 import { EdituserstorymodalComponent } from './components/modals/edituserstorymodal/edituserstorymodal.component';
 import { AdduserstorymodalComponent } from './components/modals/adduserstorymodal/adduserstorymodal.component';
+import { ActiveSprintTableComponent } from './components/projects/single-project/sprints/active-sprint-table/active-sprint-table.component';
+import { ArchivedSprintsTableComponent } from './components/projects/single-project/sprints/archived-sprints-table/archived-sprints-table.component';
+import { EditsprintmodalComponent } from './components/modals/sprint/editsprintmodal/editsprintmodal.component';
 
 
 
@@ -51,6 +54,9 @@ import { AdduserstorymodalComponent } from './components/modals/adduserstorymoda
     CreateuserstorymodalComponent,
     EdituserstorymodalComponent,
     AdduserstorymodalComponent,
+    ActiveSprintTableComponent,
+    ArchivedSprintsTableComponent,
+    EditsprintmodalComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

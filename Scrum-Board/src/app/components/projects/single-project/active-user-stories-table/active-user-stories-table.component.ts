@@ -1,12 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { UserStory } from 'src/app/models/userstory';
 import { Router } from '@angular/router';
 import { UserStoryService } from 'src/app/services/userstory.service';
 import { UserService } from 'src/app/services/user.service';
 import { EdituserstorymodalComponent } from 'src/app/components/modals/edituserstorymodal/edituserstorymodal.component';
-import { Subject, Subscription } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-active-user-stories-table',
