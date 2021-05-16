@@ -147,8 +147,12 @@ export class ProjectComponent implements OnInit {
 
     adddialog.afterClosed().subscribe(
       result => {
-        if (result.event == 'create') {
+        if (result.event == 'create' && this.activeSprints.length < 1) {
           this.sprintService.createSprint(result.data.name, result.data.description, result.data.startdate, result.data.enddate, this.projectID);
+        }
+        else if(result.event == 'create'){
+          this.sprintService.createSprint(result.data.name, result.data.description, result.data.startdate, result.data.enddate, this.projectID,true);
+
         }
       }
     )

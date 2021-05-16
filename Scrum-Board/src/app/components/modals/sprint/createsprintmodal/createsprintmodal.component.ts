@@ -19,8 +19,8 @@ export class CreatesprintmodalComponent implements OnInit {
   public startdateControl = new FormControl('');
   public enddateControl = new FormControl('');
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,public dialogRef: MatDialogRef<ProjectComponent>) { 
-  
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<ProjectComponent>) {
+
 
   }
 
@@ -28,16 +28,25 @@ export class CreatesprintmodalComponent implements OnInit {
   }
 
 
-  createSprint(){
+  createSprint() {
     let sprint = {
       name: this.name,
       description: this.description,
       startdate: this.startdateControl.value,
       enddate: this.enddateControl.value,
-  
+
 
     };
-    this.dialogRef.close({event: 'create', data: sprint});
+
+    let starttimer = this.startdateControl.value.getTime() / 1000;
+    let endtimer = this.enddateControl.value.getTime() / 1000;
+    if (starttimer > endtimer) {
+      alert('The startdate cannot be later than enddate');
+      return;
+    }
+
+
+    this.dialogRef.close({ event: 'create', data: sprint });
   }
 
 }
