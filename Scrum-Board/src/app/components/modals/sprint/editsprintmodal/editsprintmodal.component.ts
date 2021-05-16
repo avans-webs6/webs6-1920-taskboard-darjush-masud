@@ -11,26 +11,45 @@ import { Sprint } from 'src/app/models/sprint';
 export class EditsprintmodalComponent implements OnInit {
 
   public sprint: Sprint;
-  public startdateControl;
-  public enddateControl;
+  public startdateControl = new FormControl('');
+  public enddateControl = new FormControl('');
   public startdate;
   public enddate;
+  public start;
+  public end;
   constructor(@Inject(MAT_DIALOG_DATA) public data: Sprint, public dialogRef: MatDialogRef<EditsprintmodalComponent>) {
     this.sprint = data;
-    this.startdate = new Date(data.startdate);
-    this.enddate = data.enddate;
-    console.log(this.startdate);
-    console.log(this.enddate);
-    this.startdateControl = new FormControl(data.startdate);
-    this.enddateControl = new FormControl(data.enddate);
+    this.startdate = this.toDateTime(data.startdate['seconds']);
+    this.enddate =  this.toDateTime(data.enddate['seconds']);
   }
 
   ngOnInit(): void {
   }
 
+   toDateTime(secs) {
+    let t = new Date(1970, 0, 2); // Epoch
+    t.setSeconds(secs);
+    return t.toLocaleDateString('en-GB');
+}
+
 
   editUserSprint(){
-    this.dialogRef.close({event: 'edit', data: this.sprint});
+    let newSprint = {
+      id: this.sprint.id,
+      name: this.sprint.name,
+      description: this.sprint.description,
+      archived: this.sprint.archived,
+      projectId: this.sprint.projectId,
+      startdate: this.startdateControl.value,
+      enddate: this.enddateControl.value
+    }
+    let starttimer = this.startdateControl.value.getTime() / 1000;
+    let endtimer = this.enddateControl.value.getTime() / 1000;
+    if(starttimer > endtimer){
+      alert('The startdate cannot be later than enddate');
+      return;
+    }
+    this.dialogRef.close({event: 'edit', data: newSprint});
   }
 
 }

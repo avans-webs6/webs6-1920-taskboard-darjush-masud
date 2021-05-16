@@ -16,25 +16,29 @@
     <div class="field">
       <label class="label">Your old startdate</label>
       <div class="control">
-        <input class="input" [(ngModel)]="startdate" type="text">
+        <input class="input" [readonly]="true" [(ngModel)]="startdate" type="text">
       </div>
     </div>
     <div class="field">
       <label class="label">Your old enddate</label>
       <div class="control">
-        <input class="input" [(ngModel)]="enddate" type="text">
+        <input class="input" [readonly]="true" [(ngModel)]="enddate" type="text">
       </div>
     </div>
     <div class="field">
-      <label class="label">Enter your startdate</label>
+      <label class="label">Enter your new startdate</label>
       <div class="control">
-        <input class="input" [(ngModel)]="sprint.startdate" type="text" placeholder="Start date">
+        <input matInput [matDatepicker]="start" [formControl]="startdateControl">
+        <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
+        <mat-datepicker #start></mat-datepicker>
       </div>
     </div>
     <div class="field">
-      <label class="label">Enter your enddate</label>
+      <label class="label">Enter your new enddate</label>
       <div class="control">
-        <input class="input" [(ngModel)]="sprint.enddate" type="text" placeholder="Enddate">
+        <input matInput [matDatepicker]="end" [formControl]="enddateControl">
+        <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
+        <mat-datepicker #end></mat-datepicker>
       </div>
     </div>
   </section>
