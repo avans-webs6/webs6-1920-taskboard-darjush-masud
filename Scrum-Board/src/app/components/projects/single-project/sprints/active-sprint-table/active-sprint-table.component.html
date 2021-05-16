@@ -17,8 +17,8 @@
             <tr *ngFor="let activeSprint of activeSprints">
                 <td>{{activeSprint.name}}</td>
                 <td>{{activeSprint.description}}</td>
-                <td>{{activeSprint.startdate}}</td>
-                <td>{{activeSprint.enddate}}</td>
+                <td>{{activeSprint.startdate?.toDate()  | date}}</td>
+                <td>{{activeSprint.enddate?.toDate()  | date}}</td>
                 <td>
                     <div class="buttons has-addons">
                         <button class="button is-primary card-footer-item" (click)="navigateToSprint(activeSprint.id)">View</button>

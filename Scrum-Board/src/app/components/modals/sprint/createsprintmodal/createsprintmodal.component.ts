@@ -1,5 +1,6 @@
 import { Inject } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProjectComponent } from 'src/app/components/projects/single-project/project/project.component';
 
@@ -14,7 +15,9 @@ export class CreatesprintmodalComponent implements OnInit {
   public description;
   public startdate;
   public enddate;
-
+  public picker;
+  public startdateControl = new FormControl('');
+  public enddateControl = new FormControl('');
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,public dialogRef: MatDialogRef<ProjectComponent>) { 
   
@@ -29,13 +32,12 @@ export class CreatesprintmodalComponent implements OnInit {
     let sprint = {
       name: this.name,
       description: this.description,
-      startdate: this.startdate,
-      enddate: this.enddate,
+      startdate: this.startdateControl.value,
+      enddate: this.enddateControl.value,
   
 
     };
     this.dialogRef.close({event: 'create', data: sprint});
-
   }
 
 }

@@ -17,8 +17,8 @@
             <tr *ngFor="let archivedSprint of archivedSprints">
                 <td>{{archivedSprint.name}}</td>
                 <td>{{archivedSprint.description}}</td>
-                <td>{{archivedSprint.startdate}}</td>
-                <td>{{archivedSprint.enddate}}</td>
+                <td>{{archivedSprint.startdate?.toDate()  | date}}</td>
+                <td>{{archivedSprint.enddate?.toDate()  | date}}</td>
                 <td>
                     <div class="buttons has-addons">
                         <button class="button is-success card-footer-item" (click)="activateSprint(archivedSprint.id)">Activate</button>

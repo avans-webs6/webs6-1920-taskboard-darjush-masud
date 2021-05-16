@@ -16,13 +16,17 @@
     <div class="field">
       <label class="label">Enter your startdate</label>
       <div class="control">
-        <input class="input" [(ngModel)]="startdate" type="text" placeholder="Start date">
+        <input matInput [matDatepicker]="startdate" [formControl]="startdateControl">
+        <mat-datepicker-toggle matSuffix [for]="startdate"></mat-datepicker-toggle>
+        <mat-datepicker #startdate></mat-datepicker>
       </div>
     </div>
     <div class="field">
       <label class="label">Enter your enddate</label>
       <div class="control">
-        <input class="input" [(ngModel)]="enddate" type="text" placeholder="Enddate">
+        <input matInput [matDatepicker]="enddate" [formControl]="enddateControl">
+        <mat-datepicker-toggle matSuffix [for]="enddate"></mat-datepicker-toggle>
+        <mat-datepicker #enddate></mat-datepicker>
       </div>
     </div>
   </section>

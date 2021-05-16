@@ -33,6 +33,9 @@ import { ArchivedSprintsTableComponent } from './components/projects/single-proj
 import { EditsprintmodalComponent } from './components/modals/sprint/editsprintmodal/editsprintmodal.component';
 import { CreatesprintmodalComponent } from './components/modals/sprint/createsprintmodal/createsprintmodal.component';
 import { SingleSprintComponent } from './components/projects/single-project/sprints/single-sprint/single-sprint.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { ReactiveFormsModule} from '@angular/forms';
 
 
 
@@ -70,7 +73,11 @@ import { SingleSprintComponent } from './components/projects/single-project/spri
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [AuthenticationService],
   bootstrap: [AppComponent]
