@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { UserStory } from 'src/app/models/userstory';
 import { map } from 'rxjs/operators';
 import { AuthenticationService } from './authentication.service';
+import { Sprint } from '../models/sprint';
 
 @Injectable({
   providedIn: 'root'
@@ -26,10 +27,6 @@ export class UserStoryService {
     })
   }
 
-
-  
-
-
   getUserStoryByID(id: string) {
     return this._fireStore.collection<UserStory>('userstories')
       .snapshotChanges()
@@ -51,6 +48,24 @@ export class UserStoryService {
         return userstories.map(retrievedUserStory => {
           if (!retrievedUserStory.payload.doc.data().archived &&
               retrievedUserStory.payload.doc.data().projectId == projectId)
+
+            return {
+              id: retrievedUserStory.payload.doc.id,
+              ...retrievedUserStory.payload.doc.data() as UserStory
+            }
+        });
+      }));
+  }
+
+
+  getUnassignedUserStory(sprint: Sprint) {
+    return this._fireStore.collection<UserStory>('userstories')
+      .snapshotChanges()
+      .pipe(map((userstories: any[]) => {
+        return userstories.map(retrievedUserStory => {
+          if (!retrievedUserStory.payload.doc.data().archived &&
+              !sprint.userstories.includes(retrievedUserStory.payload.doc.data().id) &&
+              retrievedUserStory.payload.doc.data().projectId == sprint.projectId)
 
             return {
               id: retrievedUserStory.payload.doc.id,

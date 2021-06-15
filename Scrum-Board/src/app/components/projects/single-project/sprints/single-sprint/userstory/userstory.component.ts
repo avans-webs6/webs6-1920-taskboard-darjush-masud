@@ -10,12 +10,11 @@ import { UserStoryService } from 'src/app/services/userstory.service';
 export class UserstoryComponent implements OnInit {
 
   @Input()
-  public userStories = [];
-  public userStoryArray = [];
+  public userStories = [UserStory];
   constructor(private userstoryService: UserStoryService) { }
 
   ngOnInit(): void {
-
+    console.log(this.userStories);
   }
 
 }

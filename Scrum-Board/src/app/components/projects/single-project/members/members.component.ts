@@ -23,10 +23,4 @@ export class MembersComponent implements OnInit {
 
   }
 
-  removeMember(id) {
-    if (id) {
-
-    }
-  }
-
 }

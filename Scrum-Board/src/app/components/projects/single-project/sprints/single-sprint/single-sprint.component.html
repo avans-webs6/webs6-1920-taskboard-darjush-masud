@@ -24,7 +24,7 @@
             </div>
             <!-- Show user data when logged in -->
             <div class="row" *ngIf="authService.userData as user">
-  
+
               <p>Username: <strong>{{(user.displayName) ? user.displayName : user.email.split("@")[0]}}</strong></p>
               <p>Email: <strong>{{user.email}}</strong></p>
             </div>
@@ -38,11 +38,11 @@
             </ul>
           </aside>
         </div>
-  
-  
-  
-  
-  
+
+
+
+
+
         <div class="column is-9">
           <div class="content is-medium">
             <h3 class="title is-3 text-white">Sprint: {{sprint?.name}}</h3>
@@ -50,8 +50,8 @@
             <app-userstory [userStories]="sprintUserStories"></app-userstory>
           </div>
         </div>
-  
-        
+
+
       </div>
     </div>
   </section>

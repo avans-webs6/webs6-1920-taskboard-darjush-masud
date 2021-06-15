@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AdduserstorytosprintmodalComponent } from 'src/app/components/modals/sprint/adduserstorytosprintmodal/adduserstorytosprintmodal.component';
 import { Sprint } from 'src/app/models/sprint';
+import { UserStory } from 'src/app/models/userstory';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { SprintService } from 'src/app/services/sprint.service';
 import { UserStoryService } from 'src/app/services/userstory.service';
@@ -20,7 +21,7 @@ export class SingleSprintComponent implements OnInit {
   public sprint: Sprint;
   public canBeAddedUserstories: any[]
   private unsubscribe$ = new Subject<void>();
-  public sprintUserStories:[string?] = []
+  public sprintUserStories: any[]
   constructor(private router: ActivatedRoute, private userstoryService: UserStoryService, public dialog: MatDialog, public authService: AuthenticationService, private sprintService: SprintService) { }
 
   ngOnInit(): void {
@@ -34,32 +35,33 @@ export class SingleSprintComponent implements OnInit {
         i && sprints.push(i);
 
       thisClass.sprint = sprints[0];
-      //console.log(thisClass.sprint);
+      console.log(thisClass.sprint);
 
-      this.userstoryService.getActiveUserStory(this.sprint.projectId).pipe(takeUntil(this.unsubscribe$)).subscribe(userstory => {
+      this.userstoryService.getUnassignedUserStory(this.sprint).pipe(takeUntil(this.unsubscribe$)).subscribe(userstory => {
         let outputUserstory = []
         let userstories = []
         outputUserstory = userstory;
         for (let i of outputUserstory) {
           i && userstories.push(i);
+          console.log(i);
         }
 
         this.canBeAddedUserstories = userstories;
-        console.log('canbeadded ',this.canBeAddedUserstories);
 
-        // let userstoriesArray = [];
-        // this.userStories.forEach(userstory =>{
-        //   userstoriesArray.push(this.userstoryService.getUserStoryByID(userstory));
-        //   console.log('my user story: ',userstory);
-        // });
-        // this.userStoryArray = userstoriesArray;
-        // console.log(this.userStoryArray);
+        let userstoriesArray = [];
+        console.log(this.sprint.userstories);
+        this.sprint.userstories.forEach(userstoryId => {
+          this.userstoryService.getUserStoryByID(userstoryId).pipe(takeUntil(this.unsubscribe$)).subscribe(userstory => {
+            let retrievedUserstory = userstory[0];
+            userstoriesArray.push(retrievedUserstory);
+            console.log('my user story: ', retrievedUserstory);
+          });
+
+        });
+        this.sprintUserStories = userstoriesArray;
+        console.log(this.sprintUserStories);
       });
     });
-
-
-
-
   }
 
 
