@@ -35,7 +35,6 @@ export class SingleSprintComponent implements OnInit {
         i && sprints.push(i);
 
       thisClass.sprint = sprints[0];
-      console.log(thisClass.sprint);
 
       this.userstoryService.getUnassignedUserStory(this.sprint).pipe(takeUntil(this.unsubscribe$)).subscribe(userstory => {
         let outputUserstory = []
@@ -43,23 +42,19 @@ export class SingleSprintComponent implements OnInit {
         outputUserstory = userstory;
         for (let i of outputUserstory) {
           i && userstories.push(i);
-          console.log(i);
         }
 
         this.canBeAddedUserstories = userstories;
 
         let userstoriesArray = [];
-        console.log(this.sprint.userstories);
         this.sprint.userstories.forEach(userstoryId => {
           this.userstoryService.getUserStoryByID(userstoryId).pipe(takeUntil(this.unsubscribe$)).subscribe(userstory => {
             let retrievedUserstory = userstory[0];
             userstoriesArray.push(retrievedUserstory);
-            console.log('my user story: ', retrievedUserstory);
           });
 
         });
         this.sprintUserStories = userstoriesArray;
-        console.log(this.sprintUserStories);
       });
     });
   }

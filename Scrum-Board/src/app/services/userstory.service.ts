@@ -64,7 +64,7 @@ export class UserStoryService {
       .pipe(map((userstories: any[]) => {
         return userstories.map(retrievedUserStory => {
           if (!retrievedUserStory.payload.doc.data().archived &&
-              !sprint.userstories.includes(retrievedUserStory.payload.doc.data().id) &&
+              !sprint.userstories.includes(retrievedUserStory.payload.doc.id) &&
               retrievedUserStory.payload.doc.data().projectId == sprint.projectId)
 
             return {
