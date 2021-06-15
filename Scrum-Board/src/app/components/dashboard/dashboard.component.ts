@@ -1,10 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { User } from 'src/app/models/user';
 import { Observable, Subscription, Subject } from 'rxjs';
 import { Project } from 'src/app/models/project';
 import { ProjectService } from 'src/app/services/project.service';
-import { auth } from 'firebase';
 import { takeUntil } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -81,6 +79,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   }
 
+  //TODO  fix line 87
   setArchivedProjects() {
 
     this.allActiveProjects = this.projectService.getArchivedProjects().pipe(takeUntil(this.unsubscribe$)).subscribe(resp => {

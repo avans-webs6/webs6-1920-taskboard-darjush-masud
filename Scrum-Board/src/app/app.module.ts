@@ -36,6 +36,8 @@ import { SingleSprintComponent } from './components/projects/single-project/spri
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ReactiveFormsModule} from '@angular/forms';
+import { UserstoryComponent } from './components/projects/single-project/sprints/single-sprint/userstory/userstory.component';
+import { AdduserstorytosprintmodalComponent } from './components/modals/sprint/adduserstorytosprintmodal/adduserstorytosprintmodal.component';
 
 
 
@@ -64,6 +66,8 @@ import { ReactiveFormsModule} from '@angular/forms';
     EditsprintmodalComponent,
     CreatesprintmodalComponent,
     SingleSprintComponent,
+    UserstoryComponent,
+    AdduserstorytosprintmodalComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

@@ -17,6 +17,7 @@ export class ProjectService {
     this._fireStore.collection("projects").add({
       name: name,
       description: description,
+      status: "new",
       owner: this.authService.getUserID(),
       ownerName:this.authService.getUserName(),
       members: [this.authService.getUserID()],

@@ -19,6 +19,7 @@ export class SprintService {
       description: description,
       startdate: startdate,
       enddate: enddate,
+      userstories: [],
       projectId: projectID,
       archived: archived
     })

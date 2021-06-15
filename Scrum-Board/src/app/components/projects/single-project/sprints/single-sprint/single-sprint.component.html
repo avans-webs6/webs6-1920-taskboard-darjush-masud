@@ -46,8 +46,8 @@
         <div class="column is-9">
           <div class="content is-medium">
             <h3 class="title is-3 text-white">Sprint: {{sprint?.name}}</h3>
-            
-  
+            <button class="button is-link is-pulled-right" (click)="openAddUserStoryModal()">Add User story to sprint</button>
+            <app-userstory [userStories]="sprintUserStories"></app-userstory>
           </div>
         </div>
   

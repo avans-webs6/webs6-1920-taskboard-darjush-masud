@@ -25,7 +25,7 @@ export class CreateProjectModalComponent implements OnInit {
   createProject() {
     let newProject = {
       name: this.projectName,
-      description: this.projectDescription
+      description: this.projectDescription,
     };
     this.dialogRef.close({event: 'create', data: newProject});
 

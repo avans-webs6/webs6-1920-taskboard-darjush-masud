@@ -1,0 +1,21 @@
+import { Component, Input, OnInit } from '@angular/core';
+import { UserStory } from 'src/app/models/userstory';
+import { UserStoryService } from 'src/app/services/userstory.service';
+
+@Component({
+  selector: 'app-userstory',
+  templateUrl: './userstory.component.html',
+  styleUrls: ['./userstory.component.sass']
+})
+export class UserstoryComponent implements OnInit {
+
+  @Input()
+  public userStories = [];
+  public userStoryArray = [];
+  constructor(private userstoryService: UserStoryService) { }
+
+  ngOnInit(): void {
+
+  }
+
+}

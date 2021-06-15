@@ -1,0 +1,30 @@
+<table class="table bg-indianred">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Story-Points</th>
+        <th>Owner</th>
+        <th colspan="2" class="is-centered">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let userstory of userStoryArray">
+        <td>{{userstory.name}}</td>
+        <td>{{userstory.description}}</td>
+        <td>{{userstory.status}}</td>
+        <td>{{userstory.storypoints}}</td>
+        <td>{{userstory.ownerName}}</td>
+        <td>
+          <!-- <div class="buttons has-addons">
+            <button class="button is-primary card-footer-item"
+              (click)="navigateToUserStory(userstory.id)">View</button>
+            <button class="button is-info card-footer-item" (click)="openEditModal(userstory)">Edit</button>
+            <button class="button is-warning card-footer-item"
+              (click)="archiveUserStory(userstory.id)">Archive</button>
+          </div> -->
+        </td>
+      </tr>
+    </tbody>
+  </table>

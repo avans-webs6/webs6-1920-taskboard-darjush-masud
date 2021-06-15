@@ -5,5 +5,6 @@ export class Sprint{
     public startdate: string;
     public projectId: string;
     public enddate: string;
+    public userstories: [string];
     public archived: boolean;
 }
