@@ -23,6 +23,7 @@ export class UserStoryService {
       projectId: projectID,
       owner: owner,
       ownerName:ownerName,
+      assigned: false,
       archived: false
     })
   }
@@ -65,6 +66,7 @@ export class UserStoryService {
         return userstories.map(retrievedUserStory => {
           if (!retrievedUserStory.payload.doc.data().archived &&
               !sprint.userstories.includes(retrievedUserStory.payload.doc.id) &&
+              !retrievedUserStory.payload.doc.data().assigned &&
               retrievedUserStory.payload.doc.data().projectId == sprint.projectId)
 
             return {

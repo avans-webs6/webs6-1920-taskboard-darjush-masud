@@ -6,5 +6,6 @@ export class UserStory {
   public storypoints: number;
   public owner: string;
   public ownerName: string;
+  public assigned: boolean;
   public archived: boolean;
 }

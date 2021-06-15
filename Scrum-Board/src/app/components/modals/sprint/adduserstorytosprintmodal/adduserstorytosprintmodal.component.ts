@@ -10,7 +10,7 @@ import { SingleSprintComponent } from 'src/app/components/projects/single-projec
 export class AdduserstorytosprintmodalComponent implements OnInit {
   canBeAddedUserstories: any;
   public selectedUserstory;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,public dialogRef: MatDialogRef<SingleSprintComponent>) { 
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,public dialogRef: MatDialogRef<SingleSprintComponent>) {
     this.canBeAddedUserstories = data;
   }
 
@@ -22,7 +22,6 @@ export class AdduserstorytosprintmodalComponent implements OnInit {
     let newUserstory = {
       name: this.selectedUserstory
     };
-    console.log(newUserstory.name);
     this.dialogRef.close({event: 'create', data: newUserstory});
 
   }

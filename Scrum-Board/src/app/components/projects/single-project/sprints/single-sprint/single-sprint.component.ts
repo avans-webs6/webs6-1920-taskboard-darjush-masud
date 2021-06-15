@@ -78,9 +78,22 @@ export class SingleSprintComponent implements OnInit {
         if (result.event == 'create') {
           this.sprint.userstories.push(result.data.name);
           this.sprintService.updateSprint(this.sprint);
+
+          this.userstoryService.getUserStoryByID(result.data.name).pipe(takeUntil(this.unsubscribe$)).subscribe(userstory => {
+            let outputUserstory = []
+            let correctUserstory = []
+            outputUserstory = userstory;
+            for (let i of outputUserstory) {
+              i && correctUserstory.push(i);
+            }
+
+            let toBeUpdatedUserstory = correctUserstory[0];
+            toBeUpdatedUserstory.assigned = true;
+
+            this.userstoryService.updateUserStory(toBeUpdatedUserstory);
+          });
         }
       }
     )
   }
-
 }

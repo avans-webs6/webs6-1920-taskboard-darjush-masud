@@ -14,7 +14,6 @@ export class UserstoryComponent implements OnInit {
   constructor(private userstoryService: UserStoryService) { }
 
   ngOnInit(): void {
-    console.log(this.userStories);
   }
 
 }
