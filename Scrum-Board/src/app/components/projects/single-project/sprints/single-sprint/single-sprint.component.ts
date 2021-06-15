@@ -49,7 +49,13 @@ export class SingleSprintComponent implements OnInit {
         let userstoriesArray = [];
         this.sprint.userstories.forEach(userstoryId => {
           this.userstoryService.getUserStoryByID(userstoryId).pipe(takeUntil(this.unsubscribe$)).subscribe(userstory => {
-            let retrievedUserstory = userstory[0];
+            let outputUserstory = []
+            let userstories = []
+            outputUserstory = userstory;
+            for (let i of outputUserstory) {
+              i && userstories.push(i);
+            }
+            let retrievedUserstory = userstories[0];
             userstoriesArray.push(retrievedUserstory);
           });
 
