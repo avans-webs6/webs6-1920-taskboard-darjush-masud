@@ -30,9 +30,6 @@ export class SprintService {
 			status: userStory.status
 		});
 
-		// this._fireStore.doc(`sprints/${sprintId}`).update({
-		// 	userstories: sprintUserStories
-		// });
 	}
 
 	getSprintByID(id: string) {

@@ -17,33 +17,12 @@
   <section class="section bg-indianred">
     <div class="container">
       <div class="columns">
-        <div class="column is-3">
-          <aside class="is-medium menu">
-            <div class="pt-3 pb-2 mb-3 border-bottom">
-              <h1 class="h2">User Profile</h1>
-            </div>
-            <!-- Show user data when logged in -->
-            <div class="row" *ngIf="authService.userData as user">
-
-              <p>Username: <strong>{{(user.displayName) ? user.displayName : user.email.split("@")[0]}}</strong></p>
-              <p>Email: <strong>{{user.email}}</strong></p>
-            </div>
-            <p class="menu-label text-white">
-              Menu
-            </p>
-            <ul class="menu-list">
-              <li class="is-right"> <a class="button is-warning" (click)="authService.SignOut()">
-                  Logout
-                </a></li>
-            </ul>
-          </aside>
-        </div>
 
 
 
 
 
-        <div class="column is-9">
+        <div class="column is-12">
           <div class="content is-medium">
             <h3 class="title is-3 text-white">Sprint: {{sprint?.name}}</h3>
             <button class="button is-link is-pulled-right" (click)="openAddUserStoryModal()">Add User story to sprint</button>

@@ -8,7 +8,9 @@ import { UserStoryStatus } from 'src/app/enumerations/userstorystatus';
 import { Sprint } from 'src/app/models/sprint';
 import { UserStory } from 'src/app/models/userstory';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { ProjectService } from 'src/app/services/project.service';
 import { SprintService } from 'src/app/services/sprint.service';
+import { UserService } from 'src/app/services/user.service';
 import { UserStoryService } from 'src/app/services/userstory.service';
 
 @Component({
@@ -23,44 +25,76 @@ export class SingleSprintComponent implements OnInit {
   public canBeAddedUserstories: any[] = []
   private unsubscribe$ = new Subject<void>();
   public sprintUserStories: any[] = []
+  public projectMembers: [string?] = []
+  public projectMemberIds: [string?] = []
   public todo = [];
   public in_progress = [];
   public done = [];
-  constructor(private router: ActivatedRoute, private userstoryService: UserStoryService, public dialog: MatDialog, public authService: AuthenticationService, private sprintService: SprintService) { }
+  constructor(private router: ActivatedRoute, private userService: UserService, private projectService: ProjectService, private userstoryService: UserStoryService, public dialog: MatDialog, public authService: AuthenticationService, private sprintService: SprintService) { }
 
-  	ngOnInit(): void {
-		this.sprintID = this.router.snapshot.paramMap.get('id');
-		let thisClass = this;
-		this.sprintService.getSprintByID(this.sprintID).pipe(takeUntil(this.unsubscribe$)).subscribe(sprint => {
-			let outputSprints = []
-			let sprints = []
-			outputSprints = sprint;
-			for (let i of outputSprints)
-				i && sprints.push(i);
+  ngOnInit(): void {
+    this.sprintID = this.router.snapshot.paramMap.get('id');
+    let thisClass = this;
+    this.sprintService.getSprintByID(this.sprintID).pipe(takeUntil(this.unsubscribe$)).subscribe(sprint => {
+      let outputSprints = []
+      let sprints = []
+      outputSprints = sprint;
+      for (let i of outputSprints)
+        i && sprints.push(i);
 
-			thisClass.sprint = sprints[0];
+      thisClass.sprint = sprints[0];
 
-			this.userstoryService.getUnassignedUserStory(this.sprint).pipe(takeUntil(this.unsubscribe$)).subscribe(userstory => {
-				let outputUserstory = []
-				let userstories = []
-				outputUserstory = userstory;
-				for (let i of outputUserstory) {
-				i && userstories.push(i);
-				}
+      this.projectService.getProjectByID(this.sprint.projectId).pipe(takeUntil(this.unsubscribe$)).subscribe(project => {
+        // used for clearing undefineds
+        let outputMembers = []
+        let members = []
+        outputMembers = project;
+        for (let i of outputMembers)
+          i && members.push(i);
 
-				thisClass.canBeAddedUserstories = userstories;
-			});
 
-			this.userstoryService.getSprintUserStories(thisClass.sprint).pipe(takeUntil(this.unsubscribe$)).subscribe(userstories => {
-				let outputUserstory = []
-				let filteredStories = []
-				outputUserstory = userstories;
-				for (let i of outputUserstory) {
-					i && filteredStories.push(i);
-				}
+        thisClass.projectMembers = [];
 
-				thisClass.sprintUserStories = filteredStories;
-			});
+
+        members[0].members.forEach(member => {
+          thisClass.userService.getUserByID(member).pipe(takeUntil(this.unsubscribe$)).subscribe(user => {
+            // used for clearing undefineds
+            let outputMembers = []
+            let members = []
+            outputMembers = user;
+            for (let i of outputMembers)
+              i && members.push(i);
+
+            let currentMember = members[0]
+
+            thisClass.projectMemberIds.push(currentMember.id);
+            thisClass.projectMembers.push(currentMember.name);
+            console.log(thisClass.projectMembers);
+          });
+        });
+      });
+
+      this.userstoryService.getUnassignedUserStory(this.sprint).pipe(takeUntil(this.unsubscribe$)).subscribe(userstory => {
+        let outputUserstory = []
+        let userstories = []
+        outputUserstory = userstory;
+        for (let i of outputUserstory) {
+          i && userstories.push(i);
+        }
+
+        thisClass.canBeAddedUserstories = userstories;
+      });
+
+      this.userstoryService.getSprintUserStories(thisClass.sprint).pipe(takeUntil(this.unsubscribe$)).subscribe(userstories => {
+        let outputUserstory = []
+        let filteredStories = []
+        outputUserstory = userstories;
+        for (let i of outputUserstory) {
+          i && filteredStories.push(i);
+        }
+
+        thisClass.sprintUserStories = filteredStories;
+      });
 
 
       this.userstoryService.getSprintUserStories(thisClass.sprint).pipe(takeUntil(this.unsubscribe$)).subscribe(stories => {
@@ -85,8 +119,9 @@ export class SingleSprintComponent implements OnInit {
         });
       });
 
-		});
-  	}
+    });
+  
+  }
 
 
 

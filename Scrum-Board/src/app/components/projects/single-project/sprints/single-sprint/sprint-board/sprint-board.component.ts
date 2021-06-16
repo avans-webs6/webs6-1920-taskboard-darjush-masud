@@ -3,10 +3,10 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { UserStory } from 'src/app/models/userstory';
 import { UserStoryService } from 'src/app/services/userstory.service';
 import { UserStoryStatus } from 'src/app/enumerations/userstorystatus';
-import { Sprint } from 'src/app/models/sprint';
+
 import { SprintService } from 'src/app/services/sprint.service';
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { ProjectService } from 'src/app/services/project.service';
+
 
 @Component({
   selector: 'app-sprint-board',
@@ -24,13 +24,14 @@ export class SprintBoardComponent implements OnInit {
 
   @Input()
   public in_progress = [];
-  
+
   @Input()
   public done = [];
   public selectedStoryboard: UserStory;
-  private unsubscribe$ = new Subject<void>();
+  public projectMembers: [string?] = []
 
-  constructor(private userstoryService: UserStoryService, private sprintService: SprintService) { }
+
+  constructor(private userstoryService: UserStoryService ,private projectService: ProjectService,private sprintService: SprintService) { }
 
   ngOnInit(): void {
 
@@ -41,13 +42,13 @@ export class SprintBoardComponent implements OnInit {
     this.selectedStoryboard = selectedItem;
   }
 
- 
-
-     
-    
 
 
-  
+
+
+
+
+
 
 
 
@@ -57,49 +58,41 @@ export class SprintBoardComponent implements OnInit {
     }
     else if (event.container.id == "Todo") {
       console.log(event.container.id);
-      this.sprint.userstories.splice(this.sprint.userstories.findIndex(id => id == this.selectedStoryboard.id), 1);
       this.selectedStoryboard.status = UserStoryStatus.todo.toString();
-      this.sprint.userstories.push(this.selectedStoryboard.id);
 
-
-      //todo turn userstories string array to object array
-      this.sprintService.changeTaskboardStatus(this.selectedStoryboard, this.sprint.userstories, this.sprint.id);
-
+      this.userstoryService.updateUserStory(this.selectedStoryboard);
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
     } else if (event.container.id == "In progress") {
-      console.log(event.container.id);
-      this.sprint.userstories.splice(this.sprint.userstories.findIndex(id => id == this.selectedStoryboard.id), 1);
       this.selectedStoryboard.status = UserStoryStatus.in_progress.toString();
-      this.sprint.userstories.push(this.selectedStoryboard.id);
 
 
-      //todo turn userstories string array to object array
-      //this.sprintService.changeTaskboardStatus(this.selectedStoryboard, this.sprint.userstories, this.sprint.id);
 
+      this.userstoryService.updateUserStory(this.selectedStoryboard);
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
     } else if (event.container.id == "Done") {
-      console.log(event.container.id);
-      this.sprint.userstories.splice(this.sprint.userstories.findIndex(id => id == this.selectedStoryboard.id), 1);
       this.selectedStoryboard.status = UserStoryStatus.in_progress.toString();
-      this.sprint.userstories.push(this.selectedStoryboard.id);
 
 
-      //todo turn userstories string array to object array
-      //this.sprintService.changeTaskboardStatus(this.selectedStoryboard, this.sprint.userstories, this.sprint.id);
 
+      this.userstoryService.updateUserStory(this.selectedStoryboard);
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
     }
 
-    // const item = event.previousContainer.data[event.previousIndex];
-    // this.store.firestore.runTransaction(() => {
-    //   const promise = Promise.all([
-    //     this.store.collection(event.previousContainer.id).doc(item.id).delete(),
-    //     this.store.collection(event.container.id).add(item),
-    //   ]);
-    //   return promise;
-    // });
-    // transferArrayItem(
-    //   event.previousContainer.data,
-    //   event.container.data,
-    //   event.previousIndex,
-    //   event.currentIndex
-    // );
+
   }
 }
