@@ -70,12 +70,12 @@ export class ProjectComponent implements OnInit {
 
           let currentMember = members[0]
 
-          thisClass.projectMemberIds.push(members[0].id);
-          thisClass.projectMembers.push(members[0].name);
-          thisClass.fullMembers.push(members[0]);
+          thisClass.projectMemberIds.push(currentMember.id);
+          thisClass.projectMembers.push(currentMember.name);
+          thisClass.fullMembers.push(currentMember);
 
           // CHANGE AT A LATER DATE! WORKS, BUT NOT AMAZINGLY!
-          if (thisClass.project.owner == members[0].id) {
+          if (thisClass.project.owner == currentMember.id) {
             thisClass.memberRoles.push("Owner");
           } else {
             thisClass.memberRoles.push("Developer");
@@ -99,7 +99,6 @@ export class ProjectComponent implements OnInit {
     this.setArchivedUserStories();
     this.setActiveSprint();
     this.setArchivedSprints();
-
   }
 
 

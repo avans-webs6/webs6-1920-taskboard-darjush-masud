@@ -64,10 +64,10 @@ export class UserStoryService {
       .snapshotChanges()
       .pipe(map((userstories: any[]) => {
         return userstories.map(retrievedUserStory => {
-          if (!retrievedUserStory.payload.doc.data().archived &&
-              !sprint.userstories.includes(retrievedUserStory.payload.doc.id) &&
-              !retrievedUserStory.payload.doc.data().assigned &&
-              retrievedUserStory.payload.doc.data().projectId == sprint.projectId)
+          if  (!retrievedUserStory.payload.doc.data().archived &&
+				!sprint.userstories.includes(retrievedUserStory.payload.doc.id) &&
+				!retrievedUserStory.payload.doc.data().assigned &&
+				retrievedUserStory.payload.doc.data().projectId == sprint.projectId)
 
             return {
               id: retrievedUserStory.payload.doc.id,
@@ -75,6 +75,24 @@ export class UserStoryService {
             }
         });
       }));
+  }
+
+  getSprintUserStories(sprint: Sprint) {
+	  return this._fireStore.collection<UserStory>('userstories')
+	  .snapshotChanges()
+	  .pipe(map((userstories: any[]) => {
+		return userstories.map(retrievedUserStory => {
+			if (!retrievedUserStory.payload.doc.data().archived && 
+				sprint.userstories.includes(retrievedUserStory.payload.doc.id) &&
+				retrievedUserStory.payload.doc.data().assigned && 
+				retrievedUserStory.payload.doc.data().projectId == sprint.projectId)
+
+			return {
+				id: retrievedUserStory.payload.doc.id,
+              	...retrievedUserStory.payload.doc.data() as UserStory
+			}
+		})
+	  }));
   }
 
 

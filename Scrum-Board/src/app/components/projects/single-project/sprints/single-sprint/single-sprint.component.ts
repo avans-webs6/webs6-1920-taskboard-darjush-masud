@@ -19,51 +19,46 @@ export class SingleSprintComponent implements OnInit {
 
   private sprintID: string;
   public sprint: Sprint;
-  public canBeAddedUserstories: any[]
+  public canBeAddedUserstories: any[] = []
   private unsubscribe$ = new Subject<void>();
-  public sprintUserStories: any[]
+  public sprintUserStories: any[] = []
   constructor(private router: ActivatedRoute, private userstoryService: UserStoryService, public dialog: MatDialog, public authService: AuthenticationService, private sprintService: SprintService) { }
 
-  ngOnInit(): void {
-    this.sprintID = this.router.snapshot.paramMap.get('id');
-    let thisClass = this;
-    this.sprintService.getSprintByID(this.sprintID).pipe(takeUntil(this.unsubscribe$)).subscribe(sprint => {
-      let outputSprints = []
-      let sprints = []
-      outputSprints = sprint;
-      for (let i of outputSprints)
-        i && sprints.push(i);
+  	ngOnInit(): void {
+		this.sprintID = this.router.snapshot.paramMap.get('id');
+		let thisClass = this;
+		this.sprintService.getSprintByID(this.sprintID).pipe(takeUntil(this.unsubscribe$)).subscribe(sprint => {
+			let outputSprints = []
+			let sprints = []
+			outputSprints = sprint;
+			for (let i of outputSprints)
+				i && sprints.push(i);
 
-      thisClass.sprint = sprints[0];
+			thisClass.sprint = sprints[0];
 
-      this.userstoryService.getUnassignedUserStory(this.sprint).pipe(takeUntil(this.unsubscribe$)).subscribe(userstory => {
-        let outputUserstory = []
-        let userstories = []
-        outputUserstory = userstory;
-        for (let i of outputUserstory) {
-          i && userstories.push(i);
-        }
+			this.userstoryService.getUnassignedUserStory(this.sprint).pipe(takeUntil(this.unsubscribe$)).subscribe(userstory => {
+				let outputUserstory = []
+				let userstories = []
+				outputUserstory = userstory;
+				for (let i of outputUserstory) {
+				i && userstories.push(i);
+				}
 
-        this.canBeAddedUserstories = userstories;
+				thisClass.canBeAddedUserstories = userstories;
+			});
 
-        let userstoriesArray = [];
-        this.sprint.userstories.forEach(userstoryId => {
-          this.userstoryService.getUserStoryByID(userstoryId).pipe(takeUntil(this.unsubscribe$)).subscribe(userstory => {
-            let outputUserstory = []
-            let userstories = []
-            outputUserstory = userstory;
-            for (let i of outputUserstory) {
-              i && userstories.push(i);
-            }
-            let retrievedUserstory = userstories[0];
-            userstoriesArray.push(retrievedUserstory);
-          });
+			this.userstoryService.getSprintUserStories(thisClass.sprint).pipe(takeUntil(this.unsubscribe$)).subscribe(userstories => {
+				let outputUserstory = []
+				let filteredStories = []
+				outputUserstory = userstories;
+				for (let i of outputUserstory) {
+					i && filteredStories.push(i);
+				}
 
-        });
-        this.sprintUserStories = userstoriesArray;
-      });
-    });
-  }
+				thisClass.sprintUserStories = filteredStories;
+			});
+		});
+  	}
 
 
 
