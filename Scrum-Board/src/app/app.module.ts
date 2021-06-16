@@ -38,6 +38,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ReactiveFormsModule} from '@angular/forms';
 import { UserstoryComponent } from './components/projects/single-project/sprints/single-sprint/userstory/userstory.component';
 import { AdduserstorytosprintmodalComponent } from './components/modals/sprint/adduserstorytosprintmodal/adduserstorytosprintmodal.component';
+import { SprintBoardComponent } from './components/projects/single-project/sprints/single-sprint/sprint-board/sprint-board.component';
 
 
 
@@ -68,6 +69,7 @@ import { AdduserstorytosprintmodalComponent } from './components/modals/sprint/a
     SingleSprintComponent,
     UserstoryComponent,
     AdduserstorytosprintmodalComponent,
+    SprintBoardComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -81,7 +83,8 @@ import { AdduserstorytosprintmodalComponent } from './components/modals/sprint/a
     MatDatepickerModule,
     MatNativeDateModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+
   ],
   providers: [AuthenticationService],
   bootstrap: [AppComponent]
