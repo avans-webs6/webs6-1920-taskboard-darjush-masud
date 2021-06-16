@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AdduserstorytosprintmodalComponent } from 'src/app/components/modals/sprint/adduserstorytosprintmodal/adduserstorytosprintmodal.component';
+import { UserStoryStatus } from 'src/app/enumerations/userstorystatus';
 import { Sprint } from 'src/app/models/sprint';
 import { UserStory } from 'src/app/models/userstory';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -22,6 +23,9 @@ export class SingleSprintComponent implements OnInit {
   public canBeAddedUserstories: any[] = []
   private unsubscribe$ = new Subject<void>();
   public sprintUserStories: any[] = []
+  public todo = [];
+  public in_progress = [];
+  public done = [];
   constructor(private router: ActivatedRoute, private userstoryService: UserStoryService, public dialog: MatDialog, public authService: AuthenticationService, private sprintService: SprintService) { }
 
   	ngOnInit(): void {
@@ -57,6 +61,30 @@ export class SingleSprintComponent implements OnInit {
 
 				thisClass.sprintUserStories = filteredStories;
 			});
+
+
+      this.userstoryService.getSprintUserStories(thisClass.sprint).pipe(takeUntil(this.unsubscribe$)).subscribe(stories => {
+        this.todo = [];
+        this.in_progress = [];
+        this.done = [];
+        let outputUserstory = []
+        let correctUserstory = []
+        outputUserstory = stories;
+        for (let i of outputUserstory) {
+          i && correctUserstory.push(i);
+        }
+
+        correctUserstory.forEach(story => {
+          if (story.status == UserStoryStatus.todo.toString()) {
+            this.todo.push(story)
+          } else if (story.status == UserStoryStatus.in_progress.toString()) {
+            this.in_progress.push(story);
+          } else if (story.status == UserStoryStatus.done.toString()) {
+            this.done.push(story)
+          }
+        });
+      });
+
 		});
   	}
 
