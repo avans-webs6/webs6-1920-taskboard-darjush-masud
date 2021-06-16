@@ -25,7 +25,7 @@ export class UserStoryService {
       ownerName:ownerName,
       assigned: false,
       archived: false
-    })
+    });
   }
 
   getUserStoryByID(id: string) {

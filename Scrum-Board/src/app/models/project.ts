@@ -1,11 +1,11 @@
-export class Project {
-  public id: string;
-  public name: string;
-  public description: string;
-  public userstories: [string];
-  public owner: string;
-  public status: string;
-  public ownerName: string;
-  public members: [string];
-  public archived: boolean;
+export interface Project {
+  id: string;
+  name: string;
+  description: string;
+  userstories: [string];
+  owner: string;
+  status: string;
+  ownerName: string;
+  members: [string];
+  archived: boolean;
 }
