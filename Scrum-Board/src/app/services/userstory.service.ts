@@ -4,6 +4,7 @@ import { UserStory } from 'src/app/models/userstory';
 import { map } from 'rxjs/operators';
 import { AuthenticationService } from './authentication.service';
 import { Sprint } from '../models/sprint';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,14 @@ export class UserStoryService {
 
 
   constructor(private _fireStore: AngularFirestore, private authService: AuthenticationService) { }
+  userStories: Observable<unknown[]>;
 
+
+  getUserStoriesObservable(): Observable<unknown> {
+    this.userStories = this._fireStore.collection('userstories').valueChanges();
+
+    return this.userStories;
+  }
 
   createUserStory(name, description, status, storypoints,projectID,owner,ownerName) {
     this._fireStore.collection("userstories").add({
@@ -27,6 +35,8 @@ export class UserStoryService {
       archived: false
     });
   }
+
+
 
   getUserStoryByID(id: string) {
     return this._fireStore.collection<UserStory>('userstories')

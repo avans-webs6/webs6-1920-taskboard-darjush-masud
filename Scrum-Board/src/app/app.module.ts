@@ -39,6 +39,8 @@ import { ReactiveFormsModule} from '@angular/forms';
 import { UserstoryComponent } from './components/projects/single-project/sprints/single-sprint/userstory/userstory.component';
 import { AdduserstorytosprintmodalComponent } from './components/modals/sprint/adduserstorytosprintmodal/adduserstorytosprintmodal.component';
 import { SprintBoardComponent } from './components/projects/single-project/sprints/single-sprint/sprint-board/sprint-board.component';
+import { MatCardModule } from '@angular/material/card';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 
 
@@ -84,6 +86,8 @@ import { SprintBoardComponent } from './components/projects/single-project/sprin
     MatNativeDateModule,
     ReactiveFormsModule,
     FormsModule,
+    MatCardModule,
+    DragDropModule
 
   ],
   providers: [AuthenticationService],

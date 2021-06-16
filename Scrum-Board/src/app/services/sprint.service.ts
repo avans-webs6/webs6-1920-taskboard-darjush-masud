@@ -24,6 +24,17 @@ export class SprintService {
 		});
 	}
 
+	changeTaskboardStatus(userStory: any, sprintUserStories: any, sprintId) 
+	{
+		this._fireStore.doc(`userstories/${userStory.id}`).update({
+			status: userStory.status
+		});
+
+		this._fireStore.doc(`sprints/${sprintId}`).update({
+			userstories: sprintUserStories
+		});
+	}
+
 	getSprintByID(id: string) {
 		return this._fireStore.collection<Sprint>('sprints')
 			.snapshotChanges()
