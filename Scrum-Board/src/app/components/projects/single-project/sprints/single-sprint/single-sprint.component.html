@@ -49,9 +49,10 @@
             <button class="button is-link is-pulled-right" (click)="openAddUserStoryModal()">Add User story to sprint</button>
             <app-userstory [userStories]="sprintUserStories"></app-userstory>
           </div>
+          <app-sprint-board [userStories]="sprintUserStories"></app-sprint-board>
         </div>
 
-
+    
       </div>
     </div>
   </section>

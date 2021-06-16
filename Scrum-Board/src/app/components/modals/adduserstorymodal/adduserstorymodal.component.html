@@ -16,13 +16,20 @@
     <div class="field">
       <label class="label">Enter your user story status</label>
       <div class="control">
-        <input class="input" [(ngModel)]="status" type="text" placeholder="User story status">
+        <div class="select">
+          <select [(ngModel)]="status">
+            <option>Todo</option>
+            <option>In progress</option>
+            <option>Review</option>
+            <option>Done</option>
+          </select>
+        </div>
       </div>
     </div>
     <div class="field">
       <label class="label">Enter your user story storypoints</label>
       <div class="control">
-        <input class="input" [(ngModel)]="storypoints" type="text" placeholder="User story storypoints">
+        <input class="input" [(ngModel)]="storypoints" type="number" placeholder="User story storypoints">
       </div>
     </div>
     <div class="field">
