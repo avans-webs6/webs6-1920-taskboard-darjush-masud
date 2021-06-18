@@ -6,6 +6,7 @@ import { UserStoryStatus } from 'src/app/enumerations/userstorystatus';
 
 import { SprintService } from 'src/app/services/sprint.service';
 import { ProjectService } from 'src/app/services/project.service';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -38,9 +39,15 @@ export class SprintBoardComponent implements OnInit {
   public done = [];
   public selectedStoryboard: UserStory;
 
+  
 
 
-  constructor(private userstoryService: UserStoryService ,private projectService: ProjectService,private sprintService: SprintService) { }
+
+  constructor(private userstoryService: UserStoryService ,private projectService: ProjectService,private sprintService: SprintService) { 
+
+  }
+
+  
 
   ngOnInit(): void {
 

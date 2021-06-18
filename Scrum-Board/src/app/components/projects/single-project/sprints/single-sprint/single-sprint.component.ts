@@ -33,6 +33,7 @@ export class SingleSprintComponent implements OnInit {
   public todo = []
   public in_progress = []
   public done = []
+  public totalStoryPoints = 0;
   constructor(private router: ActivatedRoute, private userService: UserService, private projectService: ProjectService, private userstoryService: UserStoryService, public dialog: MatDialog, public authService: AuthenticationService, private sprintService: SprintService) { }
 
   ngOnInit(): void {
@@ -96,6 +97,10 @@ export class SingleSprintComponent implements OnInit {
         }
 
         thisClass.sprintUserStories = filteredStories;
+        thisClass.sprintUserStories.forEach(userStory=> {
+          thisClass.totalStoryPoints += parseInt(userStory.storypoints);
+        });
+        console.log(thisClass.totalStoryPoints);
       });
 
 

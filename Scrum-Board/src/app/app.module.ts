@@ -41,6 +41,8 @@ import { AdduserstorytosprintmodalComponent } from './components/modals/sprint/a
 import { SprintBoardComponent } from './components/projects/single-project/sprints/single-sprint/sprint-board/sprint-board.component';
 import { MatCardModule } from '@angular/material/card';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { BurndownComponent } from './components/projects/single-project/sprints/single-sprint/burndown/burndown.component';
 
 
 
@@ -71,7 +73,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     SingleSprintComponent,
     UserstoryComponent,
     AdduserstorytosprintmodalComponent,
-    SprintBoardComponent
+    SprintBoardComponent,
+    BurndownComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -87,7 +90,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     ReactiveFormsModule,
     FormsModule,
     MatCardModule,
-    DragDropModule
+    DragDropModule,
+    MDBBootstrapModule
 
   ],
   providers: [AuthenticationService],
