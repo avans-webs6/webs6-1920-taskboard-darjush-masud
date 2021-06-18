@@ -26,16 +26,22 @@ export class SprintBoardComponent implements OnInit {
   public in_progress = [];
 
   @Input()
+  public projectMembers = [];
+
+  @Input()
+  public backlog = [];
+
+  @Input()
   public done = [];
   public selectedStoryboard: UserStory;
-  public projectMembers: [string?] = []
+
 
 
   constructor(private userstoryService: UserStoryService ,private projectService: ProjectService,private sprintService: SprintService) { }
 
   ngOnInit(): void {
 
-
+    
   }
 
   setSelectedStoryboardElement(selectedItem) {
@@ -55,6 +61,18 @@ export class SprintBoardComponent implements OnInit {
   drop(event: any): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    }
+    else if (event.container.id == "Backlog") {
+      console.log(event.container.id);
+      this.selectedStoryboard.status = UserStoryStatus.backlog.toString();
+
+      this.userstoryService.updateUserStory(this.selectedStoryboard);
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
     }
     else if (event.container.id == "Todo") {
       console.log(event.container.id);

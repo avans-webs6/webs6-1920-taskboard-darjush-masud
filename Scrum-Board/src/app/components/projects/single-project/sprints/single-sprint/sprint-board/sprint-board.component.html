@@ -1,6 +1,6 @@
 <div class="container-wrapper">
 
-	<div class="container">
+	<div class="container" *ngFor="let members of projectMembers">
 		<h2>Backlog</h2>
   
 		<mat-card cdkDropList id="Todo" #todoList="cdkDropList" [cdkDropListData]="todo"
@@ -9,7 +9,7 @@
 		  <div (mousedown)="setSelectedStoryboardElement(userstory)"  *ngFor="let userstory of todo" cdkDrag >{{userstory.description}}</div>
 		</mat-card>
 	  </div>
-    <div class="container">
+    <div class="container" *ngFor="let members of projectMembers">
       <h2>Todo</h2>
 
       <mat-card cdkDropList id="Todo" #todoList="cdkDropList" [cdkDropListData]="todo"
@@ -19,7 +19,7 @@
       </mat-card>
     </div>
 
-    <div class="container">
+    <div class="container" *ngFor="let members of projectMembers">
       <h2>In progress</h2>
 
       <mat-card cdkDropList id="In progress" #inProgressList="cdkDropList" [cdkDropListData]="in_progress"
@@ -30,7 +30,7 @@
       </mat-card>
     </div>
 
-    <div class="container">
+    <div class="container" *ngFor="let members of projectMembers">
       <h2>Done</h2>
 
       <mat-card cdkDropList id="Done" #doneList="cdkDropList" [cdkDropListData]="done"

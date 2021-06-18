@@ -30,6 +30,7 @@ export class SingleSprintComponent implements OnInit {
   public todo = [];
   public in_progress = [];
   public done = [];
+  public backlog = [];
   constructor(private router: ActivatedRoute, private userService: UserService, private projectService: ProjectService, private userstoryService: UserStoryService, public dialog: MatDialog, public authService: AuthenticationService, private sprintService: SprintService) { }
 
   ngOnInit(): void {
@@ -69,7 +70,6 @@ export class SingleSprintComponent implements OnInit {
 
             thisClass.projectMemberIds.push(currentMember.id);
             thisClass.projectMembers.push(currentMember.name);
-            console.log(thisClass.projectMembers);
           });
         });
       });
@@ -98,6 +98,7 @@ export class SingleSprintComponent implements OnInit {
 
 
       this.userstoryService.getSprintUserStories(thisClass.sprint).pipe(takeUntil(this.unsubscribe$)).subscribe(stories => {
+        this.backlog = [];
         this.todo = [];
         this.in_progress = [];
         this.done = [];
@@ -109,7 +110,10 @@ export class SingleSprintComponent implements OnInit {
         }
 
         correctUserstory.forEach(story => {
-          if (story.status == UserStoryStatus.todo.toString()) {
+          if (story.status == UserStoryStatus.backlog.toString()) {
+            this.backlog.push(story)
+          }
+          else if (story.status == UserStoryStatus.todo.toString()) {
             this.todo.push(story)
           } else if (story.status == UserStoryStatus.in_progress.toString()) {
             this.in_progress.push(story);

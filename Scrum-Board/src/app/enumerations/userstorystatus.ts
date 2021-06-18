@@ -1,3 +1,3 @@
 export enum UserStoryStatus {
-	todo = "Todo", in_progress = "In progress", done = "Done"
+	backlog = "Backlog",todo = "Todo", in_progress = "In progress", done = "Done"
 }
