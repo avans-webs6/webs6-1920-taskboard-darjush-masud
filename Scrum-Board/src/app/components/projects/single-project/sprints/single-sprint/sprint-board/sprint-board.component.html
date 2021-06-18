@@ -1,21 +1,25 @@
-<div class="container-wrapper" *ngFor="let members of projectMembers">
+<div class="container-wrapper" *ngFor="let member of projectMembers; let memberIndex = index">
 
 	<div class="container">
 		<h2>Backlog</h2>
   
-		<mat-card cdkDropList id="Todo" #todoList="cdkDropList" [cdkDropListData]="todo"
-		  [cdkDropListConnectedTo]="[doneList, inProgressList]" (cdkDropListDropped)="drop($event)" class="list">
-		  <p class="empty-label" *ngIf="(todo)?.length === 0">Empty list</p>
-		  <div (mousedown)="setSelectedStoryboardElement(userstory)"  *ngFor="let userstory of todo" cdkDrag >{{userstory.description}}</div>
+		<mat-card cdkDropList id="Backlog" #backlogList="cdkDropList" [cdkDropListData]="backlog"
+		  [cdkDropListConnectedTo]="[doneList, inProgressList, todoList]" (cdkDropListDropped)="drop($event, memberIndex)" class="list">
+		  <p class="empty-label" *ngIf="(backlog)?.length === 0">Empty list</p>
+		  <div (mousedown)="setSelectedStoryboardElement(userstory)"  *ngFor="let userstory of backlog" cdkDrag >
+			  <p>{{userstory.description}}</p>
+			</div>
 		</mat-card>
 	  </div>
     <div class="container">
       <h2>Todo</h2>
 
       <mat-card cdkDropList id="Todo" #todoList="cdkDropList" [cdkDropListData]="todo"
-        [cdkDropListConnectedTo]="[doneList, inProgressList]" (cdkDropListDropped)="drop($event)" class="list">
+        [cdkDropListConnectedTo]="[doneList, inProgressList, backlogList]" (cdkDropListDropped)="drop($event, memberIndex)" class="list">
         <p class="empty-label" *ngIf="(todo)?.length === 0">Empty list</p>
-        <div (mousedown)="setSelectedStoryboardElement(userstory)"  *ngFor="let userstory of todo" cdkDrag >{{userstory.description}}</div>
+        <div (mousedown)="setSelectedStoryboardElement(userstory)"  *ngFor="let userstory of todo" cdkDrag >
+			<p *ngIf="userstory.owner == projectMemberIds[memberIndex]">{{userstory.description}}</p>
+		  </div>
       </mat-card>
     </div>
 
@@ -23,10 +27,11 @@
       <h2>In progress</h2>
 
       <mat-card cdkDropList id="In progress" #inProgressList="cdkDropList" [cdkDropListData]="in_progress"
-        [cdkDropListConnectedTo]="[todoList, doneList]" (cdkDropListDropped)="drop($event)" class="list">
+        [cdkDropListConnectedTo]="[todoList, doneList, backlogList]" (cdkDropListDropped)="drop($event, memberIndex)" class="list">
         <p class="empty-label" *ngIf="(in_progress)?.length === 0">Empty list</p>
-        <div (mousedown)="setSelectedStoryboardElement(userstory)" *ngFor="let userstory of in_progress" cdkDrag >{{userstory.description}}
-		</div>
+        <div (mousedown)="setSelectedStoryboardElement(userstory)" *ngFor="let userstory of in_progress" cdkDrag >
+			<p *ngIf="userstory.owner == projectMemberIds[memberIndex]">{{userstory.description}}</p>
+		  </div>
       </mat-card>
     </div>
 
@@ -34,9 +39,11 @@
       <h2>Done</h2>
 
       <mat-card cdkDropList id="Done" #doneList="cdkDropList" [cdkDropListData]="done"
-        [cdkDropListConnectedTo]="[todoList, inProgressList]" (cdkDropListDropped)="drop($event)" class="list">
+        [cdkDropListConnectedTo]="[todoList, inProgressList, backlogList]" (cdkDropListDropped)="drop($event, memberIndex)" class="list">
         <p class="empty-label" *ngIf="(done)?.length === 0">Empty list</p>
-        <div (mousedown)="setSelectedStoryboardElement(userstory)"  *ngFor="let userstory of done" cdkDrag>{{userstory.description}}</div>
+        <div (mousedown)="setSelectedStoryboardElement(userstory)"  *ngFor="let userstory of done" cdkDrag>
+			<p *ngIf="userstory.owner == projectMemberIds[memberIndex]">{{userstory.description}}</p>
+		  </div>
       </mat-card>
     </div>
 </div>

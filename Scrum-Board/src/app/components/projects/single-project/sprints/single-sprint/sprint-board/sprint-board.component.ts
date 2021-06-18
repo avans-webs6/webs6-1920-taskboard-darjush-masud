@@ -29,6 +29,9 @@ export class SprintBoardComponent implements OnInit {
   public projectMembers = [];
 
   @Input()
+  public projectMemberIds = [];
+
+  @Input()
   public backlog = [];
 
   @Input()
@@ -58,12 +61,14 @@ export class SprintBoardComponent implements OnInit {
 
 
 
-  drop(event: any): void {
+  drop(event: any, memberIndex: number): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     }
     else if (event.container.id == "Backlog") {
       console.log(event.container.id);
+	  this.selectedStoryboard.owner = ""
+	  this.selectedStoryboard.ownerName = ""
       this.selectedStoryboard.status = UserStoryStatus.backlog.toString();
 
       this.userstoryService.updateUserStory(this.selectedStoryboard);
@@ -76,6 +81,8 @@ export class SprintBoardComponent implements OnInit {
     }
     else if (event.container.id == "Todo") {
       console.log(event.container.id);
+	  this.selectedStoryboard.owner = this.projectMemberIds[memberIndex]
+	  this.selectedStoryboard.ownerName = this.projectMembers[memberIndex]
       this.selectedStoryboard.status = UserStoryStatus.todo.toString();
 
       this.userstoryService.updateUserStory(this.selectedStoryboard);
@@ -86,6 +93,8 @@ export class SprintBoardComponent implements OnInit {
         event.currentIndex
       );
     } else if (event.container.id == "In progress") {
+		this.selectedStoryboard.owner = this.projectMemberIds[memberIndex]
+		this.selectedStoryboard.ownerName = this.projectMembers[memberIndex]
       this.selectedStoryboard.status = UserStoryStatus.in_progress.toString();
 
 
@@ -98,7 +107,9 @@ export class SprintBoardComponent implements OnInit {
         event.currentIndex
       );
     } else if (event.container.id == "Done") {
-      this.selectedStoryboard.status = UserStoryStatus.in_progress.toString();
+		this.selectedStoryboard.owner = this.projectMemberIds[memberIndex]
+		this.selectedStoryboard.ownerName = this.projectMembers[memberIndex]
+      this.selectedStoryboard.status = UserStoryStatus.done.toString();
 
 
 

@@ -6,7 +6,9 @@ import { takeUntil } from 'rxjs/operators';
 import { AdduserstorytosprintmodalComponent } from 'src/app/components/modals/sprint/adduserstorytosprintmodal/adduserstorytosprintmodal.component';
 import { UserStoryStatus } from 'src/app/enumerations/userstorystatus';
 import { Sprint } from 'src/app/models/sprint';
+import { StatusType } from 'src/app/models/statustype';
 import { UserStory } from 'src/app/models/userstory';
+import { UserStoryOwner } from 'src/app/models/userstoryowner';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { SprintService } from 'src/app/services/sprint.service';
@@ -27,10 +29,10 @@ export class SingleSprintComponent implements OnInit {
   public sprintUserStories: any[] = []
   public projectMembers: [string?] = []
   public projectMemberIds: [string?] = []
-  public todo = [];
-  public in_progress = [];
-  public done = [];
-  public backlog = [];
+  public backlog = []
+  public todo = []
+  public in_progress = []
+  public done = []
   constructor(private router: ActivatedRoute, private userService: UserService, private projectService: ProjectService, private userstoryService: UserStoryService, public dialog: MatDialog, public authService: AuthenticationService, private sprintService: SprintService) { }
 
   ngOnInit(): void {
@@ -98,10 +100,10 @@ export class SingleSprintComponent implements OnInit {
 
 
       this.userstoryService.getSprintUserStories(thisClass.sprint).pipe(takeUntil(this.unsubscribe$)).subscribe(stories => {
-        this.backlog = [];
-        this.todo = [];
-        this.in_progress = [];
-        this.done = [];
+		this.backlog = []
+		this.todo = []
+		this.in_progress = []
+		this.done = []
         let outputUserstory = []
         let correctUserstory = []
         outputUserstory = stories;
@@ -112,8 +114,7 @@ export class SingleSprintComponent implements OnInit {
         correctUserstory.forEach(story => {
           if (story.status == UserStoryStatus.backlog.toString()) {
             this.backlog.push(story)
-          }
-          else if (story.status == UserStoryStatus.todo.toString()) {
+          } else if (story.status == UserStoryStatus.todo.toString()) {
             this.todo.push(story)
           } else if (story.status == UserStoryStatus.in_progress.toString()) {
             this.in_progress.push(story);
