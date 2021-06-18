@@ -66,7 +66,6 @@ export class SprintBoardComponent implements OnInit {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     }
     else if (event.container.id == "Backlog") {
-      console.log(event.container.id);
 	  this.selectedStoryboard.owner = ""
 	  this.selectedStoryboard.ownerName = ""
       this.selectedStoryboard.status = UserStoryStatus.backlog.toString();
@@ -80,7 +79,6 @@ export class SprintBoardComponent implements OnInit {
       );
     }
     else if (event.container.id == "Todo") {
-      console.log(event.container.id);
 	  this.selectedStoryboard.owner = this.projectMemberIds[memberIndex]
 	  this.selectedStoryboard.ownerName = this.projectMembers[memberIndex]
       this.selectedStoryboard.status = UserStoryStatus.todo.toString();

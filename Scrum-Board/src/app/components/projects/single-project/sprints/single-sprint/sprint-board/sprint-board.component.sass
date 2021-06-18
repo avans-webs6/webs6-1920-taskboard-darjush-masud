@@ -28,3 +28,18 @@ app-new-task
   padding-top: 10px
   text-align: center
   opacity: 0.2
+
+
+@mixin vertical-align 
+    position: relative
+    top: 50%
+    -webkit-transform: translateY(-50%)
+    -ms-transform: translateY(-50%)
+    transform: translateY(-50%)
+
+
+
+.centerName
+    text-align: center
+    @include vertical-align
+    color: #FFF

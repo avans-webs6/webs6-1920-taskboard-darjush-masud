@@ -1,7 +1,7 @@
 <div class="container-wrapper" *ngFor="let member of projectMembers; let memberIndex = index">
 
 	<div class="container">
-		<h2>Backlog</h2>
+		<h2 *ngIf="memberIndex == 0">Backlog</h2>
   
 		<mat-card cdkDropList id="Backlog" #backlogList="cdkDropList" [cdkDropListData]="backlog"
 		  [cdkDropListConnectedTo]="[doneList, inProgressList, todoList]" (cdkDropListDropped)="drop($event, memberIndex)" class="list">
@@ -10,9 +10,14 @@
 			  <p>{{userstory.description}}</p>
 			</div>
 		</mat-card>
-	  </div>
+	</div>
+
+	<div class="container">
+		<h3 class="centerName">{{member}}</h3>
+	</div>
+
     <div class="container">
-      <h2>Todo</h2>
+      <h2 *ngIf="memberIndex == 0">Todo</h2>
 
       <mat-card cdkDropList id="Todo" #todoList="cdkDropList" [cdkDropListData]="todo"
         [cdkDropListConnectedTo]="[doneList, inProgressList, backlogList]" (cdkDropListDropped)="drop($event, memberIndex)" class="list">
@@ -24,7 +29,7 @@
     </div>
 
     <div class="container">
-      <h2>In progress</h2>
+      <h2 *ngIf="memberIndex == 0">In progress</h2>
 
       <mat-card cdkDropList id="In progress" #inProgressList="cdkDropList" [cdkDropListData]="in_progress"
         [cdkDropListConnectedTo]="[todoList, doneList, backlogList]" (cdkDropListDropped)="drop($event, memberIndex)" class="list">
@@ -36,7 +41,7 @@
     </div>
 
     <div class="container">
-      <h2>Done</h2>
+      <h2 *ngIf="memberIndex == 0">Done</h2>
 
       <mat-card cdkDropList id="Done" #doneList="cdkDropList" [cdkDropListData]="done"
         [cdkDropListConnectedTo]="[todoList, inProgressList, backlogList]" (cdkDropListDropped)="drop($event, memberIndex)" class="list">
