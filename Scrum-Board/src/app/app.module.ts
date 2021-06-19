@@ -40,7 +40,6 @@ import { SprintBoardComponent } from './components/projects/single-project/sprin
 import { MatCardModule } from '@angular/material/card';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import { BurndownComponent } from './components/projects/single-project/sprints/single-sprint/burndown/burndown.component';
 import { EditmembermodalComponent } from './components/modals/editmembermodal/editmembermodal.component';
 
 
@@ -71,7 +70,6 @@ import { EditmembermodalComponent } from './components/modals/editmembermodal/ed
     SingleSprintComponent,
     UserstoryComponent,
     SprintBoardComponent,
-    BurndownComponent,
     EditmembermodalComponent
   ],
   imports: [

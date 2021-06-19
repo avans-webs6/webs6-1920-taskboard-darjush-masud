@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
@@ -34,7 +35,35 @@ export class SingleSprintComponent implements OnInit {
   public done = []
   public totalStoryPoints = 0;
   public amountOfStoriesDone = 0;
-  constructor(private router: ActivatedRoute, private userService: UserService, private projectService: ProjectService, private userstoryService: UserStoryService, public dialog: MatDialog, public authService: AuthenticationService, private sprintService: SprintService) { }
+
+
+  burndownChartType: string;
+  burndownChartDatasets: Array<any>;
+  burndownChartLabels: Array<any>;
+  burndownChartColors: Array<any>;
+  burndownChartOptions: any;
+  datePipe: DatePipe;
+  sprintIdealLine: number[];
+  userStoriesDoneLine: number[];
+  dateArray: any[];
+
+  constructor(private router: ActivatedRoute, private userService: UserService, private projectService: ProjectService, private userstoryService: UserStoryService, public dialog: MatDialog, public authService: AuthenticationService, private sprintService: SprintService) {
+    this.datePipe = new DatePipe('en-US');
+    this.burndownChartType = 'line';
+    this.burndownChartOptions = { responsive: true };
+    this.burndownChartColors = [
+      {
+        backgroundColor: 'rgba(105, 0, 132, .2)',
+        borderColor: 'rgba(200, 99, 132, .7)',
+        borderWidth: 2,
+      },
+      {
+        backgroundColor: 'rgba(0, 137, 132, .2)',
+        borderColor: 'rgba(0, 10, 130, .7)',
+        borderWidth: 2,
+      }
+    ];
+  }
 
   ngOnInit(): void {
     this.sprintID = this.router.snapshot.paramMap.get('id');
@@ -47,11 +76,12 @@ export class SingleSprintComponent implements OnInit {
         i && sprints.push(i);
 
       thisClass.sprint = sprints[0];
+  
 
       this.projectService.getProjectByID(this.sprint.projectId).pipe(takeUntil(this.unsubscribe$)).subscribe(project => {
         thisClass.projectMemberIds = []
-		thisClass.projectMembers = [];
-		thisClass.projectMemberNames = []
+        thisClass.projectMembers = [];
+        thisClass.projectMemberNames = []
         // used for clearing undefineds
         let outputProject = []
         let correctProject = []
@@ -59,9 +89,9 @@ export class SingleSprintComponent implements OnInit {
         for (let i of outputProject)
           i && correctProject.push(i);
 
-		let currProject = correctProject[0];
-		let projectMembers = currProject['members'];
-		
+        let currProject = correctProject[0];
+        let projectMembers = currProject['members'];
+
         projectMembers.forEach(member => {
           thisClass.userService.getUserByID(member['userId']).pipe(takeUntil(this.unsubscribe$)).subscribe(user => {
             // used for clearing undefineds
@@ -74,7 +104,7 @@ export class SingleSprintComponent implements OnInit {
             let currentMember = members[0]
 
             thisClass.projectMemberIds.push(currentMember.id);
-			thisClass.projectMembers.push({ userId: currentMember.id, role: member['role']})
+            thisClass.projectMembers.push({ userId: currentMember.id, role: member['role'] })
             thisClass.projectMemberNames.push(currentMember.name);
           });
         });
@@ -100,16 +130,16 @@ export class SingleSprintComponent implements OnInit {
         }
 
         thisClass.sprintUserStories = filteredStories;
-        thisClass.sprintUserStories.forEach(userStory=> {
+        thisClass.sprintUserStories.forEach(userStory => {
           thisClass.totalStoryPoints += parseInt(userStory.storypoints);
         });
       });
 
 
       this.userstoryService.getSprintUserStories(thisClass.sprint).pipe(takeUntil(this.unsubscribe$)).subscribe(stories => {
-		this.todo = []
-		this.in_progress = []
-		this.done = []
+        this.todo = []
+        this.in_progress = []
+        this.done = []
         this.amountOfStoriesDone = 0;
         let outputUserstory = []
         let correctUserstory = []
@@ -128,27 +158,88 @@ export class SingleSprintComponent implements OnInit {
           } else if (story.status == UserStoryStatus.done.toString()) {
             this.done.push(story)
             this.amountOfStoriesDone = this.done.length;
-			console.log("amount done: ", this.amountOfStoriesDone)
           }
         });
+        if (this.dateArray == undefined) {
+          this.setBurnDownChartLabels(thisClass.sprint);
+        }
+        this.setIdealBurnDownLine();
+        this.setCompletedUserStories();
+        this.setBurndownDataSet();
       });
 
-	  this.userstoryService.getUnassignedUserStory(thisClass.sprint).pipe(takeUntil(this.unsubscribe$)).subscribe(toBacklog => {
-		this.backlog = []
-		let outputStories = []
+      this.userstoryService.getUnassignedUserStory(thisClass.sprint).pipe(takeUntil(this.unsubscribe$)).subscribe(toBacklog => {
+        this.backlog = []
+        let outputStories = []
         let toBacklogStories = []
         outputStories = toBacklog;
         for (let i of outputStories) {
           i && toBacklogStories.push(i);
         }
 
-		toBacklogStories.forEach(story => {
-			this.backlog.push(story);
-		});
-	  });
+        toBacklogStories.forEach(story => {
+          this.backlog.push(story);
+        });
+      });
 
     });
-  
+
+
+  }
+
+
+  setBurnDownChartLabels(sprint: any) {
+    if (this.sprint != undefined) {
+      this.dateArray = new Array();
+
+      let currentDate = new Date(sprint.startdate['seconds'] * 1000);
+      let endDate = new Date(sprint.enddate['seconds'] * 1000);
+      while (currentDate <= endDate) {
+        this.dateArray.push(this.datePipe.transform(new Date(currentDate), 'MM-dd-yyyy'));
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+      //TODO add one day for end date
+
+      this.burndownChartLabels = this.dateArray;
+    }
+  }
+
+  setBurndownDataSet() {
+    //Todo
+    this.burndownChartDatasets = [
+      { data: this.sprintIdealLine, label: 'Ideal story points' },
+      { data: this.userStoriesDoneLine, label: 'User storiespoints to go' }
+    ];
+    console.log("my dataset ",this.burndownChartDatasets);
+  }
+
+
+  setCompletedUserStories() {
+    this.userStoriesDoneLine = [];
+
+
+    for (let i = 0; i < this.dateArray.length; i++) {
+      if (this.userStoriesDoneLine[i] == undefined) {
+        if (this.userStoriesDoneLine[i + 1] == undefined)
+          this.userStoriesDoneLine[i] = this.userStoriesDoneLine[i - 1];
+        else
+          this.userStoriesDoneLine[i] = this.userStoriesDoneLine[i + 1];
+      }
+    }
+  }
+
+
+  setIdealBurnDownLine() {
+    this.sprintIdealLine = [];
+
+
+    //this.sprintIdealLine.push(this.sprint.userstories.length);
+
+    for (let i = this.dateArray.length - 2; i >= 0; i--) {
+      this.sprintIdealLine.push(this.sprint.userstories.length * i / this.dateArray.length);
+    }
+    console.log("datearray ", this.dateArray);
+    console.log("ideal line ", this.sprintIdealLine);
   }
 
 }
