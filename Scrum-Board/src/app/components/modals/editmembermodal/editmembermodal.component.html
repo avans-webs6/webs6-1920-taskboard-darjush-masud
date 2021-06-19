@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>Edit Member</h2>
+<mat-dialog-content class="mat-typography">
+    <section class="modal-card-body"> 
+        <div class="field">
+            <label class="label">Enter your new role</label>
+            <div class="control">
+                <input class="input" [(ngModel)]="member.role" type="text" placeholder="Member role">
+            </div>
+        </div>
+    </section>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-flat-button color="primary" (click)="editMember()">Save</button>
+</mat-dialog-actions>

@@ -12,13 +12,13 @@
   </thead>
   <tbody>
     <tr *ngFor="let member of members; index as i">
-      <td>{{member}}</td>
-      <td>{{roles[i]}}</td>
+      <td>{{memberNames[i]}}</td>
+      <td>{{member.role}}</td>
       <td></td>
       <td></td>
       <td>
         <div class="buttons has-addons">
-          <button class="button is-info card-footer-item"(click)="openEditModal(member)">Edit</button>
+          <button class="button is-info card-footer-item"(click)="openEditModal(member.userId, member.role)">Edit</button>
         </div>
       </td>
     </tr>

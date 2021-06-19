@@ -41,6 +41,7 @@ import { MatCardModule } from '@angular/material/card';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { BurndownComponent } from './components/projects/single-project/sprints/single-sprint/burndown/burndown.component';
+import { EditmembermodalComponent } from './components/modals/editmembermodal/editmembermodal.component';
 
 
 
@@ -70,7 +71,8 @@ import { BurndownComponent } from './components/projects/single-project/sprints/
     SingleSprintComponent,
     UserstoryComponent,
     SprintBoardComponent,
-    BurndownComponent
+    BurndownComponent,
+    EditmembermodalComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
