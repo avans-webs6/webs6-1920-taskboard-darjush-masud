@@ -1,12 +1,13 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Sprint } from 'src/app/models/sprint';
 
 @Component({
   selector: 'app-burndown',
   templateUrl: './burndown.component.html',
   styleUrls: ['./burndown.component.sass']
 })
-export class BurndownComponent implements OnInit {
+export class BurndownComponent implements OnInit, OnChanges {
 
   @Input()
   public totalPoints;
@@ -19,9 +20,18 @@ export class BurndownComponent implements OnInit {
   datePipe: DatePipe;
   sprintIdealLine: number[];
   userStoriesDoneLine: number[];
+  dateArray: any[];
 
+  @Input()
+  public sprint: Sprint;
 
-  constructor() { 
+  @Input()
+  public userstoriesDone: any;
+
+  @Input()
+  public done = [];
+
+  constructor() {
     this.datePipe = new DatePipe('en-US');
     this.burndownChartType = 'line';
     this.burndownChartOptions = { responsive: true };
@@ -37,16 +47,63 @@ export class BurndownComponent implements OnInit {
         borderWidth: 2,
       }
     ];
+
   }
 
-  setBurndownData() {
+  ngOnChanges(changes: SimpleChanges) {
+
+    if (changes.sprint != undefined && changes.sprint.currentValue != undefined ) {
+      console.log("total points: ", this.totalPoints);
+      this.sprint = changes.sprint.currentValue;
+      if (this.dateArray == undefined || this.dateArray[0] == "SPRINT DONE") {
+        this.setBurnDownChartLabels();
+      }
+      console.log("done user stories: ", this.userstoriesDone)
+      this.setIdealBurnDownLine();
+      this.setBurndownDataSet();
+    }
+
+  }
+
+  setBurnDownChartLabels() {
+    this.dateArray = new Array();
+
+    let currentDate = new Date(this.sprint.startdate['seconds'] * 1000);
+    let endDate = new Date(this.sprint.enddate['seconds'] * 1000);
+    while (currentDate <= endDate) {
+      this.dateArray.push(this.datePipe.transform(new Date(currentDate), 'MM-dd-yyyy'));
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+    this.dateArray.push("SPRINT DONE");
+    this.burndownChartLabels = this.dateArray;
+  }
+
+  setBurndownDataSet() {
+    //Todo
     this.burndownChartDatasets = [
-      { data: this.totalPoints, label: 'Ideal line story points' },
-      { data: this.userStoriesDoneLine, label: 'User stories points to go' }
+      { data: this.totalPoints, label: 'Ideal story points' },
+      { data: this.userStoriesDoneLine, label: 'User storiespoints to go' }
     ];
   }
 
+
+
+  setIdealBurnDownLine() {
+    this.sprintIdealLine = [];
+
+
+    this.sprintIdealLine.push(this.totalPoints);
+
+    for (let i = this.dateArray.length - 2; i >= 0; i--) {
+      this.sprintIdealLine.push(this.sprint.userstories.length * i / this.dateArray.length);
+    }
+    console.log("datearray ", this.dateArray);
+    console.log("ideal line ", this.sprintIdealLine);
+  }
+
   ngOnInit(): void {
+
+
   }
 
 }

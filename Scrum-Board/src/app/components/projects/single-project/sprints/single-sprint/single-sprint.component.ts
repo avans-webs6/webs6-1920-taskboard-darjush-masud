@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { AdduserstorytosprintmodalComponent } from 'src/app/components/modals/sprint/adduserstorytosprintmodal/adduserstorytosprintmodal.component';
 import { UserStoryStatus } from 'src/app/enumerations/userstorystatus';
 import { Sprint } from 'src/app/models/sprint';
 import { UserStory } from 'src/app/models/userstory';
@@ -32,6 +31,7 @@ export class SingleSprintComponent implements OnInit {
   public in_progress = []
   public done = []
   public totalStoryPoints = 0;
+  public amountOfStoriesDone = 0;
   constructor(private router: ActivatedRoute, private userService: UserService, private projectService: ProjectService, private userstoryService: UserStoryService, public dialog: MatDialog, public authService: AuthenticationService, private sprintService: SprintService) { }
 
   ngOnInit(): void {
@@ -112,8 +112,7 @@ export class SingleSprintComponent implements OnInit {
         for (let i of outputUserstory) {
           i && correctUserstory.push(i);
         }
-
-		console.log(correctUserstory)
+        this.amountOfStoriesDone = 0;
         correctUserstory.forEach(story => {
           if (story.status == UserStoryStatus.backlog.toString()) {
             this.backlog.push(story)
@@ -123,6 +122,7 @@ export class SingleSprintComponent implements OnInit {
             this.in_progress.push(story);
           } else if (story.status == UserStoryStatus.done.toString()) {
             this.done.push(story)
+            this.amountOfStoriesDone = this.done.length;
           }
         });
       });
@@ -147,33 +147,4 @@ export class SingleSprintComponent implements OnInit {
 
 
 
-
-  openAddUserStoryModal() {
-    const adddialog = this.dialog.open(AdduserstorytosprintmodalComponent, {
-      data: this.canBeAddedUserstories
-    });
-
-    adddialog.afterClosed().subscribe(
-      result => {
-        if (result.event == 'create') {
-          this.sprint.userstories.push(result.data.name);
-          this.sprintService.updateSprint(this.sprint);
-
-          this.userstoryService.getUserStoryByID(result.data.name).pipe(takeUntil(this.unsubscribe$)).subscribe(userstory => {
-            let outputUserstory = []
-            let correctUserstory = []
-            outputUserstory = userstory;
-            for (let i of outputUserstory) {
-              i && correctUserstory.push(i);
-            }
-
-            let toBeUpdatedUserstory = correctUserstory[0];
-            toBeUpdatedUserstory.assigned = true;
-
-            this.userstoryService.updateUserStory(toBeUpdatedUserstory);
-          });
-        }
-      }
-    )
-  }
 }

@@ -25,7 +25,6 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { AddmembermodalComponent } from './components/modals/addmembermodal/addmembermodal.component';
 import { ActiveUserStoriesTableComponent } from './components/projects/single-project/active-user-stories-table/active-user-stories-table.component';
 import { ArchivedUserStoriesTableComponent } from './components/projects/single-project/archived-user-stories-table/archived-user-stories-table.component';
-import { CreateuserstorymodalComponent } from './components/modals/createuserstorymodal/createuserstorymodal.component';
 import { EdituserstorymodalComponent } from './components/modals/edituserstorymodal/edituserstorymodal.component';
 import { AdduserstorymodalComponent } from './components/modals/adduserstorymodal/adduserstorymodal.component';
 import { ActiveSprintTableComponent } from './components/projects/single-project/sprints/active-sprint-table/active-sprint-table.component';
@@ -37,7 +36,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ReactiveFormsModule} from '@angular/forms';
 import { UserstoryComponent } from './components/projects/single-project/sprints/single-sprint/userstory/userstory.component';
-import { AdduserstorytosprintmodalComponent } from './components/modals/sprint/adduserstorytosprintmodal/adduserstorytosprintmodal.component';
 import { SprintBoardComponent } from './components/projects/single-project/sprints/single-sprint/sprint-board/sprint-board.component';
 import { MatCardModule } from '@angular/material/card';
 import {DragDropModule} from '@angular/cdk/drag-drop';
@@ -63,7 +61,6 @@ import { BurndownComponent } from './components/projects/single-project/sprints/
     AddmembermodalComponent,
     ActiveUserStoriesTableComponent,
     ArchivedUserStoriesTableComponent,
-    CreateuserstorymodalComponent,
     EdituserstorymodalComponent,
     AdduserstorymodalComponent,
     ActiveSprintTableComponent,
@@ -72,7 +69,6 @@ import { BurndownComponent } from './components/projects/single-project/sprints/
     CreatesprintmodalComponent,
     SingleSprintComponent,
     UserstoryComponent,
-    AdduserstorytosprintmodalComponent,
     SprintBoardComponent,
     BurndownComponent
   ],

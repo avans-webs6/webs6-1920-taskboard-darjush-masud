@@ -2,9 +2,9 @@ export interface Sprint {
     id: string;
     name: string;
     description: string;
-    startdate: string;
+    startdate: Date;
     projectId: string;
-    enddate: string;
+    enddate: Date;
     userstories: [string];
     archived: boolean;
 }
