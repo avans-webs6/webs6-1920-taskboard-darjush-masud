@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { AdduserstorytosprintmodalComponent } from 'src/app/components/modals/sprint/adduserstorytosprintmodal/adduserstorytosprintmodal.component';
 import { UserStoryStatus } from 'src/app/enumerations/userstorystatus';
 import { Sprint } from 'src/app/models/sprint';
 import { UserStory } from 'src/app/models/userstory';
@@ -143,37 +142,5 @@ export class SingleSprintComponent implements OnInit {
 
     });
   
-  }
-
-
-
-
-  openAddUserStoryModal() {
-    const adddialog = this.dialog.open(AdduserstorytosprintmodalComponent, {
-      data: this.canBeAddedUserstories
-    });
-
-    adddialog.afterClosed().subscribe(
-      result => {
-        if (result.event == 'create') {
-          this.sprint.userstories.push(result.data.name);
-          this.sprintService.updateSprint(this.sprint);
-
-          this.userstoryService.getUserStoryByID(result.data.name).pipe(takeUntil(this.unsubscribe$)).subscribe(userstory => {
-            let outputUserstory = []
-            let correctUserstory = []
-            outputUserstory = userstory;
-            for (let i of outputUserstory) {
-              i && correctUserstory.push(i);
-            }
-
-            let toBeUpdatedUserstory = correctUserstory[0];
-            toBeUpdatedUserstory.assigned = true;
-
-            this.userstoryService.updateUserStory(toBeUpdatedUserstory);
-          });
-        }
-      }
-    )
   }
 }
