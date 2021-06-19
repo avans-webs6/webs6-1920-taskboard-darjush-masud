@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { UserStoryStatus } from 'src/app/enumerations/userstorystatus';
+import { Member } from 'src/app/models/member';
 import { Sprint } from 'src/app/models/sprint';
 import { UserStory } from 'src/app/models/userstory';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -24,8 +25,9 @@ export class SingleSprintComponent implements OnInit {
   public canBeAddedUserstories: any[] = []
   private unsubscribe$ = new Subject<void>();
   public sprintUserStories: any[] = []
-  public projectMembers: [string?] = []
   public projectMemberIds: [string?] = []
+  public projectMembers: [Member?] = []
+  public projectMemberNames: [string?] = []
   public backlog = []
   public todo = []
   public in_progress = []
@@ -47,19 +49,21 @@ export class SingleSprintComponent implements OnInit {
       thisClass.sprint = sprints[0];
 
       this.projectService.getProjectByID(this.sprint.projectId).pipe(takeUntil(this.unsubscribe$)).subscribe(project => {
+        thisClass.projectMemberIds = []
+		thisClass.projectMembers = [];
+		thisClass.projectMemberNames = []
         // used for clearing undefineds
-        let outputMembers = []
-        let members = []
-        outputMembers = project;
-        for (let i of outputMembers)
-          i && members.push(i);
+        let outputProject = []
+        let correctProject = []
+        outputProject = project;
+        for (let i of outputProject)
+          i && correctProject.push(i);
 
-
-        thisClass.projectMembers = [];
-
-
-        members[0].members.forEach(member => {
-          thisClass.userService.getUserByID(member).pipe(takeUntil(this.unsubscribe$)).subscribe(user => {
+		let currProject = correctProject[0];
+		let projectMembers = currProject['members'];
+		
+        projectMembers.forEach(member => {
+          thisClass.userService.getUserByID(member['userId']).pipe(takeUntil(this.unsubscribe$)).subscribe(user => {
             // used for clearing undefineds
             let outputMembers = []
             let members = []
@@ -70,7 +74,8 @@ export class SingleSprintComponent implements OnInit {
             let currentMember = members[0]
 
             thisClass.projectMemberIds.push(currentMember.id);
-            thisClass.projectMembers.push(currentMember.name);
+			thisClass.projectMembers.push({ userId: currentMember.id, role: member['role']})
+            thisClass.projectMemberNames.push(currentMember.name);
           });
         });
       });
@@ -102,17 +107,18 @@ export class SingleSprintComponent implements OnInit {
 
 
       this.userstoryService.getSprintUserStories(thisClass.sprint).pipe(takeUntil(this.unsubscribe$)).subscribe(stories => {
+		  console.log('we hebben ze opgehaald!')
+		  console.log(stories)
 		this.todo = []
 		this.in_progress = []
 		this.done = []
+        this.amountOfStoriesDone = 0;
         let outputUserstory = []
         let correctUserstory = []
         outputUserstory = stories;
         for (let i of outputUserstory) {
           i && correctUserstory.push(i);
         }
-
-        this.amountOfStoriesDone = 0;
 
         correctUserstory.forEach(story => {
           if (story.status == UserStoryStatus.backlog.toString()) {
