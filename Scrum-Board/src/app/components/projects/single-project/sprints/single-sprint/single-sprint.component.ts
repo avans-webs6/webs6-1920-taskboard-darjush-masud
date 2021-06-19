@@ -103,7 +103,6 @@ export class SingleSprintComponent implements OnInit {
 
 
       this.userstoryService.getSprintUserStories(thisClass.sprint).pipe(takeUntil(this.unsubscribe$)).subscribe(stories => {
-		this.backlog = []
 		this.todo = []
 		this.in_progress = []
 		this.done = []
@@ -126,6 +125,20 @@ export class SingleSprintComponent implements OnInit {
           }
         });
       });
+
+	  this.userstoryService.getUnassignedUserStory(thisClass.sprint).pipe(takeUntil(this.unsubscribe$)).subscribe(toBacklog => {
+		this.backlog = []
+		let outputStories = []
+        let toBacklogStories = []
+        outputStories = toBacklog;
+        for (let i of outputStories) {
+          i && toBacklogStories.push(i);
+        }
+
+		toBacklogStories.forEach(story => {
+			this.backlog.push(story);
+		});
+	  });
 
     });
   
