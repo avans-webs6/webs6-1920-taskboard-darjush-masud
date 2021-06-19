@@ -47,7 +47,7 @@
         <div class="content is-medium">
           <h3 class="title is-3 text-white">Project: {{project?.name}} </h3>
           <button class="button is-link is-pulled-right" (click)="openAddMemberModal()">Add Member to Project</button>
-          <app-members [members]="projectMembers" [roles]="memberRoles"></app-members>
+          <app-members [project]="project" [members]="projectMembers" [memberNames]="projectMemberNames"></app-members>
           <div class="mt-5"></div>
           <button class="button is-link is-pulled-right pt-5" (click)="openAddUserStoryModal()">Add User Story</button>
           <app-active-user-stories-table [activeUserStories]="activeUserStories" (onArchive)="archiveUserStory($event)"></app-active-user-stories-table>

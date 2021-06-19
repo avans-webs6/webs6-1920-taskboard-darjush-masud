@@ -14,6 +14,7 @@ import { UserStory } from 'src/app/models/userstory';
 import { SprintService } from 'src/app/services/sprint.service';
 import { CreatesprintmodalComponent } from 'src/app/components/modals/sprint/createsprintmodal/createsprintmodal.component';
 import { Sprint } from 'src/app/models/sprint';
+import { Member } from 'src/app/models/member';
 
 @Component({
   selector: 'app-project',
@@ -23,7 +24,8 @@ import { Sprint } from 'src/app/models/sprint';
 export class ProjectComponent implements OnInit {
   public project: Project;
   public projectMemberIds: [string?] = []
-  public projectMembers: [string?] = []
+  public projectMembers: [Member?] = []
+  public projectMemberNames: [string?] = []
   public fullMembers: any[];
   public sprints: any[];
   public canBeAddedMembers: any[]
@@ -57,10 +59,11 @@ export class ProjectComponent implements OnInit {
 
       thisClass.project = members[0];
       thisClass.projectMembers = [];
+	  thisClass.projectMemberNames = [];
       thisClass.fullMembers = [];
 
       members[0].members.forEach(member => {
-        thisClass.userService.getUserByID(member).pipe(takeUntil(this.unsubscribe$)).subscribe(user => {
+        thisClass.userService.getUserByID(member['userId']).pipe(takeUntil(this.unsubscribe$)).subscribe(user => {
           // used for clearing undefineds
           let outputMembers = []
           let members = []
@@ -71,15 +74,9 @@ export class ProjectComponent implements OnInit {
           let currentMember = members[0]
 
           thisClass.projectMemberIds.push(currentMember.id);
-          thisClass.projectMembers.push(currentMember.name);
+		  thisClass.projectMembers.push({ userId: currentMember.id, role: member['role']})
+		  thisClass.projectMemberNames.push(currentMember.name);
           thisClass.fullMembers.push(currentMember);
-
-          // CHANGE AT A LATER DATE! WORKS, BUT NOT AMAZINGLY!
-          if (thisClass.project.owner == currentMember.id) {
-            thisClass.memberRoles.push("Owner");
-          } else {
-            thisClass.memberRoles.push("Developer");
-          }
 
           this.userService.getNotYetJoinedMembers(this.projectMemberIds).pipe(takeUntil(this.unsubscribe$)).subscribe(memberArray => {
             // used for clearing undefineds
@@ -116,7 +113,7 @@ export class ProjectComponent implements OnInit {
     adddialog.afterClosed().subscribe(
       result => {
         if (result.event == 'create') {
-          this.project.members.push(result.data.name);
+          this.project.members.push({ userId: result.data.name, role: "Developer" });
           this.project.id = this.projectID;
           this.projectService.updateProject(this.project);
         }

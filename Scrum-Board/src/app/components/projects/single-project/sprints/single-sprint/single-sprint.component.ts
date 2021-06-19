@@ -98,7 +98,6 @@ export class SingleSprintComponent implements OnInit {
         thisClass.sprintUserStories.forEach(userStory=> {
           thisClass.totalStoryPoints += parseInt(userStory.storypoints);
         });
-        console.log(thisClass.totalStoryPoints);
       });
 
 
@@ -112,7 +111,9 @@ export class SingleSprintComponent implements OnInit {
         for (let i of outputUserstory) {
           i && correctUserstory.push(i);
         }
+
         this.amountOfStoriesDone = 0;
+
         correctUserstory.forEach(story => {
           if (story.status == UserStoryStatus.backlog.toString()) {
             this.backlog.push(story)
@@ -144,7 +145,5 @@ export class SingleSprintComponent implements OnInit {
     });
   
   }
-
-
 
 }

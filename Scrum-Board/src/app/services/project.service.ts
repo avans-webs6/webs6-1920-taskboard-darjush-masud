@@ -20,7 +20,7 @@ export class ProjectService {
       status: "new",
       owner: this.authService.getUserID(),
       ownerName:this.authService.getUserName(),
-      members: [this.authService.getUserID()],
+      members: [{ userId: this.authService.getUserID(), role: "Owner" }],
       archived: false
     })
   }

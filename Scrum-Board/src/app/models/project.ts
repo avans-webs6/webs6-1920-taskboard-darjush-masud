@@ -1,3 +1,5 @@
+import { Member } from "./member";
+
 export interface Project {
   id: string;
   name: string;
@@ -6,6 +8,6 @@ export interface Project {
   owner: string;
   status: string;
   ownerName: string;
-  members: [string];
+  members: [Member];
   archived: boolean;
 }
