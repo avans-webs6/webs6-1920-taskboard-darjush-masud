@@ -232,11 +232,8 @@ export class SingleSprintComponent implements OnInit {
   setIdealBurnDownLine() {
     this.sprintIdealLine = [];
 
-
-    //this.sprintIdealLine.push(this.sprint.userstories.length);
-
-    for (let i = this.dateArray.length - 2; i >= 0; i--) {
-      this.sprintIdealLine.push(this.sprint.userstories.length * i / this.dateArray.length);
+    for (let i = this.dateArray.length - 1; i >= 0; i--) {
+      this.sprintIdealLine.push(i * this.sprint.userstories.length / (this.dateArray.length - 1));
     }
     console.log("datearray ", this.dateArray);
     console.log("ideal line ", this.sprintIdealLine);
