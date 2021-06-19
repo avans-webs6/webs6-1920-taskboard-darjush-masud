@@ -75,6 +75,7 @@ export class SprintBoardComponent implements OnInit {
     else if (event.container.id == "Backlog") {
 	  this.selectedStoryboard.owner = ""
 	  this.selectedStoryboard.ownerName = ""
+	  this.selectedStoryboard.donedate = null;
       this.selectedStoryboard.status = UserStoryStatus.backlog.toString();
 
       this.userstoryService.updateUserStory(this.selectedStoryboard);
@@ -88,6 +89,7 @@ export class SprintBoardComponent implements OnInit {
     else if (event.container.id == "Todo") {
 	  this.selectedStoryboard.owner = this.projectMemberIds[memberIndex]
 	  this.selectedStoryboard.ownerName = this.projectMembers[memberIndex]
+	  this.selectedStoryboard.donedate = null;
       this.selectedStoryboard.status = UserStoryStatus.todo.toString();
 
       this.userstoryService.updateUserStory(this.selectedStoryboard);
@@ -100,6 +102,7 @@ export class SprintBoardComponent implements OnInit {
     } else if (event.container.id == "In progress") {
 		this.selectedStoryboard.owner = this.projectMemberIds[memberIndex]
 		this.selectedStoryboard.ownerName = this.projectMembers[memberIndex]
+		this.selectedStoryboard.donedate = null;
       this.selectedStoryboard.status = UserStoryStatus.in_progress.toString();
 
 
@@ -114,6 +117,7 @@ export class SprintBoardComponent implements OnInit {
     } else if (event.container.id == "Done") {
 		this.selectedStoryboard.owner = this.projectMemberIds[memberIndex]
 		this.selectedStoryboard.ownerName = this.projectMembers[memberIndex]
+		this.selectedStoryboard.donedate = new Date();
       this.selectedStoryboard.status = UserStoryStatus.done.toString();
 
 

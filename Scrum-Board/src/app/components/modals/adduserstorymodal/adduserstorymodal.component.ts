@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UserStoryStatus } from 'src/app/enumerations/userstorystatus';
 import { ProjectComponent } from '../../projects/single-project/project/project.component';
 
 @Component({
@@ -18,7 +19,6 @@ export class AdduserstorymodalComponent implements OnInit {
   }
   public name;
   public description;
-  public status;
   public storypoints;
 
   ngOnInit(): void {
@@ -29,8 +29,9 @@ export class AdduserstorymodalComponent implements OnInit {
     let userStory = {
       name: this.name,
       description: this.description,
-      status: this.status,
+      status: UserStoryStatus.backlog,
       storypoints: this.storypoints,
+	  donedate: null,
       owner: this.selectedMember.id,
       ownerName: this.selectedMember.name
 

@@ -4,6 +4,7 @@ export interface UserStory {
   description: string;
   status: string;
   storypoints: number;
+  donedate: Date;
   owner: string;
   ownerName: string;
   assigned: boolean;
