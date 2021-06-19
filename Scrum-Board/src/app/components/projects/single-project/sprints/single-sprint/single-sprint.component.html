@@ -28,7 +28,7 @@
             <button class="button is-link is-pulled-right" (click)="openAddUserStoryModal()">Add User story to sprint</button>
             <app-userstory [userStories]="sprintUserStories"></app-userstory>
           </div>
-          <app-sprint-board [projectMembers]="projectMembers" [projectMemberIds]="projectMemberIds" [userStories]="sprintUserStories" [backlog]="backlog" [todo]="todo" [in_progress]="in_progress" [done]="done"></app-sprint-board>
+          <app-sprint-board [projectMembers]="projectMembers" [projectMemberIds]="projectMemberIds" [userStories]="sprintUserStories" [backlog]="backlog" [todo]="todo" [in_progress]="in_progress" [done]="done" [sprint]="sprint"></app-sprint-board>
         <app-burndown [totalPoints]="totalStoryPoints"></app-burndown>
         </div>
 

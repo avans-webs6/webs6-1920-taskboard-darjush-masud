@@ -7,6 +7,7 @@ import { UserStoryStatus } from 'src/app/enumerations/userstorystatus';
 import { SprintService } from 'src/app/services/sprint.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { DatePipe } from '@angular/common';
+import { Sprint } from 'src/app/models/sprint';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class SprintBoardComponent implements OnInit {
   @Input()
   public userStories: [UserStory];
   @Input()
-  public sprint: any;
+  public sprint: Sprint;
 
   @Input()
   public todo = [];
@@ -76,9 +77,14 @@ export class SprintBoardComponent implements OnInit {
 	  this.selectedStoryboard.owner = ""
 	  this.selectedStoryboard.ownerName = ""
 	  this.selectedStoryboard.donedate = null;
+	  this.selectedStoryboard.assigned = false;
       this.selectedStoryboard.status = UserStoryStatus.backlog.toString();
+	  console.log("backlog, ", this.selectedStoryboard)
+	  this.sprint.userstories = this.sprint.userstories.filter(e => e !== this.selectedStoryboard.id) as [string]
+
 
       this.userstoryService.updateUserStory(this.selectedStoryboard);
+	  this.sprintService.updateSprint(this.sprint);
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
@@ -90,9 +96,13 @@ export class SprintBoardComponent implements OnInit {
 	  this.selectedStoryboard.owner = this.projectMemberIds[memberIndex]
 	  this.selectedStoryboard.ownerName = this.projectMembers[memberIndex]
 	  this.selectedStoryboard.donedate = null;
+	  this.selectedStoryboard.assigned = true;
       this.selectedStoryboard.status = UserStoryStatus.todo.toString();
+	  console.log("todo, ", this.selectedStoryboard)
+	  this.sprint.userstories.push(this.selectedStoryboard.id);
 
       this.userstoryService.updateUserStory(this.selectedStoryboard);
+	  this.sprintService.updateSprint(this.sprint);
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
@@ -103,11 +113,15 @@ export class SprintBoardComponent implements OnInit {
 		this.selectedStoryboard.owner = this.projectMemberIds[memberIndex]
 		this.selectedStoryboard.ownerName = this.projectMembers[memberIndex]
 		this.selectedStoryboard.donedate = null;
+		this.selectedStoryboard.assigned = true;
       this.selectedStoryboard.status = UserStoryStatus.in_progress.toString();
+	  console.log("inprogress, ", this.selectedStoryboard)
+	  this.sprint.userstories.push(this.selectedStoryboard.id);
 
 
 
       this.userstoryService.updateUserStory(this.selectedStoryboard);
+	  this.sprintService.updateSprint(this.sprint);
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
@@ -118,11 +132,15 @@ export class SprintBoardComponent implements OnInit {
 		this.selectedStoryboard.owner = this.projectMemberIds[memberIndex]
 		this.selectedStoryboard.ownerName = this.projectMembers[memberIndex]
 		this.selectedStoryboard.donedate = new Date();
+		this.selectedStoryboard.assigned = true;
       this.selectedStoryboard.status = UserStoryStatus.done.toString();
+	  console.log("done, ", this.selectedStoryboard)
+	  this.sprint.userstories.push(this.selectedStoryboard.id);
 
 
 
       this.userstoryService.updateUserStory(this.selectedStoryboard);
+	  this.sprintService.updateSprint(this.sprint);
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,

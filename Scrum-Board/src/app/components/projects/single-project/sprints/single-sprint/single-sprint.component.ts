@@ -113,6 +113,7 @@ export class SingleSprintComponent implements OnInit {
           i && correctUserstory.push(i);
         }
 
+		console.log(correctUserstory)
         correctUserstory.forEach(story => {
           if (story.status == UserStoryStatus.backlog.toString()) {
             this.backlog.push(story)
