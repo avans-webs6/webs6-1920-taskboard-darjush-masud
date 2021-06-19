@@ -51,10 +51,10 @@ export class BurndownComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-
-    if (changes.sprint != undefined && changes.sprint.currentValue != undefined ) {
+    if (this.sprint != undefined && this.userstoriesDone != 0) {
+		console.log(this.sprint)
+		console.log(this.userstoriesDone)
       console.log("total points: ", this.totalPoints);
-      this.sprint = changes.sprint.currentValue;
       if (this.dateArray == undefined || this.dateArray[0] == "SPRINT DONE") {
         this.setBurnDownChartLabels();
       }

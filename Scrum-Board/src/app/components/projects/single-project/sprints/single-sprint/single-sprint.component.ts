@@ -107,8 +107,6 @@ export class SingleSprintComponent implements OnInit {
 
 
       this.userstoryService.getSprintUserStories(thisClass.sprint).pipe(takeUntil(this.unsubscribe$)).subscribe(stories => {
-		  console.log('we hebben ze opgehaald!')
-		  console.log(stories)
 		this.todo = []
 		this.in_progress = []
 		this.done = []
@@ -130,6 +128,7 @@ export class SingleSprintComponent implements OnInit {
           } else if (story.status == UserStoryStatus.done.toString()) {
             this.done.push(story)
             this.amountOfStoriesDone = this.done.length;
+			console.log("amount done: ", this.amountOfStoriesDone)
           }
         });
       });
