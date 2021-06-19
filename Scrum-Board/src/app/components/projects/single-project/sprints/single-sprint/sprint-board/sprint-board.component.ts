@@ -79,7 +79,6 @@ export class SprintBoardComponent implements OnInit {
 	  this.selectedStoryboard.donedate = null;
 	  this.selectedStoryboard.assigned = false;
       this.selectedStoryboard.status = UserStoryStatus.backlog.toString();
-	  console.log("backlog, ", this.selectedStoryboard)
 	  this.sprint.userstories = this.sprint.userstories.filter(e => e !== this.selectedStoryboard.id) as [string]
 
 
@@ -98,7 +97,6 @@ export class SprintBoardComponent implements OnInit {
 	  this.selectedStoryboard.donedate = null;
 	  this.selectedStoryboard.assigned = true;
       this.selectedStoryboard.status = UserStoryStatus.todo.toString();
-	  console.log("todo, ", this.selectedStoryboard)
 	  this.sprint.userstories.push(this.selectedStoryboard.id);
 
       this.userstoryService.updateUserStory(this.selectedStoryboard);
@@ -115,7 +113,6 @@ export class SprintBoardComponent implements OnInit {
 		this.selectedStoryboard.donedate = null;
 		this.selectedStoryboard.assigned = true;
       this.selectedStoryboard.status = UserStoryStatus.in_progress.toString();
-	  console.log("inprogress, ", this.selectedStoryboard)
 	  this.sprint.userstories.push(this.selectedStoryboard.id);
 
 
@@ -134,7 +131,6 @@ export class SprintBoardComponent implements OnInit {
 		this.selectedStoryboard.donedate = new Date();
 		this.selectedStoryboard.assigned = true;
       this.selectedStoryboard.status = UserStoryStatus.done.toString();
-	  console.log("done, ", this.selectedStoryboard)
 	  this.sprint.userstories.push(this.selectedStoryboard.id);
 
 
