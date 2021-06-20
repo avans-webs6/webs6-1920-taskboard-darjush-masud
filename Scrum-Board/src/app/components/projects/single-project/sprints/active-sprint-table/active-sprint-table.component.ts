@@ -27,7 +27,7 @@ export class ActiveSprintTableComponent implements OnInit {
 
   public activeSprint: {};
 
-  constructor(private router: Router, private sprintService: SprintService, public userService: UserService, public dialog: MatDialog) {
+  constructor(private router: Router, private sprintService: SprintService, public dialog: MatDialog) {
 
   }
 

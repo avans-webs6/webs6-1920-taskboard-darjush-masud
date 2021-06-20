@@ -44,7 +44,7 @@ export class SprintBoardComponent implements OnInit {
 
 
 
-  constructor(private userstoryService: UserStoryService ,private projectService: ProjectService,private sprintService: SprintService) { 
+  constructor(private userstoryService: UserStoryService, private sprintService: SprintService) { 
 
   }
 
