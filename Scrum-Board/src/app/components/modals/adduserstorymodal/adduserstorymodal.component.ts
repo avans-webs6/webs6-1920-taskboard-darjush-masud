@@ -13,7 +13,7 @@ export class AdduserstorymodalComponent implements OnInit {
   canBeAddedMembers: any;
   public selectedMember;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,public dialogRef: MatDialogRef<ProjectComponent>) { 
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<ProjectComponent>) {
     this.canBeAddedMembers = data;
 
   }
@@ -25,18 +25,28 @@ export class AdduserstorymodalComponent implements OnInit {
   }
 
 
-  createUserStory(){
-    let userStory = {
-      name: this.name,
-      description: this.description,
-      status: UserStoryStatus.backlog,
-      storypoints: this.storypoints,
-	  donedate: null,
-      owner: this.selectedMember.id,
-      ownerName: this.selectedMember.name
+  createUserStory() {
 
-    };
-    this.dialogRef.close({event: 'create', data: userStory});
+
+    if (this.name == undefined || this.description == undefined || this.storypoints == undefined || this.selectedMember == undefined ) {
+      alert("some fields are empty, please fill the fields!");
+      return;
+    } else {
+
+      let userStory = {
+        name: this.name,
+        description: this.description,
+        status: UserStoryStatus.backlog,
+        storypoints: this.storypoints,
+        donedate: null,
+        owner: this.selectedMember.id,
+        ownerName: this.selectedMember.name
+
+      };
+
+      this.dialogRef.close({ event: 'create', data: userStory });
+    }
+
 
   }
 

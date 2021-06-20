@@ -29,24 +29,32 @@ export class CreatesprintmodalComponent implements OnInit {
 
 
   createSprint() {
-    let sprint = {
-      name: this.name,
-      description: this.description,
-      startdate: this.startdateControl.value,
-      enddate: this.enddateControl.value,
-
-
-    };
-
-    let starttimer = this.startdateControl.value.getTime() / 1000;
-    let endtimer = this.enddateControl.value.getTime() / 1000;
-    if (starttimer > endtimer) {
-      alert('The startdate cannot be later than enddate');
+    if (this.name == undefined || this.description == undefined || this.startdateControl.value == "" || this.enddateControl.value == "") {
+      alert("some fields are empty, please fill the fields!");
       return;
     }
 
 
-    this.dialogRef.close({ event: 'create', data: sprint });
+    else {
+      let sprint = {
+        name: this.name,
+        description: this.description,
+        startdate: this.startdateControl.value,
+        enddate: this.enddateControl.value,
+
+      };
+
+      let starttimer = this.startdateControl.value.getTime() / 1000;
+      let endtimer = this.enddateControl.value.getTime() / 1000;
+      if (starttimer > endtimer) {
+        alert('The startdate cannot be later than enddate');
+        return;
+      }
+
+
+      this.dialogRef.close({ event: 'create', data: sprint });
+    }
+
   }
 
 }
