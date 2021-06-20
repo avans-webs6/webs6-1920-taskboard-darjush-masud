@@ -212,9 +212,11 @@ export class SingleSprintComponent implements OnInit {
   setCompletedUserStories() {
     this.userStoriesDoneLine = [];
 
+	const amountOfStories = this.sprint.userstories.length;
+	let currUnfinishedStories = amountOfStories;
 	const dayInSeconds = 86400;
-	let sprintStartDay = Math.floor(this.sprint.startdate['seconds'] / dayInSeconds) + 1 	// + 1 is needed for UTC offset
-	let sprintEndDay = Math.floor(this.sprint.enddate['seconds'] / dayInSeconds) + 1
+	const sprintStartDay = Math.floor(this.sprint.startdate['seconds'] / dayInSeconds) + 1 	// + 1 is needed for UTC offset
+	const sprintEndDay = Math.floor(this.sprint.enddate['seconds'] / dayInSeconds) + 1
 
 	console.log(sprintStartDay)
 	console.log(sprintEndDay)
@@ -222,26 +224,40 @@ export class SingleSprintComponent implements OnInit {
 	let doneStoryDays = []	// array for appending the userstory done dates as days
 
 	this.done.forEach(doneStory => {
-		// console.log(doneStory)
-		// console.log(doneStory.donedate.seconds)
 		let doneDay = Math.floor(doneStory.donedate.seconds / 86400);
-		doneStoryDays.push(doneDay)
-		// console.log(new Date(doneStory.donedate.seconds))
-		// console.log(Math.floor((new Date().getTime() / 1000) / 86400))
-		// console.log(Math.floor(this.sprint.startdate['seconds'] / 86400))
-		// console.log(Math.floor((this.sprint.startdate.getTime() / 1000) / 86400))
+		doneStoryDays.push(doneDay);
 	});
 
 	console.log(doneStoryDays)
 
-    for (let i = 0; i < this.dateArray.length; i++) {
-      if (this.userStoriesDoneLine[i] == undefined) {
-        if (this.userStoriesDoneLine[i + 1] == undefined)
-          this.userStoriesDoneLine[i] = this.userStoriesDoneLine[i - 1];
-        else
-          this.userStoriesDoneLine[i] = this.userStoriesDoneLine[i + 1];
-      }
-    }
+
+	// first sprint day
+	doneStoryDays.forEach(doneStoryDay => {
+		if (doneStoryDay <= sprintStartDay) {
+			currUnfinishedStories--;
+		}
+	});
+	this.userStoriesDoneLine.push(currUnfinishedStories);
+
+	// second to before-last sprint days
+	let amountOfSprintDays = sprintEndDay - sprintStartDay + 1
+	for (let i = 1; i < amountOfSprintDays - 1; i++) {
+		console.log(sprintStartDay + i)
+		doneStoryDays.forEach(doneStoryDay => {
+			if (doneStoryDay == (sprintStartDay + i)) {
+				currUnfinishedStories--;
+			}
+		});
+		this.userStoriesDoneLine.push(currUnfinishedStories);
+	}
+
+	// last sprint day
+	doneStoryDays.forEach(doneStoryDay => {
+		if (doneStoryDay >= sprintEndDay) {
+			currUnfinishedStories--;
+		}
+	});
+	this.userStoriesDoneLine.push(currUnfinishedStories);
   }
 
 
