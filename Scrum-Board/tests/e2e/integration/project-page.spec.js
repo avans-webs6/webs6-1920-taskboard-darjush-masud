@@ -5,7 +5,7 @@
 describe('Project Page', () => {
     it('should assign member to project', () => {
         cy.visit('/project/QX3Y8G4Ysa862AUbOS5i');
-        cy.wait(3500);
+        cy.wait(7500);
 
         cy.get('#addMemberButton').click();
         cy.get('.selectMember').select('7masudr')
