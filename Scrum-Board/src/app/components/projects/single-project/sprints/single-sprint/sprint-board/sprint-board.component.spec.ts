@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { AngularFireModule } from '@angular/fire';
 import { SprintBoardComponent } from './sprint-board.component';
 
 describe('SprintBoardComponent', () => {
@@ -8,7 +8,8 @@ describe('SprintBoardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SprintBoardComponent ]
+      declarations: [ SprintBoardComponent ],
+      providers: [AngularFireModule]
     })
     .compileComponents();
   });

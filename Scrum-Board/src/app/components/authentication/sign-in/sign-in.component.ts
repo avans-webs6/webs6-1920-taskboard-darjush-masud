@@ -8,6 +8,9 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class SignInComponent implements OnInit {
 
+  public username;
+  public password;
+
   constructor(public authService: AuthenticationService
   ) { }
 

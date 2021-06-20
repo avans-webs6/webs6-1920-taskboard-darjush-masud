@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { ActiveSprintTableComponent } from './active-sprint-table.component';
 
@@ -8,7 +9,8 @@ describe('ActiveSprintTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ActiveSprintTableComponent ]
+      declarations: [ ActiveSprintTableComponent ],
+      imports: [RouterTestingModule]
     })
     .compileComponents();
   });

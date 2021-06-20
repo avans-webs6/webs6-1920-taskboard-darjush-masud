@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { CreatesprintmodalComponent } from './createsprintmodal.component';
 
@@ -8,7 +9,8 @@ describe('CreatesprintmodalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreatesprintmodalComponent ]
+      declarations: [ CreatesprintmodalComponent ],
+      providers: [MAT_DIALOG_DATA]
     })
     .compileComponents();
   });

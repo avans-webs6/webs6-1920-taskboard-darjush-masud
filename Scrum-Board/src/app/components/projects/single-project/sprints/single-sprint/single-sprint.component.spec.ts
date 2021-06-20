@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from "@angular/router/testing";
 
 import { SingleSprintComponent } from './single-sprint.component';
 
@@ -8,7 +9,8 @@ describe('SingleSprintComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SingleSprintComponent ]
+      declarations: [ SingleSprintComponent ],
+      imports: [RouterTestingModule]
     })
     .compileComponents();
   });

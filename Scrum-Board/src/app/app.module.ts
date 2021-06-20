@@ -11,7 +11,6 @@ import { SignInComponent } from './components/authentication/sign-in/sign-in.com
 import { SignUpComponent } from './components/authentication/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './components/authentication/forgot-password/forgot-password.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { VerifyEmailComponent } from './components/authentication/verify-email/verify-email.component';
 import { AuthenticationService } from './services/authentication.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActiveProjectTableComponent } from './components/projects/active-project-table/active-project-table.component';
@@ -41,6 +40,8 @@ import { MatCardModule } from '@angular/material/card';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { EditmembermodalComponent } from './components/modals/editmembermodal/editmembermodal.component';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -51,7 +52,6 @@ import { EditmembermodalComponent } from './components/modals/editmembermodal/ed
     SignUpComponent,
     ForgotPasswordComponent,
     DashboardComponent,
-    VerifyEmailComponent,
     ActiveProjectTableComponent,
     ArchivedProjectTableComponent,
     ProjectComponent,
@@ -75,6 +75,7 @@ import { EditmembermodalComponent } from './components/modals/editmembermodal/ed
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AngularFireDatabaseModule,
     BrowserModule,
     FormsModule,
     AppRoutingModule,
@@ -87,7 +88,8 @@ import { EditmembermodalComponent } from './components/modals/editmembermodal/ed
     FormsModule,
     MatCardModule,
     DragDropModule,
-    MDBBootstrapModule
+    MDBBootstrapModule,
+    RouterModule.forRoot([])
 
   ],
   providers: [AuthenticationService],

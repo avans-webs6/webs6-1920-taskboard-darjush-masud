@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { ActiveProjectTableComponent } from './active-project-table.component';
 
@@ -8,7 +9,8 @@ describe('ActiveProjectTableComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ActiveProjectTableComponent ]
+      declarations: [ ActiveProjectTableComponent ],
+      imports: [RouterTestingModule]
     })
     .compileComponents();
   }));
