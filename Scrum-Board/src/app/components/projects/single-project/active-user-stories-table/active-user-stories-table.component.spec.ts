@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { ActiveUserStoriesTableComponent } from './active-user-stories-table.component';
 
@@ -8,7 +9,8 @@ describe('ActiveUserStoriesTableComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ActiveUserStoriesTableComponent ]
+      declarations: [ ActiveUserStoriesTableComponent ],
+      imports: [RouterTestingModule]
     })
     .compileComponents();
   }));

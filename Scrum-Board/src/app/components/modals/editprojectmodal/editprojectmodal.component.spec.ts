@@ -1,14 +1,18 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { EditprojectmodalComponent } from './editprojectmodal.component';
 
 describe('EditprojectmodalComponent', () => {
   let component: EditprojectmodalComponent;
   let fixture: ComponentFixture<EditprojectmodalComponent>;
-
+  const mockDialogRef = {
+    close: jasmine.createSpy('close')};
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditprojectmodalComponent ]
+      declarations: [ EditprojectmodalComponent ],
+      providers: [ { provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: MatDialogRef, useValue: mockDialogRef },]
     })
     .compileComponents();
   }));

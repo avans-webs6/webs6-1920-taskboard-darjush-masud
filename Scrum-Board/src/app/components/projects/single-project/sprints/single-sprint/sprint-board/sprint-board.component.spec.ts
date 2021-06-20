@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SprintService } from 'src/app/services/sprint.service';
 import { UserStoryService } from 'src/app/services/userstory.service';
-
+import { AngularFireModule } from '@angular/fire';
 import { SprintBoardComponent } from './sprint-board.component';
 
 describe('SprintBoardComponent', () => {
@@ -13,7 +13,8 @@ describe('SprintBoardComponent', () => {
       declarations: [ SprintBoardComponent ],
 	  providers: [
 		  { provide: SprintService, useClass: SprintServiceStub },
-		  { provide: UserStoryService, useClass: UserStoryServiceStub }
+		  { provide: UserStoryService, useClass: UserStoryServiceStub },
+		  AngularFireModule
 	  ]
     })
     .compileComponents();
