@@ -46,14 +46,14 @@
       <div class="column is-9">
         <div class="content is-medium">
           <h3 class="title is-3 text-white">Project: {{project?.name}} </h3>
-          <button class="button is-link is-pulled-right" (click)="openAddMemberModal()">Add Member to Project</button>
+          <button class="button is-link is-pulled-right" id="addMemberButton" (click)="openAddMemberModal()">Add Member to Project</button>
           <app-members [project]="project" [members]="projectMembers" [memberNames]="projectMemberNames"></app-members>
           <div class="mt-5"></div>
-          <button class="button is-link is-pulled-right pt-5" (click)="openAddUserStoryModal()">Add User Story</button>
+          <button class="button is-link is-pulled-right pt-5" id="addUserStoryButton" (click)="openAddUserStoryModal()">Add User Story</button>
           <app-active-user-stories-table [activeUserStories]="activeUserStories" (onArchive)="archiveUserStory($event)"></app-active-user-stories-table>
           <app-archived-user-stories-table [archivedUserStories]="archivedUserStories" (onActivate)="activateUserStory($event)"></app-archived-user-stories-table>
           <div class="mt-5"></div>
-          <button class="button is-link is-pulled-right pt-5" (click)="openAddSprintModal()">Add Sprint</button>
+          <button class="button is-link is-pulled-right pt-5" id="addSprintButton" (click)="openAddSprintModal()">Add Sprint</button>
           <app-active-sprint-table [activeSprints]="activeSprints" (onArchive)="archiveSprint($event)"></app-active-sprint-table>
           <app-archived-sprints-table [archivedSprints]="archivedSprints" (onActivate)="activateSprint($event)"></app-archived-sprints-table>
 

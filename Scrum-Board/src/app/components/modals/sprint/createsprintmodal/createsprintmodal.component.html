@@ -4,19 +4,19 @@
     <div class="field">
       <label class="label">Enter your sprint name</label>
       <div class="control">
-        <input class="input" [(ngModel)]="name" type="text" placeholder="User sprint name">
+        <input class="input" [(ngModel)]="name" id="sprintName" type="text" placeholder="User sprint name">
       </div>
     </div>
     <div class="field">
       <label class="label">Enter your sprint description</label>
       <div class="control">
-        <input class="input" [(ngModel)]="description" type="text" placeholder="User sprint description">
+        <input class="input" [(ngModel)]="description" id="sprintDescription" type="text" placeholder="User sprint description">
       </div>
     </div>
     <div class="field">
       <label class="label">Enter your startdate</label>
       <div class="control">
-        <input matInput [matDatepicker]="startdate" [formControl]="startdateControl">
+        <input matInput [matDatepicker]="startdate" id="startdateValue" [formControl]="startdateControl">
         <mat-datepicker-toggle matSuffix [for]="startdate"></mat-datepicker-toggle>
         <mat-datepicker #startdate></mat-datepicker>
       </div>
@@ -24,7 +24,7 @@
     <div class="field">
       <label class="label">Enter your enddate</label>
       <div class="control">
-        <input matInput [matDatepicker]="enddate" [formControl]="enddateControl">
+        <input matInput [matDatepicker]="enddate" id="enddateValue" [formControl]="enddateControl">
         <mat-datepicker-toggle matSuffix [for]="enddate"></mat-datepicker-toggle>
         <mat-datepicker #enddate></mat-datepicker>
       </div>
@@ -33,5 +33,5 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Close</button>
-  <button mat-flat-button color="primary" (click)="createSprint()">Save</button>
+  <button mat-flat-button color="primary" id="createSprintButton" (click)="createSprint()">Save</button>
 </mat-dialog-actions>
