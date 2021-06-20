@@ -29,7 +29,7 @@ export class CreatesprintmodalComponent implements OnInit {
 
 
   createSprint() {
-    if (this.name == undefined || this.description == undefined || this.startdateControl.value == "" || this.enddateControl.value == "") {
+    if (this.name == undefined || (this.description == undefined || this.description == "") || this.startdateControl.value == "" || this.enddateControl.value == "") {
       alert("some fields are empty, please fill the fields!");
       return;
     }
