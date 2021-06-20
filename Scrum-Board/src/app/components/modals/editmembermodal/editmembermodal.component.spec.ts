@@ -2,17 +2,20 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditmembermodalComponent } from './editmembermodal.component';
 
-import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 
 
 describe('EditmembermodalComponent', () => {
   let component: EditmembermodalComponent;
   let fixture: ComponentFixture<EditmembermodalComponent>;
-
+  const mockDialogRef = {
+    close: jasmine.createSpy('close')};
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ EditmembermodalComponent ],
-      providers: [MAT_DIALOG_DATA]
+      providers: [   { provide: MAT_DIALOG_DATA, useValue: {} },
+        {provide: MatDialog, useValue: {}},
+        { provide: MatDialogRef, useValue: mockDialogRef },]
     },
     
     )

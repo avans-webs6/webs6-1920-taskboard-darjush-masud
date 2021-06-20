@@ -1,14 +1,11 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { UserStoryStatus } from 'src/app/enumerations/userstorystatus';
 import { Member } from 'src/app/models/member';
 import { Sprint } from 'src/app/models/sprint';
-import { UserStory } from 'src/app/models/userstory';
-import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { SprintService } from 'src/app/services/sprint.service';
 import { UserService } from 'src/app/services/user.service';
@@ -47,7 +44,7 @@ export class SingleSprintComponent implements OnInit {
   userStoriesDoneLine: number[];
   dateArray: any[];
 
-  constructor(private router: ActivatedRoute, private userService: UserService, private projectService: ProjectService, private userstoryService: UserStoryService, public dialog: MatDialog, public authService: AuthenticationService, private sprintService: SprintService) {
+  constructor(private router: ActivatedRoute, private userService: UserService, private projectService: ProjectService, private userstoryService: UserStoryService, private sprintService: SprintService) {
     this.datePipe = new DatePipe('en-US');
     this.burndownChartType = 'line';
     this.burndownChartOptions = { responsive: true };

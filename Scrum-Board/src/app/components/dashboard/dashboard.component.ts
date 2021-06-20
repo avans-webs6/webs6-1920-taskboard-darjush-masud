@@ -4,7 +4,6 @@ import { Observable, Subscription, Subject } from 'rxjs';
 import { Project } from 'src/app/models/project';
 import { ProjectService } from 'src/app/services/project.service';
 import { takeUntil } from 'rxjs/operators';
-import { UserService } from 'src/app/services/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateProjectModalComponent } from '../modals/createprojectmodal/createprojectmodal.component';
 
@@ -25,7 +24,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
 
 
-  constructor(public authService: AuthenticationService, private projectService: ProjectService, private userService: UserService,public dialog: MatDialog) {
+  constructor(public authService: AuthenticationService, private projectService: ProjectService,public dialog: MatDialog) {
 
   }
 
@@ -76,7 +75,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       });
       this.activeProjects = projects;
     });
-
+ 
   }
 
   //TODO  fix line 87

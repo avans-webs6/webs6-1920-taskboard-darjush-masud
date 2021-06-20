@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { SprintService } from 'src/app/services/sprint.service';
-import { UserService } from 'src/app/services/user.service';
+
 
 @Component({
   selector: 'app-archived-sprints-table',
@@ -24,7 +23,7 @@ export class ArchivedSprintsTableComponent implements OnInit {
   @Input()
   public archivedSprints: [];
 
-  constructor(private router: Router, private sprintService: SprintService, public userService: UserService, public dialog: MatDialog) {
+  constructor(private router: Router, private sprintService: SprintService) {
 
   }
 

@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { SprintServiceStub } from '../stubs/sprintservicestub';
 
 import { SprintService } from './sprint.service';
 
@@ -8,7 +9,7 @@ describe('SprintService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [AngularFirestore]
+      providers: [{ provide: SprintService, useClass: SprintServiceStub }]
     });
     service = TestBed.inject(SprintService);
   });

@@ -28,7 +28,5 @@ describe('AddmembermodalComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create add member', () => {
-    expect(component).toBeTruthy();
-  });
+
 });

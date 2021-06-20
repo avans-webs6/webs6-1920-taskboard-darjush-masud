@@ -3,6 +3,8 @@ import { SprintService } from 'src/app/services/sprint.service';
 import { UserStoryService } from 'src/app/services/userstory.service';
 import { AngularFireModule } from '@angular/fire';
 import { SprintBoardComponent } from './sprint-board.component';
+import { UserStoryServiceStub} from 'src/app/stubs/userstoryservicestub';
+import { SprintServiceStub} from 'src/app/stubs/sprintservicestub';
 
 describe('SprintBoardComponent', () => {
   let component: SprintBoardComponent;
@@ -30,11 +32,3 @@ describe('SprintBoardComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-
-class SprintServiceStub {
-
-}
-
-class UserStoryServiceStub {
-
-}

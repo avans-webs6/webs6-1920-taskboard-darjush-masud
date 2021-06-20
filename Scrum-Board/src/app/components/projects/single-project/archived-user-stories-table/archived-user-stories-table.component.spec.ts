@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
+
 import { ArchivedUserStoriesTableComponent } from './archived-user-stories-table.component';
 
 describe('ArchivedUserStoriesTableComponent', () => {
@@ -10,7 +11,8 @@ describe('ArchivedUserStoriesTableComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ArchivedUserStoriesTableComponent ],
-      imports: [RouterTestingModule]
+      imports: [RouterTestingModule],
+      providers: []
     })
     .compileComponents();
   }));

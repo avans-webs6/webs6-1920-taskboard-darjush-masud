@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+
 import { Router } from '@angular/router';
-import { UserStory } from 'src/app/models/userstory';
-import { UserService } from 'src/app/services/user.service';
-import { UserStoryService } from 'src/app/services/userstory.service';
+
+
 
 @Component({
   selector: 'app-archived-user-stories-table',
@@ -21,7 +20,7 @@ export class ArchivedUserStoriesTableComponent implements OnInit {
 
   
 
-  constructor(private router: Router, private userStoryService: UserStoryService, public userService: UserService, public dialog: MatDialog) {
+  constructor(private router: Router) {
 
   }
 

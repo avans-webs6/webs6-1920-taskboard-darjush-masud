@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { UserStoryService } from 'src/app/services/userstory.service';
+import { UserStoryServiceStub } from 'src/app/stubs/userstoryservicestub';
 
 import { UserstoryComponent } from './userstory.component';
 
@@ -8,7 +10,8 @@ describe('UserstoryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserstoryComponent ]
+      declarations: [ UserstoryComponent ],
+      providers: [{ provide: UserStoryService, useClass: UserStoryServiceStub }]
     })
     .compileComponents();
   });

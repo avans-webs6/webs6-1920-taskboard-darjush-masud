@@ -23,7 +23,7 @@ export class ActiveUserStoriesTableComponent implements OnInit {
 
   @Input()
   public activeUserStories: [];
-  constructor(private router: Router, private userStoryService: UserStoryService, public userService: UserService, public dialog: MatDialog) {
+  constructor(private router: Router, private userStoryService: UserStoryService, public dialog: MatDialog) {
 
   }
 

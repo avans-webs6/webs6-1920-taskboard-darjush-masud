@@ -20,7 +20,7 @@ export class ActiveProjectTableComponent implements OnInit {
 
   public showModal: boolean = false;
 
-  constructor(private router: Router,private projectService: ProjectService, public userService: UserService,public dialog: MatDialog) {
+  constructor(private router: Router,private projectService: ProjectService,public dialog: MatDialog) {
 
   }
 

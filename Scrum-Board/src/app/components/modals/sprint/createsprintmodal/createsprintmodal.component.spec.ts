@@ -1,18 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 
 import { CreatesprintmodalComponent } from './createsprintmodal.component';
 
 describe('CreatesprintmodalComponent', () => {
   let component: CreatesprintmodalComponent;
   let fixture: ComponentFixture<CreatesprintmodalComponent>;
-
+  const mockDialogRef = {
+    close: jasmine.createSpy('close')
+  };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreatesprintmodalComponent ],
-      providers: [MAT_DIALOG_DATA]
+      declarations: [CreatesprintmodalComponent],
+      providers: [{ provide: MAT_DIALOG_DATA, useValue: {} },
+      { provide: MatDialog, useValue: {} },
+      { provide: MatDialogRef, useValue: mockDialogRef }]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

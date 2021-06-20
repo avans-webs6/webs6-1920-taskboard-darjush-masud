@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AuthenticationServiceStub } from 'src/app/stubs/authenticationservicestub';
 
 import { ForgotPasswordComponent } from './forgot-password.component';
 
@@ -8,7 +10,8 @@ describe('ForgotPasswordComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ForgotPasswordComponent ]
+      declarations: [ ForgotPasswordComponent ],
+      providers: [{ provide: AuthenticationService, useClass: AuthenticationServiceStub }]
     })
     .compileComponents();
   }));

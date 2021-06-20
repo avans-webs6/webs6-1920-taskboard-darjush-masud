@@ -1,11 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Sprint } from 'src/app/models/sprint';
 
 import { EditsprintmodalComponent } from './editsprintmodal.component';
 
 describe('EditsprintmodalComponent', () => {
   let component: EditsprintmodalComponent;
   let fixture: ComponentFixture<EditsprintmodalComponent>;
+
   const mockDialogRef = {
     close: jasmine.createSpy('close')};
   beforeEach(async () => {
@@ -23,7 +25,4 @@ describe('EditsprintmodalComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
 });
