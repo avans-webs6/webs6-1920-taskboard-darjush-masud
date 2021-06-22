@@ -205,7 +205,6 @@ export class SingleSprintComponent implements OnInit {
       { data: this.sprintIdealLine, label: 'Ideal story points' },
       { data: this.userStoriesDoneLine, label: 'User storiespoints to go' }
     ];
-    console.log("my dataset ",this.burndownChartDatasets);
   }
 
 
@@ -218,17 +217,12 @@ export class SingleSprintComponent implements OnInit {
 	const sprintStartDay = Math.floor(this.sprint.startdate['seconds'] / dayInSeconds) + 1 	// + 1 is needed for UTC offset
 	const sprintEndDay = Math.floor(this.sprint.enddate['seconds'] / dayInSeconds) + 1
 
-	console.log(sprintStartDay)
-	console.log(sprintEndDay)
-
 	let doneStoryDays = []	// array for appending the userstory done dates as days
 
 	this.done.forEach(doneStory => {
 		let doneDay = Math.floor(doneStory.donedate.seconds / 86400);
 		doneStoryDays.push(doneDay);
 	});
-
-	console.log(doneStoryDays)
 
 
 	// first sprint day
@@ -242,7 +236,6 @@ export class SingleSprintComponent implements OnInit {
 	// second to before-last sprint days
 	let amountOfSprintDays = sprintEndDay - sprintStartDay + 1
 	for (let i = 1; i < amountOfSprintDays - 1; i++) {
-		console.log(sprintStartDay + i)
 		doneStoryDays.forEach(doneStoryDay => {
 			if (doneStoryDay == (sprintStartDay + i)) {
 				currUnfinishedStories--;
@@ -267,8 +260,6 @@ export class SingleSprintComponent implements OnInit {
     for (let i = this.dateArray.length - 1; i >= 0; i--) {
       this.sprintIdealLine.push(i * this.sprint.userstories.length / (this.dateArray.length - 1));
     }
-    console.log("datearray ", this.dateArray);
-    console.log("ideal line ", this.sprintIdealLine);
   }
 
 }
