@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Project } from '../models/project';
 import { map } from 'rxjs/operators';
 import { AuthenticationService } from './authentication.service';
+import { Member } from '../models/member';
 
 @Injectable({
   providedIn: 'root'
@@ -26,14 +27,12 @@ export class ProjectService {
   }
 
 
-  getActiveProjects() {
+  getProjectByID(id: string) {
     return this._fireStore.collection<Project>('projects')
       .snapshotChanges()
       .pipe(map((projects: any[]) => {
         return projects.map(retrievedProject => {
-          if (!retrievedProject.payload.doc.data().archived &&
-          (retrievedProject.payload.doc.data().owner == this.authService.getUserID() ||
-          retrievedProject.payload.doc.data().members.includes(this.authService.getUserID())))
+          if (retrievedProject.payload.doc.id == id)
             return {
               id: retrievedProject.payload.doc.id,
               ...retrievedProject.payload.doc.data() as Project
@@ -43,12 +42,14 @@ export class ProjectService {
   }
 
 
-  getProjectByID(id: string) {
+  getActiveProjects() {
     return this._fireStore.collection<Project>('projects')
       .snapshotChanges()
       .pipe(map((projects: any[]) => {
         return projects.map(retrievedProject => {
-          if (retrievedProject.payload.doc.id == id)
+          if (!retrievedProject.payload.doc.data().archived &&
+          (retrievedProject.payload.doc.data().owner == this.authService.getUserID() ||
+          retrievedProject.payload.doc.data().members.find((member: Member) => member['userId'] === this.authService.getUserID())))
             return {
               id: retrievedProject.payload.doc.id,
               ...retrievedProject.payload.doc.data() as Project
@@ -65,7 +66,7 @@ export class ProjectService {
         return projects.map(retrievedProject => {
           if (retrievedProject.payload.doc.data().archived &&
           (retrievedProject.payload.doc.data().owner == this.authService.getUserID() ||
-          retrievedProject.payload.doc.data().members.includes(this.authService.getUserID())))
+          retrievedProject.payload.doc.data().members.find((member: Member) => member['userId'] === this.authService.getUserID())))
             return {
               id: retrievedProject.payload.doc.id,
               ...retrievedProject.payload.doc.data() as Project
